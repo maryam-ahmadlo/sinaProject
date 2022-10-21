@@ -5,12 +5,14 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { TreeService } from '../services/tree.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TreeResolver implements Resolve<boolean> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
+export class TreeResolver implements Resolve<any> {
+  constructor(private treeService:TreeService){}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    return this.treeService.getAllNodes();
   }
 }
