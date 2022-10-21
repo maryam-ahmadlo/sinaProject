@@ -1,0 +1,83 @@
+.notification {
+  &__dropdown {
+    
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 5px;
+   
+
+    &--scrollbar {
+      max-width: 350px;
+      min-width: 200px;
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+    &--alert {
+      width: 100%;
+      padding: 0.75rem 0.75rem;
+      height: 60px;
+      border: 1px solid #ececec;
+
+      &:hover {
+        background: #ececec;
+      }
+    }
+
+    &--icon {
+      font-size: 1rem;
+     
+    }
+
+    ::ng-deep {
+      & .ant-card-body {
+        padding: 0 0;
+      }
+
+      & .ant-card-head {
+        // background: #b32424;
+        background-image: linear-gradient(to left,#b32424 , #cc3e3e);
+        color: #fff;
+        
+      }
+    }
+  }
+}
+
+.icon {
+  font-size: 1rem;
+  color: white;
+}
+
+@media screen and(max-width:425px ){
+  .notification {
+      &__dropdown {
+        &--scrollbar {
+          min-width: 200px;
+         
+        }
+}
+  }
+}
+
+@media screen and(min-width:426px )and (max-width:1024px) {
+  .notification {
+    &__dropdown {
+      &--scrollbar {
+        min-width: 270px;
+
+      }
+    }
+  }
+}
+
+
+@media screen and(min-width:1025px) {
+  .notification {
+    &__dropdown {
+      &--scrollbar {
+        min-width: 350px;
+
+      }
+    }
+  }
+}

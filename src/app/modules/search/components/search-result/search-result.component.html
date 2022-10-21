@@ -1,0 +1,33 @@
+<div class="container" fxLayout="column" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutAlign.lt-sm="center center">
+    <ul nz-menu nzMode="horizontal">
+      <li class="menu-title">
+        <span>ترتیب نمایش : </span>
+      </li>
+
+      <li nz-menu-item nzSelected>
+        <a [routerLink]="['newest']">
+          جدیدترین</a
+        >
+      </li>
+      <li nz-menu-item>
+        <a [routerLink]="['oldest']"
+          >قدیمی ترین</a
+        >
+      </li>
+      <li nz-menu-item>
+        <a [routerLink]="['similar']"
+          >شبیه ترین</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div>
+    <nz-tag nzColor="success">{{
+      items.search || items.searchExpression
+    }}</nz-tag>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+
+

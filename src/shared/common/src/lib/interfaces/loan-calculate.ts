@@ -1,0 +1,30 @@
+export interface ILoanCalculate {
+  amount_and_profit: number;
+  average_installment: number;
+  bail_amount: number;
+  customer_payment_total: number;
+  development_aid_installment_profit: number;
+  development_aid_installments: number;
+  discount: number;
+  installment_amount_with_value_added: number;
+  installment_amount_without_value_added: number;
+  installment_sale_amount: number;
+  installments_of_value_added_of_development_aid_installment_profit: number;
+  leasing_amount: number;
+  leasing_amount_with_value_added: number;
+  loan_percent: number;
+  net_installment_amount: number;
+  origin_and_branch_of_installments: number;
+  payment_to_seller: number;
+  prepayment_to_seller: number;
+  profit: number;
+  rest_of_payments: number;
+  sales_development_aid: number;
+  sum_of_customer_installments: number;
+  sum_of_customer_installments_amount: number;
+  total_installments: number;
+  value_added_installments: number;
+  value_added_of_development_aid: number;
+  value_added_of_development_aid_installment_profit: number;
+  value_added_of_profit: number;
+}

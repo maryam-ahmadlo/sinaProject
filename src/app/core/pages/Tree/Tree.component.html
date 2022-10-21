@@ -1,0 +1,84 @@
+<div class="tree-container">
+  <nz-tree-view
+  [nzTreeControl]="treeControl"
+  [nzDataSource]="dataSource"
+  [trackBy]="trackBy"
+>
+  <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodeIndentLine>
+    <nz-tree-node-option
+      [nzDisabled]="node.disabled"
+      [nzSelected]="selectListSelection.isSelected(node)"
+      (nzClick)="selectListSelection.toggle(node)"
+    >
+    </nz-tree-node-option>
+  </nz-tree-node>
+
+  <nz-tree-node
+    *nzTreeNodeDef="let node; when: hasNoContent"
+    nzTreeNodeIndentLine
+  >
+    <input
+      nz-input
+      placeholder="Input node name"
+      nzSize="small"
+      #inputElement
+    />
+    &nbsp;
+    <button
+      nz-button
+      nzSize="small"
+      nzType="dashed"
+      (click)="saveNode(node, inputElement.value)"
+    >
+      Add
+    </button>
+  </nz-tree-node>
+
+  <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodeIndentLine>
+    <nz-tree-node-toggle style="background-color: transparent">
+      <span nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></span>
+    </nz-tree-node-toggle>
+
+    
+
+        <a [routerLink]="['/','customer','rules','detail']">{{node.name}}</a>
+        
+    <!-- <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link" [routerLink]="['/','rules','detail']">
+      {{ node.name }}
+      <span nz-icon nzType="setting" nzTheme="outline"></span>
+    </a> -->
+
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu nzSelectable  >
+        <li nz-menu-item >
+          <span
+            nz-typography
+            nzEditable
+            nzEditIcon="highlight"
+            nzEditTooltip="edit text"
+            [(nzContent)]="node.name"
+          ></span>
+        </li>
+        <li nz-menu-item >
+          <button
+            nz-button
+            nzType="text"
+            nzSize="small"
+            (click)="addNewNode(node)"
+          >
+            اضافه
+            <span nz-icon nzType="plus" nzTheme="outline"></span>
+          </button>
+        </li>
+        <li nz-menu-item >
+          <button nz-button nzType="text" nzSize="small" (click)="delete(node)">
+            حذف
+            <span nz-icon nzType="minus" nzTheme="outline"></span>
+          </button>
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </nz-tree-node>
+</nz-tree-view>
+
+</div>

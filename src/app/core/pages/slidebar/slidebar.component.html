@@ -1,0 +1,84 @@
+<nz-layout>
+  <nz-sider
+    nzCollapsible
+    nzBreakpoint="xl"
+    [(nzCollapsed)]="isCollapsed"
+    [nzCollapsedWidth]="0"
+    [nzTrigger]="null"
+    [nzWidth]="320"
+    nzTheme="light"
+    *ngIf="!isMobile; else mobileDrawer"
+  >
+    <app-layout-slider-menu></app-layout-slider-menu>
+  </nz-sider>
+  <ng-template #mobileDrawer>
+    <nz-drawer
+      [nzVisible]="!isCollapsed"
+      nzPlacement="right"
+      (nzOnClose)="isCollapsed = true"
+      [nzBodyStyle]="{ padding: 0 }"
+      [nzWidth]="320"
+    >
+      <ng-container *nzDrawerContent>
+        <app-layout-slider-menu></app-layout-slider-menu>
+      </ng-container>
+    </nz-drawer>
+  </ng-template>
+  <nz-layout
+    [ngStyle]="{
+      maxWidth: !isMobile
+        ? isCollapsed
+          ? '100%'
+          : 'calc(100% - 320px)'
+        : '100%',
+      transition: 'max-width 0.2s',
+      marginRight: !isMobile ? 'auto' : 0
+    }"
+  >
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      style="background-color: rgb(169, 47, 255); padding: 26px 0"
+    >
+      <div fxLayout="row" fxLayoutGap="20px">
+        <button
+          nz-button
+          nzType="link"
+          (click)="onCollapse()"
+          fxLayoutAlign="center center"
+        >
+          <i nz-icon nzType="menu"></i>
+        </button>
+
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="center center">
+        <!-- <div *hasRole="['customer']"> -->
+
+        <button nz-button>بارگذاری فایل</button>
+        <app-notification-dropdown></app-notification-dropdown>
+        <button nz-button nzType="text" (click)="bookmark()">
+          <i nz-icon nzType="star" nzTheme="outline"></i>
+        </button>
+
+        <button
+          nz-popconfirm
+          nzPopconfirmTitle="میخواهید خارج شوید ؟ "
+          (nzOnConfirm)="logout()"
+          (nzOnCancel)="cancel()"
+          nzPopconfirmPlacement="right"
+          nzType="text"
+          nz-button
+        >
+          <i nz-icon nzType="logout" nzTheme="outline"></i>
+        </button>
+      </div>
+    </div>
+
+    <nz-content>
+      <div class="container" style="margin-top: 20px">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

@@ -1,0 +1,30 @@
+.advanced-container{
+/* padding-top: 20px ;
+padding-bottom: 20px;
+   */
+   padding: 5%;
+  background-color: rgb(231, 231, 231);
+  border-radius: 5px;
+}
+
+select {
+  background-position: left 0.5rem center;
+}
+
+.button-filter {
+  margin-left:  5px !important;
+}
+
+.button-filter > input {
+  margin-left: 10%;
+}
+
+.ant-form-rtl .ant-form-item-label {
+  text-align: right;
+}
+
+@media screen and (min-width:1440px){
+  .advanced-container{
+    padding: 3%;
+  }
+}

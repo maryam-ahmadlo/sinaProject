@@ -1,0 +1,229 @@
+
+  <form nz-form [formGroup]="simpleSearchForm" (ngSubmit)="onSimpleSubmit()">
+    <div  fxLayout.gt-sm="row" fxLayout.sm="row" fxLayout.xs="column"  fxLayoutAlign="center center" fxLayoutGap="20px" >
+      <nz-form-item>
+        <nz-form-control>
+          <div style="display: flex;">
+            <input
+            style="width: fit-content;"
+              formControlName="search"
+              nz-input
+              nzSize="large"
+              type="text"
+              id="search"
+              placeholder="جستجو"
+            />
+            <button nz-button nzType="primary" nzSize="large">
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+            </button>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <form nz-form>
+        <nz-form-item>
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            (click)="advancedSerach()"
+          >
+            <span nz-icon nzType="search" nzTheme="outline"></span>
+            جستجوی پیشرفته
+            <span nz-icon nzType="caret-down" nzTheme="outline"></span>
+          </button>
+        </nz-form-item>
+      </form>
+    </div>
+  </form>
+
+<div *ngIf="showAdvancedOption" class="container advanced-container">
+  <form
+    nz-form
+    [formGroup]="advancedSearchForm"
+    (ngSubmit)="onAdvancedSubmit()"
+  >
+    <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+      <nz-form-item fxFlex="33">
+        <nz-form-label nzFor="searchExpression">جستجو</nz-form-label>
+        <nz-form-control>
+          <div fxLayout="row">
+            <input
+              formControlName="searchExpression"
+              nz-input
+              nzSize="large"
+              type="text"
+              id="searchExpression"
+              placeholder="جستجو"
+            />
+            <button nz-button nzType="primary" nzSize="large">
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+            </button>
+          </div>
+        </nz-form-control>
+
+        
+      </nz-form-item>
+
+      <nz-form-item fxFlex="33">
+        
+        <nz-select
+         
+        
+        fxFlex="100"
+        
+          nzSize="large"
+          id="expression"
+          formControlName="expression"
+          nzPlaceHolder="شبیه عبارت"
+        >
+          <nz-option nzValue="similar" nzLabel="شبیه عبارت"></nz-option>
+          <nz-option nzValue="exact" nzLabel="عین عبارت"></nz-option>
+        </nz-select>
+      </nz-form-item>
+
+      <nz-form-item fxFlex="33">
+        <nz-form-label nzFor="documentType">نوع سند</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            fxFlex="100"
+            id="documentType"
+            nzSize="large"
+            formControlName="documentType"
+            nzPlaceHolder="همه "
+          >
+            <nz-option nzValue="all" nzLabel="همه"></nz-option>
+            <nz-option nzValue="bakhshname" nzLabel="بخشنامه"></nz-option>
+            <nz-option nzValue="aeenname" nzLabel="آیین نامه"></nz-option>
+            <nz-option nzValue="soratjalase" nzLabel="صورت جلسه"></nz-option>
+            <nz-option nzValue="dastoramal" nzLabel="دستورالعمل"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-sm="column">
+      <nz-form-item fxFlex="33">
+        <nz-form-label for="startDate">از تاریخ</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            nzSize="large"
+            formControlName="startDate"
+            name="startDate"
+            type="text"
+            id="startDate"
+            appDatepicker
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item fxFlex="33">
+        <nz-form-label for="endDate">تا تاریخ</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            nzSize="large"
+            formControlName="endDate"
+            name="endDate"
+            type="text"
+            id="endDate"
+            appDatepicker
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item fxFlex="33" style="display: flex">
+        <nz-form-label nzFor="branchName">نام حوزه</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            fxFlex="100"
+            id="branchName"
+            nzSize="large"
+            [nzDropdownMatchSelectWidth]="false"
+            formControlName="branchName"
+            nzPlaceHolder="همه "
+          >
+            <nz-option nzValue="all" nzLabel="همه"></nz-option>
+            <nz-option nzValue="vanak" nzLabel="شعبه ونک"></nz-option>
+            <nz-option nzValue="mirdamad" nzLabel="شعبه میرداماد"></nz-option>
+            <nz-option nzValue="tajrish" nzLabel="شعبه تجریش"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <nz-form-item fxFlex="33">
+        <nz-form-label for="status">وضعیت</nz-form-label>
+        <nz-form-control>
+          <nz-select
+          fxFlex="100"
+            id="status"
+            nzSize="large"
+            [nzDropdownMatchSelectWidth]="false"
+            formControlName="status"
+            nzPlaceHolder="همه "
+          >
+            <nz-option nzValue="all" nzLabel="همه"></nz-option>
+            <nz-option
+              nzValue="amadetaeed"
+              nzLabel="اماده برای تایید"
+            ></nz-option>
+            <nz-option nzValue="pishnevis" nzLabel="پیش نویس"></nz-option>
+            <nz-option
+              nzValue="amadeeblagh"
+              nzLabel="اماده برای ابلاغ"
+            ></nz-option>
+            <nz-option nzValue="eblaghshode" nzLabel="ابلاغ شده"></nz-option>
+            <nz-option nzValue="mansokh" nzLabel="منسوخ"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <nz-form-item >
+        <nz-form-label for="searchFilter">محدوده جستجو</nz-form-label>
+        <nz-form-control>
+          <nz-button-group id="searchFilter">
+
+            <button nz-button nzType="dashed" class="button-filter" >
+              <input
+                type="checkbox"
+                name="subject"
+                id="subject"
+                formControlName="subject"
+              />
+              عنوان
+            </button>
+
+            <button nz-button nzType="dashed" class="button-filter" >
+              <input
+                type="checkbox"
+                name="title"
+                id="title"
+                formControlName="title"
+              />
+              موضوع
+            </button>
+
+            <button nz-button nzType="dashed" class="button-filter" >
+              <input
+                type="checkbox"
+                name="keywords"
+                id="keywords"
+                formControlName="keywords"
+              />
+              کلمات کلیدی
+            </button>
+          </nz-button-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <button nz-button nzType="primary" style="margin-left: 1%">جستجو</button>
+    <button nz-button nzType="default" type="reset">بازنشانی</button>
+  </form>
+</div>
+
+<div *ngIf="showResult">
+  <app-search-result [items]="searchItem"> </app-search-result>
+</div>

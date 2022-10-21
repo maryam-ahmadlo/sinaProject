@@ -1,0 +1,41 @@
+<!-- <nz-badge class="badge" [nzCount]="totalUnread" nzSize="small">
+  <a
+    nz-dropdown
+    [nzDropdownMenu]="menu"
+    nzTrigger="click"
+    (nzVisibleChange)="handleVisibleChange($event)"
+    
+  >
+    <span nz-icon nzType="bell" class="icon"></span>
+  </a>
+</nz-badge>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <nz-card class="notification__dropdown" nzTitle="آخرین اعلانات" fxLayout="column">
+    <div class="notification__dropdown--scrollbar" fxLayout="column">
+      <ng-container *ngIf="loaded$ | async; else skeleton">
+        <ng-container *ngIf="(notifications$ | async).length !== 0; else empty">
+          <ng-container *ngFor="let notification of notifications$ | async">
+            <leasing-notification-alert
+              class="notification__dropdown--alert"
+              [notification]="notification"
+              (click)="notificationModal(notification)"
+            ></leasing-notification-alert>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #empty >
+        <nz-empty style="margin-top: 10px;"></nz-empty>
+      </ng-template>
+      <ng-template #skeleton>
+        <nz-skeleton></nz-skeleton>
+      </ng-template>
+    </div>
+  </nz-card>
+</nz-dropdown-menu> -->
+
+<nz-badge class="badge"  nzSize="small">
+<i nz-icon nzType="bell" class="icon"></i>
+
+</nz-badge>

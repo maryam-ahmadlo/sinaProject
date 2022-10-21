@@ -1,0 +1,42 @@
+*{
+    text-align: justify;
+}
+.detail-container{
+
+    margin-top: 2%;
+    border: 1px black solid;
+    padding: 1%;
+}
+
+.content{
+
+    padding: 20px;
+    background-color: rgb(228, 228, 228);
+   
+}
+
+.general-rel{
+    border: 1px black solid;
+    background-color: white;
+    padding: 20px;
+
+    
+}
+
+
+
+a{
+    color: gray;
+   
+}
+
+.relative-title{
+
+    padding: 5px;
+    background-color: rgb(43, 42, 42);
+    color: white;
+}
+
+.relative-tag{
+    background-color: rgb(170, 170, 170); padding-right: 1%
+}

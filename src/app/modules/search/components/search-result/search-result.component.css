@@ -1,0 +1,33 @@
+
+
+.menu-title{
+    display: inline;  margin-top: -1px;
+    margin-bottom: 0;
+    padding: 0 20px;
+}
+@media screen and (max-width: 425px) {
+ 
+    
+    .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item{ 
+        padding: 0 12px;
+    }
+
+    .menu-title{
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+ 
+    
+    .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item{
+     padding: 5px 20px;
+     text-align: center;
+      display: block !important;
+    }
+
+    .menu-title{
+     padding: 5px 20px;
+        
+    }
+}

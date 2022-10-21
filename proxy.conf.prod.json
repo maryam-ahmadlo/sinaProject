@@ -1,0 +1,9 @@
+{
+    "/api/*": {
+      "target": "http://localhost:8080/OpenKM/services/rest",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": { "^/api/" : "" }
+    }
+  }
+  
