@@ -1,9 +1,18 @@
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class TreeService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor() { }
+  addBookMark(data: string) {
+    return this.httpClient.post("/api/bookmark/create", data, {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
+  }
 }

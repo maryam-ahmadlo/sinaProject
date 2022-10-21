@@ -52,16 +52,18 @@
 
       </div>
 
-      <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
         <!-- <div *hasRole="['customer']"> -->
 
         <button nz-button>بارگذاری فایل</button>
+      <button nz-button nzType="text">
         <app-notification-dropdown></app-notification-dropdown>
+      </button>
         <button nz-button nzType="text" (click)="bookmark()">
           <i nz-icon nzType="star" nzTheme="outline"></i>
         </button>
 
-        <button
+        <!-- <button
           nz-popconfirm
           nzPopconfirmTitle="میخواهید خارج شوید ؟ "
           (nzOnConfirm)="logout()"
@@ -71,7 +73,7 @@
           nz-button
         >
           <i nz-icon nzType="logout" nzTheme="outline"></i>
-        </button>
+        </button> -->
       </div>
     </div>
 

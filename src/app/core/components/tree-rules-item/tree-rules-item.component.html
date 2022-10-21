@@ -12,9 +12,18 @@
       corrupti.
     </h3>
     <div fxLayout="row" fxLayoutGap="16px">
-      <span>متن بخشنامه </span>
-    <a href="#">اطلاعات بیشتر</a>
-    <span nz-icon nzType="file-pdf" nzTheme="outline">دانلود فایل PDF</span>
+      <button nz-button nzType="text">
+        متن بخشنامه
+        <small><a href="#">اطلاعات بیشتر </a></small>
+      </button>
+      <button nz-button nzType="text">
+        دانلود PDF
+        <span nz-icon nzType="file-pdf" nzTheme="outline"></span>
+      </button>
+      <button nz-button nzType="text" (click)="addBookmark()">
+        bookmark
+        <span nz-icon nzType="star" nzTheme="outline"></span>
+      </button>
     </div>
   </section>
 

@@ -13,4 +13,5 @@ export function parseJwt(): { roles: string[] } {
   );
 
   return JSON.parse(jsonPayload);
+
 }
