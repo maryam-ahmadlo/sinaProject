@@ -47,7 +47,7 @@ import { StateService } from "../../services";
     NotificationDropdownComponent,
   ],
   templateUrl: "./slidebar.component.html",
-  styleUrls: ["./slidebar.component.css"],
+  styleUrls: ["./slidebar.component.less"],
 })
 export class SlidebarComponent implements OnInit {
   isCollapsed: boolean = true;

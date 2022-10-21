@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './similar-result.component.html',
-  styleUrls: ['./similar-result.component.css']
+  styleUrls: ['./similar-result.component.less']
 })
 export class SimilarResultComponent implements OnInit {
 

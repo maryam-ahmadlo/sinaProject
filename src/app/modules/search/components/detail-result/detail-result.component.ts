@@ -8,7 +8,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
   standalone: true,
   imports: [CommonModule,FlexModule,NzPageHeaderModule],
   templateUrl: './detail-result.component.html',
-  styleUrls: ['./detail-result.component.css']
+  styleUrls: ['./detail-result.component.less']
 })
 export class DetailResultComponent implements OnInit {
 

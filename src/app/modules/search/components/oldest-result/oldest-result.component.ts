@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './oldest-result.component.html',
-  styleUrls: ['./oldest-result.component.css']
+  styleUrls: ['./oldest-result.component.less']
 })
 export class OldestResultComponent implements OnInit {
 

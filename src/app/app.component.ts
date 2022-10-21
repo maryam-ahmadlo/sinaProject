@@ -9,7 +9,7 @@ import { SearchLayoutComponent } from './modules/search/pages';
   selector: 'app-root',
   standalone:true,
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.less'],
   imports:[SearchLayoutComponent,RouterModule,SearchLayoutComponent]
 })
 export class AppComponent {
