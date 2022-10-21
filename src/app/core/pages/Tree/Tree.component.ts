@@ -1,7 +1,7 @@
 import { SelectionModel } from "@angular/cdk/collections";
 import { FlatTreeControl } from "@angular/cdk/tree";
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NzTreeFlatDataSource, NzTreeFlattener } from "ng-zorro-antd/tree-view";
 import { NzTreeViewModule } from "ng-zorro-antd/tree-view";
 import { FlatNode } from "./FlatNode";
@@ -13,7 +13,8 @@ import { NzMenuModule } from "ng-zorro-antd/menu";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzInputModule } from "ng-zorro-antd/input";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 const TREE_DATA: TreeNode[] = [
   {
@@ -21,55 +22,55 @@ const TREE_DATA: TreeNode[] = [
     // key: "0",
     // children: [
     //   {
-        name: "مجموعه مقررات بانک مرکزی",
-        key: "1",
-        children: [
-          {
-            name: "مقررات حوزه نظارت",
-            key: "1-0",
-            children: [],
-          },
-          {
-            name: "ناظر بر فعالیت",
-            key: "1-1",
-            children: [],
-          },
-          {
-            name: "مقررات نهادی",
-            key: "1-2",
-            children: [],
-          },
-          {
-            name: "مقررات احتیاطی",
-            key: "1-3",
-            children: [
-              {
-                name: "بخشنامه های مبتنی بر قوانین مرجع",
-                key: "1-3-0",
-              },
-              {
-                name: "بخشنامه های پژوهش محور",
-                key: "1-3-1",
-              },
-            ],
-          },
-        ],
+    name: "مجموعه مقررات بانک مرکزی",
+    key: "1",
+    children: [
+      {
+        name: "مقررات حوزه نظارت",
+        key: "1-0",
+        children: [],
       },
       {
-        key: "2",
-        name: "آیین نامه ها و دستورالعمل ها",
+        name: "ناظر بر فعالیت",
+        key: "1-1",
+        children: [],
+      },
+      {
+        name: "مقررات نهادی",
+        key: "1-2",
+        children: [],
+      },
+      {
+        name: "مقررات احتیاطی",
+        key: "1-3",
         children: [
-          { name: "آیین نامه", key: "2-0" },
           {
-            name: "دستورالعمل",
-            key: "2-1",
+            name: "بخشنامه های مبتنی بر قوانین مرجع",
+            key: "1-3-0",
           },
           {
-            name: "قوانین مرجع",
-            key: "2-2",
+            name: "بخشنامه های پژوهش محور",
+            key: "1-3-1",
           },
         ],
       },
+    ],
+  },
+  {
+    key: "2",
+    name: "آیین نامه ها و دستورالعمل ها",
+    children: [
+      { name: "آیین نامه", key: "2-0" },
+      {
+        name: "دستورالعمل",
+        key: "2-1",
+      },
+      {
+        name: "قوانین مرجع",
+        key: "2-2",
+      },
+    ],
+  },
   //   ],
   // },
 ];
@@ -89,10 +90,10 @@ const TREE_DATA: TreeNode[] = [
     FlexModule,
     NzMenuModule,
     NzDropDownModule,
-    RouterModule
+    RouterModule,
   ],
 })
-export class TreeComponent {
+export class TreeComponent implements OnInit{
   private transformer = (node: TreeNode, level: number): FlatNode => {
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode =
@@ -159,10 +160,19 @@ export class TreeComponent {
 
     this.dataSource.setData(this.treeData);
   }
-  constructor() {
+  constructor(private activatedRoute:ActivatedRoute) {
     this.dataSource.setData(this.treeData);
     this.treeControl.expandAll();
   }
+  ngOnInit(): void {
+   this.activatedRoute.data.subscribe((res)=>{console.log('tree',res);
+   })
+  }
+
+
+
+
+
   addNewNode(node: FlatNode): void {
     const parentNode = this.flatNodeMap.get(node);
     if (parentNode) {
