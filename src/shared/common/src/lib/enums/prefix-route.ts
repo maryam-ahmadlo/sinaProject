@@ -1,4 +1,4 @@
 export enum PrefixRoute {
-  ADMIN = 'ADMIN',
-  CUSTOMER = 'CUSTOMER',
+  ADMIN = 'ROLE_ADMIN',
+  CUSTOMER = 'ROLE_USER',
 }
