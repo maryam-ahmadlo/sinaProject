@@ -18,7 +18,7 @@ import { TreeService } from "../../services/tree.service";
     NzButtonModule,
   ],
   templateUrl: "./tree-rules-item.component.html",
-  styleUrls: ["./tree-rules-item.component.css"],
+  styleUrls: ["./tree-rules-item.component.less"],
 })
 export class TreeRulesItemComponent implements OnInit {
   constructor(private treeService: TreeService) {}

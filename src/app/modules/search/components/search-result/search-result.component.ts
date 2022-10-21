@@ -18,7 +18,7 @@ import { NewestResultComponent } from "../newest-result/newest-result.component"
     NewestResultComponent,
   ],
   templateUrl: "./search-result.component.html",
-  styleUrls: ["./search-result.component.css"],
+  styleUrls: ["./search-result.component.less"],
 })
 export class SearchResultComponent implements OnInit {
   constructor(private router: Router) {}

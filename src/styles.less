@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
+
+@font-family: IRANYekanFN, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 html,
 body {
   height: 100%;
@@ -70,7 +80,7 @@ table {
   text-align: center;
   max-width: 20rem;
   box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
-  0 9px 28px 8px #0000000d;
+    0 9px 28px 8px #0000000d;
 }
 
 .calendar.is-active {
@@ -410,4 +420,10 @@ table {
 .calendar.is-large .calendar-event.is-danger {
   background-color: #ff3860;
   color: #fff;
+}
+
+.ant-layout-sider-zero-width-trigger {
+  left: -36px;
+  right: initial;
+  border-radius: 2px 0 0 2px;
 }

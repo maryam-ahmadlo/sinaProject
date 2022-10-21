@@ -20,13 +20,12 @@ import { CommonModule } from "@angular/common";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzListModule } from "ng-zorro-antd/list";
 import { DatepickerModule } from "../../../../../shared/components/datepicker";
-import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { SearchResultComponent } from "../../components";
 @Component({
   selector: "app-search-layout",
   standalone: true,
   templateUrl: "./search-layout.component.html",
-  styleUrls: ["./search-layout.component.css"],
+  styleUrls: ["./search-layout.component.less"],
   imports: [
     CommonModule,
     FlexModule,

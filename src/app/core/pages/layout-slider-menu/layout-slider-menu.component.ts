@@ -12,7 +12,7 @@ import { SearchLayoutComponent } from 'src/app/modules/search/pages';
 @Component({
     selector: 'app-layout-slider-menu',
     templateUrl: './layout-slider-menu.component.html',
-    styleUrls: ['./layout-slider-menu.component.css'],
+    styleUrls: ['./layout-slider-menu.component.less'],
     standalone: true,
     imports: [
         CommonModule,

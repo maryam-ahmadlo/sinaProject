@@ -9,9 +9,9 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 @Component({
   selector: "app-bookmarks",
   standalone: true,
-  imports: [CommonModule, NzPageHeaderModule, NzTableModule, NzDividerModule,FlexLayoutModule],
+  imports: [CommonModule, NzTableModule, NzDividerModule, FlexLayoutModule],
   templateUrl: "./bookmarks.component.html",
-  styleUrls: ["./bookmarks.component.css"],
+  styleUrls: ["./bookmarks.component.less"],
 })
 export class BookmarksComponent implements OnInit {
   data: any = [];

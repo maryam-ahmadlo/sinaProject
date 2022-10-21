@@ -9,7 +9,7 @@ import { SearchLayoutComponent } from '../../pages';
   standalone: true,
   imports: [CommonModule, FlexModule,SearchLayoutComponent,NzTypographyModule,RouterModule],
   templateUrl: './newest-result.component.html',
-  styleUrls: ['./newest-result.component.css']
+  styleUrls: ['./newest-result.component.less']
 })
 export class NewestResultComponent implements OnInit {
 

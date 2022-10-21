@@ -77,7 +77,7 @@ const TREE_DATA: TreeNode[] = [
 @Component({
   selector: "app-tree",
   templateUrl: "./Tree.component.html",
-  styleUrls: ["./Tree.component.css"],
+  styleUrls: ["./Tree.component.less"],
   standalone: true,
   imports: [
     CommonModule,
