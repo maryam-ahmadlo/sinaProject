@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -26,5 +26,15 @@ export class TreeService {
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });
+  }
+
+  downloadPDF(param : string){
+    return this.httpClient.get('/api/document/getContent',{
+      headers: new HttpHeaders({
+
+      accept: 'application/octet-stream',
+      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),params: {docId:param},
+    })
   }
 }
