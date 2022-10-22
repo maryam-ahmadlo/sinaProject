@@ -27,7 +27,6 @@ import { NzTableModule } from "ng-zorro-antd/table";
 import { NzDividerModule } from "ng-zorro-antd/divider";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddFileModalComponent } from "./modals/create-add-file-modal/create-add-file-modal.component";
-
 @Component({
   selector: "app-upload-file",
   templateUrl: "./upload-file.component.html",

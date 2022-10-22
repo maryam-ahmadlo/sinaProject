@@ -10,8 +10,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
-import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
+import { NzSelectModule } from "ng-zorro-antd/select";
+import { TextEditorComponent } from "../text-editor/text-editor.component";
 
 @Component({
   selector: "app-create-send-group-msg-modal",
@@ -24,7 +25,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     ReactiveFormsModule,
     NzTreeSelectModule,
     FormsModule,
-    NzSelectModule
+    NzSelectModule,
+    TextEditorComponent,
   ],
   templateUrl: "./create-send-group-msg-modal.component.html",
   styleUrls: ["./create-send-group-msg-modal.component.less"],
@@ -61,54 +63,50 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     this.modal.destroy();
   }
 
- 
   nodes = [
     {
-      title: 'Node1',
-      value: '0-0',
-      key: '0-0',
+      title: "Node1",
+      value: "0-0",
+      key: "0-0",
       children: [
         {
-          title: 'Child Node1',
-          value: '0-0-0',
-          key: '0-0-0',
-          isLeaf: true
-        }
-      ]
+          title: "Child Node1",
+          value: "0-0-0",
+          key: "0-0-0",
+          isLeaf: true,
+        },
+      ],
     },
     {
-      title: 'Node2',
-      value: '0-1',
-      key: '0-1',
+      title: "Node2",
+      value: "0-1",
+      key: "0-1",
       children: [
         {
-          title: 'Child Node3',
-          value: '0-1-0',
-          key: '0-1-0',
-          isLeaf: true
+          title: "Child Node3",
+          value: "0-1-0",
+          key: "0-1-0",
+          isLeaf: true,
         },
         {
-          title: 'Child Node4',
-          value: '0-1-1',
-          key: '0-1-1',
-          isLeaf: true
+          title: "Child Node4",
+          value: "0-1-1",
+          key: "0-1-1",
+          isLeaf: true,
         },
         {
-          title: 'Child Node5',
-          value: '0-1-2',
-          key: '0-1-2',
-          isLeaf: true
-        }
-      ]
-    }
+          title: "Child Node5",
+          value: "0-1-2",
+          key: "0-1-2",
+          isLeaf: true,
+        },
+      ],
+    },
   ];
-
 
   onChange($event: string[]): void {
     console.log($event);
   }
-
- 
 
   ngOnInit(): void {
     const children: Array<{ label: string; value: string }> = [];

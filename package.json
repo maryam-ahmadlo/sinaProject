@@ -24,6 +24,7 @@
     "@angular/router": "^14.2.0",
     "jalali-moment": "^3.3.11",
     "ng-zorro-antd": "^14.0.0",
+    "ngx-editor": "^15.0.1",
     "rxjs": "~7.5.0",
     "time-picker": "^1.0.0",
     "tslib": "^2.3.0",

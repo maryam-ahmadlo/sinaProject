@@ -2,12 +2,13 @@
   <nz-form-item>
     <nz-form-label nzRequired nzFor="content">متن پیام </nz-form-label>
     <nz-form-control>
-      <textarea
+      <app-text-editor></app-text-editor>
+      <!-- <textarea
         nz-input
         id="content"
         formControlName="content"
         [nzAutosize]="{ minRows: 5, maxRows: 5 }"
-      ></textarea>
+      ></textarea> -->
     </nz-form-control>
   </nz-form-item>
 
@@ -17,26 +18,31 @@
       <!-- <input type="text" nz-input id="branches" formControlName="branches" /> -->
 
       <nz-tree-select
-      formControlName="value"
-      (ngModelChange)="onChange($event)"
-      [nzNodes]="nodes"
-      nzShowSearch
-      nzCheckable
-      nzPlaceHolder="لیست شعب "
-    ></nz-tree-select>
-
-
+        formControlName="value"
+        (ngModelChange)="onChange($event)"
+        [nzNodes]="nodes"
+        nzShowSearch
+        nzCheckable
+        nzPlaceHolder="لیست شعب "
+      ></nz-tree-select>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label nzRequired nzFor="">کاربران </nz-form-label>
     <nz-form-control>
-
-        <nz-select nzMode="tags" nzPlaceHolder="نام کاربران" formControlName="listOfTagOptions">
-            <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-          </nz-select>
-<!-- 
+      <nz-select
+        nzMode="tags"
+        nzPlaceHolder="نام کاربران"
+        formControlName="listOfTagOptions"
+      >
+        <nz-option
+          *ngFor="let option of listOfOption"
+          [nzLabel]="option.label"
+          [nzValue]="option.value"
+        ></nz-option>
+      </nz-select>
+      <!-- 
       <input
         type="text"
         nz-input
