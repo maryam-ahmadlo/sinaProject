@@ -41,37 +41,48 @@
 
     
 
-        <a [routerLink]="['/','customer','rules','detail']">{{node.name}}</a>
+        <!-- <a [routerLink]="['/','customer','rules','detail']">{{node.name}}</a> -->
         
-    <!-- <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link" [routerLink]="['/','rules','detail']">
+    <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link" [routerLink]="['/','customer','rules','detail']">
       {{ node.name }}
       <span nz-icon nzType="setting" nzTheme="outline"></span>
-    </a> -->
+    </a>
 
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu nzSelectable  >
         <li nz-menu-item >
-          <span
+          <!-- <span
             nz-typography
             nzEditable
             nzEditIcon="highlight"
             nzEditTooltip="edit text"
             [(nzContent)]="node.name"
-          ></span>
+          ></span> -->
+          <button
+          nz-button
+          nzType="text"
+          nzSize="small"
+          (click)="createEditNodeModal(node)"
+        >
+          ویرایش 
+          <span nz-icon nzType="edit" nzTheme="outline"></span>
+        </button>
+
+         
         </li>
         <li nz-menu-item >
           <button
             nz-button
             nzType="text"
             nzSize="small"
-            (click)="addNewNode(node)"
+            (click)="createAddNodeModal(node)"
           >
             اضافه
             <span nz-icon nzType="plus" nzTheme="outline"></span>
           </button>
         </li>
         <li nz-menu-item >
-          <button nz-button nzType="text" nzSize="small" (click)="delete(node)">
+          <button nz-button nzType="text" nzSize="small" (click)="createDeleteNodeModal(node)">
             حذف
             <span nz-icon nzType="minus" nzTheme="outline"></span>
           </button>
