@@ -119,6 +119,7 @@ export class SlidebarComponent implements OnInit {
       nzFooter: [
         {
           label: "انصراف",
+          type:"default",
           onClick: (componentInstance) => componentInstance.destroyModal(),
         },
         {
@@ -141,6 +142,7 @@ export class SlidebarComponent implements OnInit {
       nzFooter: [
         {
           label: "انصراف",
+          type:"default",
           onClick: (componentInstance) => componentInstance.destroyModal(),
         },
         {

@@ -114,6 +114,7 @@ export class UserManagementListComponent implements OnInit {
       nzFooter: [
         {
           label: "انصراف",
+          type:"default",
           onClick: (componentInstance) => componentInstance.destroyModal(),
         },
         {
