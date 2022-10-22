@@ -1,18 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FlexModule } from "@angular/flex-layout";
 import { NzTimePickerModule } from "ng-zorro-antd/time-picker";
 import { NzInputModule } from "ng-zorro-antd/input";
-import * as moment from "jalali-moment";
 import {
-  FormControl,
-  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzButtonModule } from "ng-zorro-antd/button";
@@ -75,7 +72,7 @@ export class SearchLayoutComponent implements OnInit {
   advancedSerach() {
     this.simpleSearchForm.reset();
     this.showResult = false;
-    this.router.navigate(['/','customer','dashboard']);
+    this.router.navigate(["/", "customer", "dashboard"]);
     this.showAdvancedOption = !this.showAdvancedOption;
   }
 

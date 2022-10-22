@@ -144,11 +144,17 @@
               nzSize="large"
               formControlName="relations"
               nzType="card"
+              style="margin: 1rem"
             >
               <nz-tab nzTitle="مرتبط">
                 <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
                   <div fxFlex="10">
-                    <button nz-button nzType="primary" style="margin-left: 1%">
+                    <button
+                      nz-button
+                      nzType="primary"
+                      style="margin-left: 1%"
+                      (click)="createAddFileModalComponent()"
+                    >
                       افزودن
                     </button>
                   </div>
@@ -167,7 +173,12 @@
               <nz-tab nzTitle="اصلاحیه">
                 <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
                   <div fxFlex="10">
-                    <button nz-button nzType="primary" style="margin-left: 1%">
+                    <button
+                      nz-button
+                      nzType="primary"
+                      style="margin-left: 1%"
+                      (click)="createAddFileModalComponent()"
+                    >
                       افزودن
                     </button>
                   </div>
@@ -186,7 +197,12 @@
               <nz-tab nzTitle="الحاقیه">
                 <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
                   <div fxFlex="10">
-                    <button nz-button nzType="primary" style="margin-left: 1%">
+                    <button
+                      nz-button
+                      nzType="primary"
+                      style="margin-left: 1%"
+                      (click)="createAddFileModalComponent()"
+                    >
                       افزودن
                     </button>
                   </div>
@@ -203,6 +219,28 @@
                 </div></nz-tab
               >
             </nz-tabset>
+            <nz-table #basicTable>
+              <thead>
+                <tr>
+                  <th>ردیف</th>
+                  <th>انتخاب</th>
+                  <th>عنوان</th>
+                  <th>موضوع</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                  <td>{{ data.name }}</td>
+                  <td>{{ data.age }}</td>
+                  <td>{{ data.address }}</td>
+                  <td>
+                    <a>Action 一 {{ data.name }}</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a>Delete</a>
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -222,6 +260,33 @@
             />
           </nz-form-control>
         </nz-form-item>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayoutGap="10px"
+        fxLayout.lt-md="column"
+        style="margin: 1rem"
+      >
+        <div fxFlex="10">
+          <button
+            nz-button
+            nzType="primary"
+            style="margin-left: 1%"
+            (click)="createAddFileModalComponent()"
+          >
+            افزودن
+          </button>
+        </div>
+        <div fxFlex="10">
+          <button nz-button nzType="primary" style="margin-left: 1%">
+            حذف
+          </button>
+        </div>
+        <div fxFlex="10">
+          <button nz-button nzType="primary" style="margin-left: 1%">
+            به روز رسانی
+          </button>
+        </div>
       </div>
       <nz-table #basicTable>
         <thead>
@@ -244,23 +309,6 @@
           </tr>
         </tbody>
       </nz-table>
-      <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
-        <div fxFlex="10">
-          <button nz-button nzType="primary" style="margin-left: 1%">
-            افزودن
-          </button>
-        </div>
-        <div fxFlex="10">
-          <button nz-button nzType="primary" style="margin-left: 1%">
-            حذف
-          </button>
-        </div>
-        <div fxFlex="10">
-          <button nz-button nzType="primary" style="margin-left: 1%">
-            به روز رسانی
-          </button>
-        </div>
-      </div>
     </nz-card>
     <div class="result">
       <button nz-button nzType="primary" style="margin-left: 1%">تایید</button>

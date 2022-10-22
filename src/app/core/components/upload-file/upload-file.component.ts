@@ -25,6 +25,8 @@ import { NzCardModule } from "ng-zorro-antd/card";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzDividerModule } from "ng-zorro-antd/divider";
+import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
+import { CreateAddFileModalComponent } from "./modals/create-add-file-modal/create-add-file-modal.component";
 
 @Component({
   selector: "app-upload-file",
@@ -50,6 +52,7 @@ import { NzDividerModule } from "ng-zorro-antd/divider";
     NzCardModule,
     NzTabsModule,
     NzTableModule,
+    NzModalModule,
   ],
 })
 export class UploadFileComponent implements OnInit {
@@ -71,7 +74,25 @@ export class UploadFileComponent implements OnInit {
     }),
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private modalService: NzModalService) {}
 
   ngOnInit(): void {}
+
+  createAddFileModalComponent() {
+    this.modalService.create({
+      nzTitle: "افزودن فایل ",
+      nzContent: CreateAddFileModalComponent,
+      nzFooter: [
+        {
+          label: "انصراف",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "افزودن",
+          type: "primary",
+          onClick: (componentInstance) => componentInstance.handleOk(),
+        },
+      ],
+    });
+  }
 }

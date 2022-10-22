@@ -1,40 +1,45 @@
-
-  <form nz-form [formGroup]="simpleSearchForm" (ngSubmit)="onSimpleSubmit()">
-    <div  fxLayout.gt-sm="row" fxLayout.sm="row" fxLayout.xs="column"  fxLayoutAlign="center center" fxLayoutGap="20px" >
-      <nz-form-item>
-        <nz-form-control>
-          <div style="display: flex;">
-            <input
-            style="width: fit-content;"
-              formControlName="search"
-              nz-input
-              nzSize="large"
-              type="text"
-              id="search"
-              placeholder="جستجو"
-            />
-            <button nz-button nzType="primary" nzSize="large">
-              <span nz-icon nzType="search" nzTheme="outline"></span>
-            </button>
-          </div>
-        </nz-form-control>
-      </nz-form-item>
-      <form nz-form>
-        <nz-form-item>
-          <button
-            nz-button
-            nzType="primary"
+<form nz-form [formGroup]="simpleSearchForm" (ngSubmit)="onSimpleSubmit()">
+  <div
+    fxLayout.gt-sm="row"
+    fxLayout.sm="row"
+    fxLayout.xs="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="20px"
+  >
+    <nz-form-item>
+      <nz-form-control>
+        <div style="display: flex">
+          <input
+            style="width: fit-content"
+            formControlName="search"
+            nz-input
             nzSize="large"
-            (click)="advancedSerach()"
-          >
+            type="text"
+            id="search"
+            placeholder="جستجو"
+          />
+          <button nz-button nzType="primary" nzSize="large">
             <span nz-icon nzType="search" nzTheme="outline"></span>
-            جستجوی پیشرفته
-            <span nz-icon nzType="caret-down" nzTheme="outline"></span>
           </button>
-        </nz-form-item>
-      </form>
-    </div>
-  </form>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <form nz-form>
+      <nz-form-item>
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          (click)="advancedSerach()"
+        >
+          <span nz-icon nzType="search" nzTheme="outline"></span>
+          جستجوی پیشرفته
+          <span nz-icon nzType="caret-down" nzTheme="outline"></span>
+        </button>
+      </nz-form-item>
+    </form>
+  </div>
+</form>
 
 <div *ngIf="showAdvancedOption" class="container advanced-container">
   <form
@@ -60,17 +65,11 @@
             </button>
           </div>
         </nz-form-control>
-
-        
       </nz-form-item>
 
       <nz-form-item fxFlex="33">
-        
         <nz-select
-         
-        
-        fxFlex="100"
-        
+          fxFlex="100"
           nzSize="large"
           id="expression"
           formControlName="expression"
@@ -155,7 +154,7 @@
         <nz-form-label for="status">وضعیت</nz-form-label>
         <nz-form-control>
           <nz-select
-          fxFlex="100"
+            fxFlex="100"
             id="status"
             nzSize="large"
             [nzDropdownMatchSelectWidth]="false"
@@ -180,12 +179,11 @@
     </div>
 
     <div fxLayout="row" fxLayout.lt-sm="column">
-      <nz-form-item >
+      <nz-form-item>
         <nz-form-label for="searchFilter">محدوده جستجو</nz-form-label>
         <nz-form-control>
           <nz-button-group id="searchFilter">
-
-            <button nz-button nzType="dashed" class="button-filter" >
+            <button nz-button nzType="dashed" class="button-filter">
               <input
                 type="checkbox"
                 name="subject"
@@ -195,7 +193,7 @@
               عنوان
             </button>
 
-            <button nz-button nzType="dashed" class="button-filter" >
+            <button nz-button nzType="dashed" class="button-filter">
               <input
                 type="checkbox"
                 name="title"
@@ -205,7 +203,7 @@
               موضوع
             </button>
 
-            <button nz-button nzType="dashed" class="button-filter" >
+            <button nz-button nzType="dashed" class="button-filter">
               <input
                 type="checkbox"
                 name="keywords"
