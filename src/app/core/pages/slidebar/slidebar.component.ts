@@ -157,6 +157,9 @@ export class SlidebarComponent implements OnInit {
   handleUrgentMsg(componentInstance: any) {}
 
   UserManagement() {
-    this.router.navigate(['/', 'admin', 'user-management']);
+    this.router.navigate(["/", "admin", "user-management"]);
+  }
+  UploadFile() {
+    this.router.navigate(["/", "customer", "uploadFile"]);
   }
 }
