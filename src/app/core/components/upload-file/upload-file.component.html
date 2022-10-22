@@ -1,0 +1,270 @@
+<div class="advanced-container">
+  <form nz-form [formGroup]="uploadFileForm">
+    <nz-card nzTitle="اطلاعات نامه">
+      <div>
+        <nz-form-item fxFlex="90">
+          <nz-form-label nzFor="title">عنوان</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="title"
+              name="title"
+              type="text"
+              id="title"
+              placeholder="عنوان را وارد کنید"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div>
+        <nz-form-item fxFlex="90">
+          <nz-form-label nzFor="topic">موضوع</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="topic"
+              name="topic"
+              type="text"
+              id="topic"
+              placeholder="موضوع را وارد کنید"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div>
+        <nz-form-item fxFlex="90">
+          <nz-form-label nzFor="context">متن بخشنامه</nz-form-label>
+          <nz-form-control>
+            <textarea
+              nz-input
+              nzSize="large"
+              formControlName="context"
+              name="context"
+              type="text"
+              id="context"
+              placeholder="متن بخشنامه را وارد کنید"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+        <nz-form-item fxFlex="33">
+          <nz-form-label nzFor="level">سطح</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              fxFlex="100"
+              id="level"
+              nzSize="large"
+              formControlName="level"
+              nzPlaceHolder="سطح 1 "
+            >
+              <nz-option nzValue="1" nzLabel="سطح 1"></nz-option>
+              <nz-option nzValue="2" nzLabel="سطح 2"></nz-option>
+              <nz-option nzValue="3" nzLabel="سطح 3"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item fxFlex="33">
+          <nz-form-label nzFor="versionNum"> نوع سند</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              fxFlex="100"
+              nzSize="large"
+              id="ducumentType"
+              formControlName="ducumentType"
+              nzPlaceHolder="نوع سند"
+            >
+              <nz-option nzValue="circular" nzLabel="بخشنامه"></nz-option>
+              <nz-option nzValue="enteral" nzLabel="داخلی"></nz-option>
+              <nz-option nzValue="center bank" nzLabel="بانک مرکزی"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item fxFlex="33">
+          <nz-form-label nzFor="versionNum">شماره نسخه</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              fxFlex="100"
+              id="versionNum"
+              nzSize="large"
+              formControlName="versionNum"
+              nzPlaceHolder="شماره نسخه"
+            >
+              <nz-option nzValue="1" nzLabel="اولین"></nz-option>
+              <nz-option nzValue="2" nzLabel="دومین"></nz-option>
+              <nz-option nzValue="3" nzLabel="سومین"></nz-option>
+              <nz-option nzValue="4" nzLabel="چهارمین"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div>
+        <nz-form-item fxFlex="33">
+          <nz-form-label nzFor="branch">نام شعبه</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="branch"
+              name="branch"
+              type="text"
+              id="branch"
+              placeholder="نام شعبه را وارد کنید"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div>
+        <nz-form-item fxFlex="33">
+          <nz-form-label nzFor="number">شماره سند</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="number"
+              name="number"
+              type="text"
+              id="number"
+              placeholder="شماره سند را وارد کنید"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </nz-card>
+    <nz-card nzTitle="افزودن روابط مرتبط">
+      <div>
+        <nz-form-item fxFlex="90">
+          <nz-form-control>
+            <nz-tabset
+              id="relations"
+              nzSize="large"
+              formControlName="relations"
+              nzType="card"
+            >
+              <nz-tab nzTitle="مرتبط">
+                <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      افزودن
+                    </button>
+                  </div>
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      حذف
+                    </button>
+                  </div>
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      مشاهده
+                    </button>
+                  </div>
+                </div></nz-tab
+              >
+              <nz-tab nzTitle="اصلاحیه">
+                <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      افزودن
+                    </button>
+                  </div>
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      حذف
+                    </button>
+                  </div>
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      مشاهده
+                    </button>
+                  </div>
+                </div></nz-tab
+              >
+              <nz-tab nzTitle="الحاقیه">
+                <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      افزودن
+                    </button>
+                  </div>
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      حذف
+                    </button>
+                  </div>
+                  <div fxFlex="10">
+                    <button nz-button nzType="primary" style="margin-left: 1%">
+                      مشاهده
+                    </button>
+                  </div>
+                </div></nz-tab
+              >
+            </nz-tabset>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </nz-card>
+    <nz-card nzTitle="افزودن کلمات کلیدی">
+      <div>
+        <nz-form-item fxFlex="90">
+          <nz-form-label nzFor="keyword">کلمه کلیدی</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              nzSize="large"
+              formControlName="keyword"
+              name="keyword"
+              type="text"
+              id="keyword"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <nz-table #basicTable>
+        <thead>
+          <tr>
+            <th>ردیف</th>
+            <th>انتخاب</th>
+            <th>عنوان</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.name }}</td>
+            <td>{{ data.age }}</td>
+            <td>{{ data.address }}</td>
+            <td>
+              <a>Action 一 {{ data.name }}</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a>Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
+        <div fxFlex="10">
+          <button nz-button nzType="primary" style="margin-left: 1%">
+            افزودن
+          </button>
+        </div>
+        <div fxFlex="10">
+          <button nz-button nzType="primary" style="margin-left: 1%">
+            حذف
+          </button>
+        </div>
+        <div fxFlex="10">
+          <button nz-button nzType="primary" style="margin-left: 1%">
+            به روز رسانی
+          </button>
+        </div>
+      </div>
+    </nz-card>
+    <div class="result">
+      <button nz-button nzType="primary" style="margin-left: 1%">تایید</button>
+      <button nz-button nzType="default">انصراف</button>
+    </div>
+  </form>
+</div>

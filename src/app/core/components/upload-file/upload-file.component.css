@@ -1,0 +1,17 @@
+.advanced-container{
+    padding: 5%;
+      background-color: rgb(231, 231, 231);
+      border-radius: 5px;
+    }
+    
+.result{
+    display: flex;
+    justify-content: flex-end;
+}
+    
+    @media screen and (min-width:1440px){
+      .advanced-container{
+        padding: 3%;
+      }
+    }
+    

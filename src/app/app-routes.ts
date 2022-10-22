@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
 import { of } from "rxjs";
 import { TreeRulesItemComponent } from "@core/components/tree-rules-item/tree-rules-item.component";
+import { UploadFileComponent } from "@core/components/upload-file/upload-file.component";
 
 export const appRoutes: Routes = [
   {
@@ -64,6 +65,10 @@ export const appRoutes: Routes = [
               },
             ],
           },
+          {
+            path: "uploadFile",
+            component: UploadFileComponent,
+          },
 
           {
             path: "rules",
@@ -75,13 +80,10 @@ export const appRoutes: Routes = [
             ],
           },
           {
-            path:'bookmarks',
-            loadComponent:()=>
-            import("./modules/main/pages").then(
-              (m) => m.BookmarksComponent
-            ),
-
-          }
+            path: "bookmarks",
+            loadComponent: () =>
+              import("./modules/main/pages").then((m) => m.BookmarksComponent),
+          },
         ],
       },
       {

@@ -49,16 +49,17 @@
         >
           <i nz-icon nzType="menu"></i>
         </button>
-
       </div>
 
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <!-- <div *hasRole="['customer']"> -->
 
-        <button nz-button>بارگذاری فایل</button>
-      <button nz-button nzType="text">
-        <app-notification-dropdown></app-notification-dropdown>
-      </button>
+        <a [routerLink]="['/', 'customer', 'uploadFile']"
+          ><button nz-button>بارگذاری فایل</button></a
+        >
+        <button nz-button nzType="text">
+          <app-notification-dropdown></app-notification-dropdown>
+        </button>
         <button nz-button nzType="text" (click)="bookmark()">
           <i nz-icon nzType="star" nzTheme="outline"></i>
         </button>
