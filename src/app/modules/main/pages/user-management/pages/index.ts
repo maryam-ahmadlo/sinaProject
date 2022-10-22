@@ -1,0 +1,1 @@
+export * from './user-management-list/user-management-list.component';

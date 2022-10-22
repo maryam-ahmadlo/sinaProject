@@ -27,7 +27,7 @@ export const appRoutes: Routes = [
       },
       {
         path: "admin",
-        canActivate: [RoleGuard],
+        // canActivate: [RoleGuard],
         data: {
           allowedRoles: ["*"],
         },
@@ -37,6 +37,13 @@ export const appRoutes: Routes = [
             loadComponent: () =>
               import("./modules/main/pages").then(
                 (m) => m.AdminDashboardComponent
+              ),
+          },
+          {
+            path: "user-management",
+            loadChildren: () =>
+              import("./modules/main/pages/user-management/user-management-routes").then(
+                (m) => m.userManagementRoutes
               ),
           },
         ],
@@ -75,13 +82,10 @@ export const appRoutes: Routes = [
             ],
           },
           {
-            path:'bookmarks',
-            loadComponent:()=>
-            import("./modules/main/pages").then(
-              (m) => m.BookmarksComponent
-            ),
-
-          }
+            path: "bookmarks",
+            loadComponent: () =>
+              import("./modules/main/pages").then((m) => m.BookmarksComponent),
+          },
         ],
       },
       {

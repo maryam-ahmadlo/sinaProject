@@ -27,10 +27,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzSelectModule
   ],
   templateUrl: "./create-send-group-msg-modal.component.html",
-  styleUrls: ["./create-send-group-msg-modal.component.css"],
+  styleUrls: ["./create-send-group-msg-modal.component.less"],
 })
 export class CreateSendGroupMsgModalComponent implements OnInit {
-  @Input() node: any;
   isLoading: boolean;
   listOfOption: Array<{ label: string; value: string }> = [];
   // listOfTagOptions : any = [];
