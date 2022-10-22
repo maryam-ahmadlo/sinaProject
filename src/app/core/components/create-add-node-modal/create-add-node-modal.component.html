@@ -1,22 +1,22 @@
 <form nz-form nzLayout="vertical" [formGroup]="form">
-    <nz-form-item>
-        <nz-form-label>نمایش سطح </nz-form-label>
-        <nz-form-control>
-            <input type="text" nz-input  formControlName="level" readonly>
-        </nz-form-control>
-    </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="level">نمایش سطح </nz-form-label>
+    <nz-form-control>
+      <input type="text" nz-input id="level" formControlName="level" readonly />
+    </nz-form-control>
+  </nz-form-item>
 
-    <nz-form-item>
-        <nz-form-label nzRequired>عنوان  </nz-form-label>
-        <nz-form-control  formControlName="title">
-            <input type="text" nz-input  formControlName="title">
-        </nz-form-control>
-    </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="title">عنوان </nz-form-label>
+    <nz-form-control>
+      <input type="text" nz-input id="title" formControlName="title" />
+    </nz-form-control>
+  </nz-form-item>
 
-    <nz-form-item>
-        <nz-form-label nzRequired>شماره کد  </nz-form-label>
-        <nz-form-control  formControlName="code">
-            <input type="text" nz-input  formControlName="code">
-        </nz-form-control>
-    </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="code">شماره کد </nz-form-label>
+    <nz-form-control>
+      <input type="text" nz-input id="code" formControlName="code" />
+    </nz-form-control>
+  </nz-form-item>
 </form>

@@ -4,7 +4,11 @@ import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
-import { FlexLayoutModule, FlexModule, MediaObserver } from "@angular/flex-layout";
+import {
+  FlexLayoutModule,
+  FlexModule,
+  MediaObserver,
+} from "@angular/flex-layout";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import {
@@ -23,6 +27,8 @@ import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NotificationDropdownComponent } from "@core/components/notification-dropdown";
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { StateService } from "../../services";
+import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-group-msg-modal/create-send-group-msg-modal.component";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   standalone: true,
@@ -58,7 +64,8 @@ export class SlidebarComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public mediaObserver: MediaObserver,
     private httpclient: HttpClient,
-    private stateService: StateService
+    private stateService: StateService,
+    private modalService: NzModalService
   ) {
     mediaObserver
       .asObservable()
@@ -103,5 +110,53 @@ export class SlidebarComponent implements OnInit {
 
   bookmark() {
     this.router.navigate(["/", "customer", "bookmarks"]);
+  }
+  createSendGroupMsgModal() {
+    this.modalService.create({
+      nzTitle: "ارسال پیام گروهی ",
+      nzContent: CreateSendGroupMsgModalComponent,
+      nzComponentParams: {},
+      nzFooter: [
+        {
+          label: "انصراف",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "ارسال",
+          type: "primary",
+          onClick: (componentInstance) =>
+            this.handleGroupMsg(componentInstance),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+  handleGroupMsg(componentInstance: any) {}
+
+  createSendUrgentMsgModal() {
+    this.modalService.create({
+      nzTitle: "ارسال پیام فوری ",
+      nzContent: CreateSendGroupMsgModalComponent,
+      nzComponentParams: {},
+      nzFooter: [
+        {
+          label: "انصراف",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "ارسال",
+          type: "primary",
+          onClick: (componentInstance) =>
+            this.handleUrgentMsg(componentInstance),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+
+  handleUrgentMsg(componentInstance: any) {}
+
+  UserManagement() {
+    this.router.navigate(['/', 'admin', 'user-management']);
   }
 }
