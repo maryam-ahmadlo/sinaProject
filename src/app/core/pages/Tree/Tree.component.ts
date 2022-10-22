@@ -15,6 +15,10 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
+import { CreateAddNodeModalComponent } from "@core/components/create-add-node-modal/create-add-node-modal.component";
+import { CreateDeleteNodeModalComponent } from "@core/components/create-delete-node-modal/create-delete-node-modal.component";
+import { CreateEditNodeModalComponent } from "@core/components/create-edit-node-modal/create-edit-node-modal.component";
 
 const TREE_DATA: TreeNode[] = [
   {
@@ -89,6 +93,7 @@ const TREE_DATA: TreeNode[] = [
     NzTypographyModule,
     FlexModule,
     NzMenuModule,
+    NzModalModule,
     NzDropDownModule,
     RouterModule,
   ],
@@ -160,7 +165,10 @@ export class TreeComponent implements OnInit{
 
     this.dataSource.setData(this.treeData);
   }
-  constructor(private activatedRoute:ActivatedRoute) {
+
+
+
+  constructor(private activatedRoute:ActivatedRoute,   private modalService: NzModalService,) {
     this.dataSource.setData(this.treeData);
     this.treeControl.expandAll();
   }
@@ -173,18 +181,18 @@ export class TreeComponent implements OnInit{
 
 
 
-  addNewNode(node: FlatNode): void {
-    const parentNode = this.flatNodeMap.get(node);
-    if (parentNode) {
-      parentNode.children = parentNode.children || [];
-      parentNode.children.push({
-        name: "",
-        key: `${parentNode.key}-${parentNode.children.length}`,
-      });
-      this.dataSource.setData(this.treeData);
-      this.treeControl.expand(node);
-    }
-  }
+  // addNewNode(node: FlatNode): void {
+  //   const parentNode = this.flatNodeMap.get(node);
+  //   if (parentNode) {
+  //     parentNode.children = parentNode.children || [];
+  //     parentNode.children.push({
+  //       name: "",
+  //       key: `${parentNode.key}-${parentNode.children.length}`,
+  //     });
+  //     this.dataSource.setData(this.treeData);
+  //     this.treeControl.expand(node);
+  //   }
+  // }
 
   saveNode(node: FlatNode, value: string): void {
     const nestedNode = this.flatNodeMap.get(node);
@@ -193,4 +201,102 @@ export class TreeComponent implements OnInit{
       this.dataSource.setData(this.treeData);
     }
   }
+
+
+  createAddNodeModal(node:any){
+
+    this.modalService.create({
+      nzTitle:'افزودن درختواره ',
+      nzContent: CreateAddNodeModalComponent,
+      nzComponentParams: {
+        node,
+      },
+      nzFooter: [
+        {
+          label: 'بستن',
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: 'ثبت',
+          type: 'primary',
+          onClick: (componentInstance) =>
+            this.handleAddTreeNode(componentInstance),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+
+  handleAddTreeNode(componentInstance:any) {
+    componentInstance.isLoading = true;
+    // if (componentInstance.user.active) {
+    //   this.usersService
+    //     .reActiveUser(componentInstance.user.id)
+    //     .pipe(finalize(() => (componentInstance.isLoading = false)))
+    //     .subscribe(() => handleRes());
+    // } else {
+    //   this.usersService
+    //     .deActiveUser(componentInstance.user.id)
+    //     .pipe(finalize(() => (componentInstance.isLoading = false)))
+    //     .subscribe(() => handleRes());
+    // }
+
+    // const handleRes = () => {
+    //   this.message.success('عملیات با موفقیت انجام شد');
+    //   componentInstance.destroyModal();
+    //   this.refresh();
+    // };
+  }
+
+  createDeleteNodeModal(node: any){
+    this.modalService.create({
+      nzTitle:'حذف درختواره ',
+      nzContent:CreateDeleteNodeModalComponent,
+      nzComponentParams: {
+        node,
+      },
+      nzFooter: [
+        {
+          label: 'بستن',
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: 'تایید',
+          type: 'primary',
+          onClick: (componentInstance) =>
+            this.handleDeleteTreeNode(componentInstance),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+
+  handleDeleteTreeNode(componentInstance: any){
+    
+  }
+
+  createEditNodeModal(node:any){
+    this.modalService.create({
+      nzTitle:'ویرایش درختواره ',
+      nzContent:CreateEditNodeModalComponent,
+      nzComponentParams: {
+        node,
+      },
+      nzFooter: [
+        {
+          label: 'بستن',
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: 'ثبت',
+          type: 'primary',
+          onClick: (componentInstance) =>
+            this.handleDeleteTreeNode(componentInstance),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+
+
 }
