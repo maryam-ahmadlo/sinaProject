@@ -53,18 +53,31 @@
       >
         <!-- <div *hasRole="['admin']"> -->
 
-        <button nz-button nzType="dashed" (click)="createSendGroupMsgModal()">ارسال پیام گروهی</button>
-        <button nz-button nzType="dashed">تعریف کاربران و دسترسی ها</button>
+        <button nz-button nzType="dashed" (click)="createSendGroupMsgModal()" nzShape="round">ارسال پیام گروهی
+          <span nz-icon nzType="message" nzTheme="outline"></span>
+        </button>
+
+        <button nz-button nzType="dashed" (click)="createSendUrgentMsgModal()" nzShape="round">ارسال پیام فوری
+          <span nz-icon nzType="message" nzTheme="outline"></span>
+        </button>
+
+
+        <button nz-button nzType="dashed" nzShape="round">تعریف کاربران و دسترسی ها
+          <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
+        </button>
         <!-- </div> -->
 
         <!-- <div *hasRole="['customer']"> -->
 
-        <button nz-button nzType="dashed">بارگذاری فایل</button>
-        <button nz-button nzType="dashed">
+        <button nz-button nzType="dashed" nzShape="round">بارگذاری فایل 
+          <span nz-icon nzType="upload" nzTheme="outline"></span>
+        </button>
+        <button nz-button nzType="dashed" nzShape="round">
           مشاهده پیام گروهی
+          <i nz-icon nzType="bell" class="icon"></i>
           <app-notification-dropdown></app-notification-dropdown>
         </button>
-        <button nz-button nzType="dashed" (click)="bookmark()">
+        <button nz-button nzType="dashed" (click)="bookmark()" nzShape="round">
           bookmarks
           <i nz-icon nzType="star" nzTheme="outline"></i>
         </button>

@@ -132,4 +132,29 @@ export class SlidebarComponent implements OnInit {
   handleGroupMsg(componentInstance:any){
 
   }
+
+  createSendUrgentMsgModal(){
+    this.modalService.create({
+      nzTitle:'ارسال پیام فوری ',
+      nzContent:CreateSendGroupMsgModalComponent,
+      nzComponentParams: {},
+      nzFooter: [
+        {
+          label: 'انصراف',
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: 'ارسال',
+          type: 'primary',
+          onClick: (componentInstance) =>
+            this.handleUrgentMsg(componentInstance),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+
+  handleUrgentMsg(componentInstance:any){
+
+  }
 }
