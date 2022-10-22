@@ -23,6 +23,8 @@ import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NotificationDropdownComponent } from "@core/components/notification-dropdown";
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { StateService } from "../../services";
+import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-group-msg-modal/create-send-group-msg-modal.component";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   standalone: true,
@@ -58,7 +60,8 @@ export class SlidebarComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public mediaObserver: MediaObserver,
     private httpclient: HttpClient,
-    private stateService: StateService
+    private stateService: StateService,
+    private modalService: NzModalService
   ) {
     mediaObserver
       .asObservable()
@@ -103,5 +106,30 @@ export class SlidebarComponent implements OnInit {
 
   bookmark() {
     this.router.navigate(["/", "customer", "bookmarks"]);
+  }
+  createSendGroupMsgModal(){
+  
+      this.modalService.create({
+        nzTitle:'ارسال پیام گروهی ',
+        nzContent:CreateSendGroupMsgModalComponent,
+        nzComponentParams: {},
+        nzFooter: [
+          {
+            label: 'انصراف',
+            onClick: (componentInstance) => componentInstance.destroyModal(),
+          },
+          {
+            label: 'ارسال',
+            type: 'primary',
+            onClick: (componentInstance) =>
+              this.handleGroupMsg(componentInstance),
+            loading: (componentInstance) => componentInstance.isLoading,
+          },
+        ],
+      });
+    
+  }
+  handleGroupMsg(componentInstance:any){
+
   }
 }

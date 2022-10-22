@@ -1,0 +1,48 @@
+<form nz-form nzLayout="vertical" [formGroup]="form">
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="content">متن پیام </nz-form-label>
+    <nz-form-control>
+      <textarea
+        nz-input
+        id="content"
+        formControlName="content"
+        [nzAutosize]="{ minRows: 5, maxRows: 5 }"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="">ارسال به </nz-form-label>
+    <nz-form-control>
+      <!-- <input type="text" nz-input id="branches" formControlName="branches" /> -->
+
+      <nz-tree-select
+      formControlName="value"
+      (ngModelChange)="onChange($event)"
+      [nzNodes]="nodes"
+      nzShowSearch
+      nzCheckable
+      nzPlaceHolder="لیست شعب "
+    ></nz-tree-select>
+
+
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="">کاربران </nz-form-label>
+    <nz-form-control>
+
+        <nz-select nzMode="tags" nzPlaceHolder="نام کاربران" formControlName="listOfTagOptions">
+            <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+          </nz-select>
+<!-- 
+      <input
+        type="text"
+        nz-input
+        id="recipients"
+        formControlName="recipients"
+      /> -->
+    </nz-form-control>
+  </nz-form-item>
+</form>
