@@ -4,7 +4,7 @@ import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
-import { FlexModule, MediaObserver } from "@angular/flex-layout";
+import { FlexLayoutModule, FlexModule, MediaObserver } from "@angular/flex-layout";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import {
@@ -33,7 +33,7 @@ import { StateService } from "../../services";
     NzButtonModule,
     NzDropDownModule,
     NzBreadCrumbModule,
-    FlexModule,
+    FlexLayoutModule,
     NzGridModule,
     NzButtonModule,
     NzIconModule,
