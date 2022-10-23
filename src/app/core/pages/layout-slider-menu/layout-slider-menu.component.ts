@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { TreeComponent } from '../Tree';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { SearchLayoutComponent } from 'src/app/modules/search/pages';
+import { SearchLayoutComponent } from 'src/app/modules/main/pages/search/pages';
 
 
 @Component({

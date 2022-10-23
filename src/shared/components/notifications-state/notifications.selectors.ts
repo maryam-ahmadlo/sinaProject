@@ -1,4 +1,3 @@
-import { INotification } from '@common/interfaces';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { DataState } from './notifications.reducer';
 
@@ -28,7 +27,7 @@ const getSelectedData = createSelector(
   getAllData,
   getSelectedId,
   (data, id) => {
-    const result = data.find((it) => it['id'] === id);
+    const result = data.find((it) => it['ID'] === id);
     return result ? Object.assign({}, result) : undefined;
   }
 );
