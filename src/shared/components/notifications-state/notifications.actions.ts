@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
-import { INotification } from '@common/interfaces';
+import { INotification } from 'src/shared/common/src/lib/interfaces';
+
 
 export enum DataActionTypes {
   LoadData = '[Notification] Load Data',

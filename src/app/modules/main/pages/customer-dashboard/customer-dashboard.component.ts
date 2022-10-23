@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { SearchLayoutComponent } from 'src/app/modules/search/pages';
+import { SearchLayoutComponent } from 'src/app/modules/main/pages/search/pages';
 
 
 

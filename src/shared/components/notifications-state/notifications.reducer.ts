@@ -1,5 +1,6 @@
+import { INotification } from 'src/shared/common/src/lib/interfaces';
 import { DataAction, DataActionTypes } from './notifications.actions';
-import { INotification } from '@common/interfaces';
+
 
 /**
  * Interface for the 'Cities' data used in
