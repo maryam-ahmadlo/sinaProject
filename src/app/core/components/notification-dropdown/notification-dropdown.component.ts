@@ -14,6 +14,11 @@ import { NzBadgeModule } from "ng-zorro-antd/badge";
 import { NzEmptyModule } from "ng-zorro-antd/empty";
 
 import { NotificationAlertComponent } from "src/shared/components/notification-alert/notification-alert.component";
+import { map, Observable, Subscription, tap } from "rxjs";
+import { INotification } from "src/shared/common/src/lib/interfaces";
+import { NotificationsFacade } from "src/shared/components/notifications-state";
+import { NzModalService } from "ng-zorro-antd/modal";
+import { NotificationModalComponent } from "../notification-modal/notification-modal.component";
 
 
 @Component({
@@ -40,14 +45,14 @@ export class NotificationDropdownComponent {
   // notifications: INotification[];
   // notifications$: Observable<INotification[]> =
   //   this.notificationsFacade.allData$.pipe(
-  //     map((notifications) =>
-  //       notifications.map((notification) => ({
+  //     map((notifications: any[]) =>
+  //       notifications.map((notification: any) => ({
   //         ...notification,
   //         delivered: false,
   //       }))
   //     ),
-  //     tap((res) => this.checkObesrveAt(res)),
-  //     tap((res) => this.checkUnread(res))
+  //     tap((res: any) => this.checkObesrveAt(res)),
+  //     tap((res: any) => this.checkUnread(res))
   //   );
   // loaded$: Observable<boolean> = this.notificationsFacade.loaded$;
   // unread: any[];
@@ -82,7 +87,7 @@ export class NotificationDropdownComponent {
   //       return true;
   //   }
   // }
-  // notificationModal(notification: INotification) {
+  // notificationModal(notification:any) {
   //   this.modalService.create({
   //     nzContent: NotificationModalComponent,
   //     nzComponentParams: {

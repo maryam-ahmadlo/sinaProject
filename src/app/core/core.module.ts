@@ -10,8 +10,7 @@ import { RouterModule } from '@angular/router';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from './guards';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CreateAddFileModalComponent } from './components/upload-file/modals/create-add-file-modal/create-add-file-modal.component';
-import { TextEditorComponent } from './components/text-editor/text-editor.component';
+
 
 
 @NgModule({
@@ -22,10 +21,7 @@ import { TextEditorComponent } from './components/text-editor/text-editor.compon
     NzMessageModule,
     FlexLayoutModule,
   ],
-  declarations: [
-    CreateAddFileModalComponent,
-    TextEditorComponent
-  ],
+  declarations: [],
  
 })
 export class CoreModule {

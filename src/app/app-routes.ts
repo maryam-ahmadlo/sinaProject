@@ -2,7 +2,7 @@ import { Routes } from "@angular/router";
 import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
 import { of } from "rxjs";
 import { TreeRulesItemComponent } from "@core/components/tree-rules-item/tree-rules-item.component";
-import { UploadFileComponent } from "@core/components/upload-file/upload-file.component";
+import { UploadFileComponent } from "src/app/core/pages/upload-file/upload-file.component";
 
 export const appRoutes: Routes = [
   {
@@ -66,7 +66,7 @@ export const appRoutes: Routes = [
               {
                 path: "",
                 loadChildren: () =>
-                  import("./modules/search/search-routes").then(
+                  import("./modules/main/pages/search/search-routes").then(
                     (m) => m.SearchRoutes
                   ),
               },

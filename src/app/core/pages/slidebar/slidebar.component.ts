@@ -25,7 +25,7 @@ import { NzDrawerModule } from "ng-zorro-antd/drawer";
 import { LayoutSiderMenuComponent } from "../layout-slider-menu/layout-slider-menu.component";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NotificationDropdownComponent } from "@core/components/notification-dropdown";
-import { SearchLayoutComponent } from "src/app/modules/search/pages";
+import { SearchLayoutComponent } from "src/app/modules/main/pages/search/pages";
 import { StateService } from "../../services";
 import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-group-msg-modal/create-send-group-msg-modal.component";
 import { NzModalService } from "ng-zorro-antd/modal";
