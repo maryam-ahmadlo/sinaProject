@@ -1,37 +1,52 @@
-<!-- <nz-badge class="badge" [nzCount]="totalUnread" nzSize="small">
-  <a
-    nz-dropdown
-    [nzDropdownMenu]="menu"
-    nzTrigger="click"
-    (nzVisibleChange)="handleVisibleChange($event)"
-    
-  >
-    <span nz-icon nzType="bell" class="icon"></span>
-  </a>
-</nz-badge>
+<nz-page-header nzTitle=" لیست اعلانات" nzBackIcon>
+  <nz-page-header-content>
+    <nz-table
+      class="table-responsive"
+      #rowSelectionTable
+      nzShowSizeChanger
+      [nzData]="listOfData"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    >
+      <thead>
+        <tr>
+          <th>ردیف</th>
+          <th
+            [nzSelections]="listOfSelection"
+            [(nzChecked)]="checked"
+            [nzIndeterminate]="indeterminate"
+            (nzCheckedChange)="onAllChecked($event)"
+          >
+            انتخاب
+          </th>
+          <th>نام</th>
+          <th>عملیات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td
+            [nzChecked]="setOfCheckedId.has(data.id)"
+            (nzCheckedChange)="onItemChecked(data.id, $event)"
+          ></td>
+          <td>{{ data.name }}</td>
 
-<nz-dropdown-menu #menu="nzDropdownMenu">
-  <nz-card class="notification__dropdown" nzTitle="آخرین اعلانات" fxLayout="column">
-    <div class="notification__dropdown--scrollbar" fxLayout="column">
-      <ng-container *ngIf="loaded$ | async; else skeleton">
-        <ng-container *ngIf="(notifications$ | async).length !== 0; else empty">
-          <ng-container *ngFor="let notification of notifications$ | async">
-            <leasing-notification-alert
-              class="notification__dropdown--alert"
-              [notification]="notification"
-              (click)="notificationModal(notification)"
-            ></leasing-notification-alert>
-          </ng-container>
-        </ng-container>
-      </ng-container>
+          <td>
+            <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link">
+              <i nz-icon nzType="down"></i>
+              عملیات
+            </a>
 
-      <ng-template #empty >
-        <nz-empty style="margin-top: 10px;"></nz-empty>
-      </ng-template>
-      <ng-template #skeleton>
-        <nz-skeleton></nz-skeleton>
-      </ng-template>
-    </div>
-  </nz-card>
-</nz-dropdown-menu>
- -->
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item>مشاهده</li>
+                <li nz-menu-item>حذف</li>
+              
+              </ul>
+            </nz-dropdown-menu>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-page-header-content>
+</nz-page-header>

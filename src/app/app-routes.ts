@@ -91,6 +91,11 @@ export const appRoutes: Routes = [
             loadComponent: () =>
               import("./modules/main/pages").then((m) => m.BookmarksComponent),
           },
+          {
+            path: "notifications",
+            loadComponent: () =>
+              import("./core/components/notification-dropdown").then((m) => m.NotificationDropdownComponent),
+          },
         ],
       },
       {

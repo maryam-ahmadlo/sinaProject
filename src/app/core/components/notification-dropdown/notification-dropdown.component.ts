@@ -1,26 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { NzTableModule } from "ng-zorro-antd/table";;
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
-
-import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzIconModule } from "ng-zorro-antd/icon";
-import { FlexLayoutModule } from "@angular/flex-layout";
-
-import { NzCardModule } from "ng-zorro-antd/card";
-import { NzSkeletonModule } from "ng-zorro-antd/skeleton";
-import { NzDividerModule } from "ng-zorro-antd/divider";
-import { NzBadgeModule } from "ng-zorro-antd/badge";
-
-import { NzEmptyModule } from "ng-zorro-antd/empty";
-
-import { NotificationAlertComponent } from "src/shared/components/notification-alert/notification-alert.component";
-import { map, Observable, Subscription, tap } from "rxjs";
-import { INotification } from "src/shared/common/src/lib/interfaces";
-import { NotificationsFacade } from "src/shared/components/notifications-state";
-import { NzModalService } from "ng-zorro-antd/modal";
-import { NotificationModalComponent } from "../notification-modal/notification-modal.component";
-
-
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 @Component({
   selector: "app-notification-dropdown",
   templateUrl: "./notification-dropdown.component.html",
@@ -28,85 +14,108 @@ import { NotificationModalComponent } from "../notification-modal/notification-m
   standalone: true,
   imports: [
     CommonModule,
+    NzTableModule,
     NzDropDownModule,
-    NzButtonModule,
     NzIconModule,
-    NotificationAlertComponent,
-    NzCardModule,
-    FlexLayoutModule,
-    NzSkeletonModule,
-    NzDividerModule,
-    NzBadgeModule,
-    NzEmptyModule,
+    NzPageHeaderModule,
+    NzButtonModule,
+    NzModalModule,
   ],
 })
 export class NotificationDropdownComponent {
-  // subscription: Subscription;
-  // notifications: INotification[];
-  // notifications$: Observable<INotification[]> =
-  //   this.notificationsFacade.allData$.pipe(
-  //     map((notifications: any[]) =>
-  //       notifications.map((notification: any) => ({
-  //         ...notification,
-  //         delivered: false,
-  //       }))
-  //     ),
-  //     tap((res: any) => this.checkObesrveAt(res)),
-  //     tap((res: any) => this.checkUnread(res))
-  //   );
-  // loaded$: Observable<boolean> = this.notificationsFacade.loaded$;
-  // unread: any[];
-  // totalUnread: number = 0;
-  // constructor(
-  //   private notificationsFacade: NotificationsFacade,
-  //   private modalService: NzModalService
-  // ) {}
-  // ngOnInit(): void {
-  //   this.notificationsFacade.loadAll();
-  // }
-  // checkUnread(res: any) {
-  //   this.unread = res.filter((res:any) => res.delivered === false);
-  //   this.totalUnread = this.unread.length;
-  // }
-  // handleVisibleChange(visible: boolean) {
-  //   visible && this.notificationsFacade.loadAll();
-  // }
-  // checkObesrveAt(res:any) {
-  //   for (let i = 0; i < res.length; i++) {
-  //     this.getDotColor(res[i]);
-  //     if (this.getDotColor(res[i])) {
-  //       res[i].delivered = true;
-  //     }
-  //   }
-  // }
-  // getDotColor(res:any) {
-  //   switch (res.observed_at) {
-  //     case '0001-01-01T00:00:00Z':
-  //       return false;
-  //     default:
-  //       return true;
-  //   }
-  // }
-  // notificationModal(notification:any) {
-  //   this.modalService.create({
-  //     nzContent: NotificationModalComponent,
-  //     nzComponentParams: {
-  //       notification,
-  //     },
-  //     nzFooter: [
-  //       {
-  //         label: 'بستن',
-  //         onClick: (componentInstance) => {
-  //           componentInstance.destroyModal();
-  //         },
-  //         type: 'dashed',
-  //       },
-  //       {
-  //         label: 'حذف',
-  //         onClick: (componentInstance) => componentInstance.deleteMessage(),
-  //         type: 'primary',
-  //       },
-  //     ],
-  //   });
-  // }
+  data: any = [];
+
+  isLoading: boolean;
+
+  constructor(private httpClient: HttpClient,private modalService: NzModalService) {}
+
+  ngOnInit(): void {
+    this.httpClient
+      .get("/api/bookmark/getAll", {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+      })
+      .subscribe(console.log);
+
+      this.listOfData = new Array(200).fill(0).map((_, index) => ({
+        id: index,
+        name: `Edward King ${index}`,
+        age: 32,
+        address: `London, Park Lane no. ${index}`,
+      }));
+  }
+
+
+
+  listOfSelection = [
+    {
+      text: "Select All Row",
+      onSelect: () => {
+        this.onAllChecked(true);
+      },
+    },
+    {
+      text: "Select Odd Row",
+      onSelect: () => {
+        this.listOfCurrentPageData.forEach(
+          (data: { id: number }, index: number) =>
+            this.updateCheckedSet(data.id, index % 2 !== 0)
+        );
+        this.refreshCheckedStatus();
+      },
+    },
+    {
+      text: "Select Even Row",
+      onSelect: () => {
+        this.listOfCurrentPageData.forEach(
+          (data: { id: number }, index: number) =>
+            this.updateCheckedSet(data.id, index % 2 === 0)
+        );
+        this.refreshCheckedStatus();
+      },
+    },
+  ];
+  checked = false;
+  indeterminate = false;
+  listOfCurrentPageData: any = [];
+  listOfData: any = [];
+  setOfCheckedId = new Set<number>();
+
+  updateCheckedSet(id: number, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(id);
+    } else {
+      this.setOfCheckedId.delete(id);
+    }
+  }
+
+  onItemChecked(id: number, checked: boolean): void {
+    this.updateCheckedSet(id, checked);
+    this.refreshCheckedStatus();
+  }
+
+  onAllChecked(value: boolean): void {
+    this.listOfCurrentPageData.forEach((item: { id: number }) =>
+      this.updateCheckedSet(item.id, value)
+    );
+    this.refreshCheckedStatus();
+  }
+
+  onCurrentPageDataChange($event: any): void {
+    this.listOfCurrentPageData = $event;
+    this.refreshCheckedStatus();
+  }
+
+  refreshCheckedStatus(): void {
+    this.checked = this.listOfCurrentPageData.every((item: { id: number }) =>
+      this.setOfCheckedId.has(item.id)
+    );
+    this.indeterminate =
+      this.listOfCurrentPageData.some((item: { id: number }) =>
+        this.setOfCheckedId.has(item.id)
+      ) && !this.checked;
+  }
+
 }
