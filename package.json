@@ -22,6 +22,8 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "ckeditor4-angular": "^3.2.0",
+    "ckeditor4-plugin-spreadsheet": "^1.2.0",
     "jalali-moment": "^3.3.11",
     "ng-zorro-antd": "^14.0.0",
     "ngx-editor": "^15.0.1",

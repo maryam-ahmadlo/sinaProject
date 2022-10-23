@@ -13,6 +13,7 @@ import {
 import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { TextEditorComponent } from "../text-editor/text-editor.component";
+import { CKEditorModule } from "ckeditor4-angular";
 
 @Component({
   selector: "app-create-send-group-msg-modal",
@@ -27,11 +28,13 @@ import { TextEditorComponent } from "../text-editor/text-editor.component";
     FormsModule,
     NzSelectModule,
     TextEditorComponent,
+    CKEditorModule,
   ],
   templateUrl: "./create-send-group-msg-modal.component.html",
   styleUrls: ["./create-send-group-msg-modal.component.less"],
 })
 export class CreateSendGroupMsgModalComponent implements OnInit {
+  
   isLoading: boolean;
   listOfOption: Array<{ label: string; value: string }> = [];
   // listOfTagOptions : any = [];
@@ -115,4 +118,7 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     }
     this.listOfOption = children;
   }
+  
+
+  ckeditorContent="";
 }
