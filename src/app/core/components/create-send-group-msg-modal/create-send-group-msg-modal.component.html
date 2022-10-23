@@ -2,14 +2,7 @@
   <nz-form-item>
     <nz-form-label nzRequired nzFor="content">متن پیام </nz-form-label>
     <nz-form-control>
-      <ckeditor
-        [(ngModel)]="ckeditorContent"
-        [config]="{
-          removePlugins  : [ 'about' ]
-        }"
-      >
-      </ckeditor>
-      <!-- <app-text-editor></app-text-editor> -->
+      <app-text-editor></app-text-editor>
       <!-- <textarea
         nz-input
         id="content"
