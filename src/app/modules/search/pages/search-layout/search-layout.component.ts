@@ -16,8 +16,8 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { CommonModule } from "@angular/common";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzListModule } from "ng-zorro-antd/list";
-import { DatepickerModule } from "../../../../../../../shared/components/datepicker";
 import { SearchResultComponent } from "../../components";
+import { DatepickerModule } from "src/shared/components";
 @Component({
   selector: "app-search-layout",
   standalone: true,
