@@ -43,9 +43,9 @@ export const appRoutes: Routes = [
           {
             path: "user-management",
             loadChildren: () =>
-              import("./modules/main/pages/user-management/user-management-routes").then(
-                (m) => m.userManagementRoutes
-              ),
+              import(
+                "./modules/user-management/user-management-routes"
+              ).then((m) => m.userManagementRoutes),
           },
         ],
       },
@@ -66,7 +66,7 @@ export const appRoutes: Routes = [
               {
                 path: "",
                 loadChildren: () =>
-                  import("./modules/main/pages/search/search-routes").then(
+                  import("./modules/search/search-routes").then(
                     (m) => m.SearchRoutes
                   ),
               },
@@ -88,13 +88,17 @@ export const appRoutes: Routes = [
           },
           {
             path: "bookmarks",
-            loadComponent: () =>
-              import("./modules/main/pages").then((m) => m.BookmarksComponent),
+            loadChildren: () =>
+              import("./modules/bookmarks/bookmark-routes").then(
+                (m) => m.BookmarkRoutes
+              ),
           },
           {
             path: "notifications",
             loadComponent: () =>
-              import("./core/components/notification-dropdown").then((m) => m.NotificationDropdownComponent),
+              import("./core/components/notification-dropdown").then(
+                (m) => m.NotificationDropdownComponent
+              ),
           },
         ],
       },

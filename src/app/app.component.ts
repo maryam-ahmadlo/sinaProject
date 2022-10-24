@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SearchLayoutComponent } from './modules/main/pages/search/pages';
+import { SearchLayoutComponent } from './modules/search/pages';
+
 
 
 

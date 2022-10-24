@@ -1,0 +1,1 @@
+export * from './bookmark-list/bookmark-list.component';
