@@ -8,17 +8,22 @@ export class TreeService {
   constructor(private httpClient: HttpClient) {}
 
   getAllNodes() {
-    return this.httpClient.get("/api/folder/getChildren", {
-      headers: new HttpHeaders({
-        accept: "application/json",
-        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      }),
-      params: { fldId: "okm:categories" },
-    });
+    return this.httpClient.get(
+      "/api/folder/getChildren",
+      {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+        params:{fldId:'Fokm:categories'}
+      }
+    );
   }
 
+
+
   addBookMark(id: string) {
-    return this.httpClient.post("/api/bookmark/create?nodeId=" + `${id}`, {
+    return this.httpClient.post("/api/bookmark/create?nodeId=", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",

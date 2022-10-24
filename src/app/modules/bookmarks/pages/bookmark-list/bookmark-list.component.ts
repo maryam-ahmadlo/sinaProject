@@ -139,7 +139,7 @@ export class BookmarkListComponent implements OnInit {
       ) && !this.checked;
   }
 
-  createShowBookMarkModal(id: string | number) {
+  createShowBookMarkModal(id: string ) {
     let bookmark: IBookmark;
     this.bookmarkService.getOne(id).subscribe((r) => (bookmark = r));
     this.modalService.create({
