@@ -39,9 +39,10 @@
 
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <li nz-menu-item>تغییر نام</li>
-                <li nz-menu-item>حذف</li>
-                <li nz-menu-item>مشاهده</li>
+                <li nz-menu-item (click)="createShowBookMarkModal(data.id)">مشاهده</li>
+                <li nz-menu-item (click)="createRenameBookmarkModal(data.id)">تغییر نام</li>
+                <li nz-menu-item (click)="createDeleteBookmarkModal(data.id)">حذف</li>
+                
               </ul>
             </nz-dropdown-menu>
           </td>
