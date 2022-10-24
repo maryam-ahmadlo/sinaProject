@@ -9,22 +9,27 @@ export class TreeService {
 
   getAllNodes() {
     return this.httpClient.get(
-      "/api/folder/getChildren?fldId=%2Fokm%3Acategories",
+      "/api/folder/getChildren",
       {
         headers: new HttpHeaders({
           accept: "application/json",
           Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
         }),
+        params:{fldId:'Fokm:categories'}
       }
     );
   }
 
-  addBookMark(data: string) {
-    return this.httpClient.post("/api/bookmark/create", data, {
+  addBookMark(id: string) {
+    return this.httpClient.post("/api/bookmark/create", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      }),
+      },
+     ),
+     
+      params:{noteId:id}
+    
     });
   }
 
