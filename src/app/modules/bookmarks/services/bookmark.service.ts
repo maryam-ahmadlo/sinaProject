@@ -11,12 +11,11 @@ export class BookmarkService {
   getAll() {
     return this.httpClient.get<IBookmark>("/api/bookmark/getAll", {
       headers: new HttpHeaders({
-        accept: "application/json",
+        Accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });
   }
-
   getOne(id: number | string) {
     return this.httpClient.get<IBookmark>("/api/bookmark/get", {
       headers: new HttpHeaders({
