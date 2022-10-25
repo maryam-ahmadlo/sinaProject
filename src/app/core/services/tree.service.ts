@@ -15,7 +15,7 @@ export class TreeService {
           accept: "application/json",
           Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
         }),
-        params:{fldId:'Fokm:categories'}
+        params:{fIdId:'d72ae506-4cc0-4105-b34f-005ff27e0923'}
       }
     );
   }

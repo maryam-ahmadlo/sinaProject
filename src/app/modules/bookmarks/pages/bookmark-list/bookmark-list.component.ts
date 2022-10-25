@@ -15,6 +15,7 @@ import { CreateBookamrkDeleteModalComponent } from "../../components/create-book
 import { finalize } from "rxjs";
 import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
 import { CreateBookmarkRenameModalComponent } from "../../components/create-bookmark-rename-modal/create-bookmark-rename-modal.component";
+import { ThisReceiver } from "@angular/compiler";
 
 @Component({
   selector: "app-bookmark-list",
@@ -43,7 +44,7 @@ export class BookmarkListComponent implements OnInit {
     private bookmarkService: BookmarkService,
     private message: NzMessageService,
     private router: Router,
-    private httpClient : HttpClient,
+ 
   ) {}
 
   ngOnInit(): void {
@@ -60,8 +61,10 @@ export class BookmarkListComponent implements OnInit {
 
     this.activatedRoute.data.subscribe(({bookmarkList}) =>  this.data=bookmarkList['bookmark']);
     console.log(this.data);
-    
  
+  
+  
+
     // this.listOfData = new Array(200).fill(0).map((_, index) => ({
     //   id: index,
     //   name: `Edward King ${index}`,

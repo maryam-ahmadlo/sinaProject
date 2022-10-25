@@ -98,7 +98,7 @@ const TREE_DATA: TreeNode[] = [
     RouterModule,
   ],
 })
-export class TreeComponent implements OnInit{
+export class TreeComponent implements OnInit {
   private transformer = (node: TreeNode, level: number): FlatNode => {
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode =
@@ -166,32 +166,26 @@ export class TreeComponent implements OnInit{
     this.dataSource.setData(this.treeData);
   }
 
-
-
-  constructor(private activatedRoute:ActivatedRoute,   private modalService: NzModalService,private httpClient: HttpClient) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private modalService: NzModalService,
+    private httpClient: HttpClient
+  ) {
     this.dataSource.setData(this.treeData);
     this.treeControl.expandAll();
   }
   ngOnInit(): void {
-  //  this.activatedRoute.data.subscribe((res)=>{console.log('tree',res);
-  //  })
+    //  this.activatedRoute.data.subscribe((res)=>{console.log('tree',res);})
 
-
-
-   this.httpClient.get("/api/folder/getChildren", {
-      headers: new HttpHeaders({
-        accept: "application/json",
-        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      }),
-      params: { fldId: "okm:categories" },
-    }).subscribe((r)=>console.log('rrr',r)
-    );
-  
+    this.httpClient
+      .get("/api/folder/getChildren?fldId=%2Fokm%3Acategories", {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+      })
+      .subscribe((r) => console.log("rrr", r));
   }
-
-
-
-
 
   // addNewNode(node: FlatNode): void {
   //   const parentNode = this.flatNodeMap.get(node);
@@ -214,23 +208,21 @@ export class TreeComponent implements OnInit{
     }
   }
 
-
-  createAddNodeModal(node:any){
-
+  createAddNodeModal(node: any) {
     this.modalService.create({
-      nzTitle:'افزودن درختواره ',
+      nzTitle: "افزودن درختواره ",
       nzContent: CreateAddNodeModalComponent,
       nzComponentParams: {
         node,
       },
       nzFooter: [
         {
-          label: 'بستن',
+          label: "بستن",
           onClick: (componentInstance) => componentInstance.destroyModal(),
         },
         {
-          label: 'ثبت',
-          type: 'primary',
+          label: "ثبت",
+          type: "primary",
           onClick: (componentInstance) =>
             this.handleAddTreeNode(componentInstance),
           loading: (componentInstance) => componentInstance.isLoading,
@@ -239,7 +231,7 @@ export class TreeComponent implements OnInit{
     });
   }
 
-  handleAddTreeNode(componentInstance:any) {
+  handleAddTreeNode(componentInstance: any) {
     componentInstance.isLoading = true;
     // if (componentInstance.user.active) {
     //   this.usersService
@@ -260,21 +252,21 @@ export class TreeComponent implements OnInit{
     // };
   }
 
-  createDeleteNodeModal(node: any){
+  createDeleteNodeModal(node: any) {
     this.modalService.create({
-      nzTitle:'حذف درختواره ',
-      nzContent:CreateDeleteNodeModalComponent,
+      nzTitle: "حذف درختواره ",
+      nzContent: CreateDeleteNodeModalComponent,
       nzComponentParams: {
         node,
       },
       nzFooter: [
         {
-          label: 'بستن',
+          label: "بستن",
           onClick: (componentInstance) => componentInstance.destroyModal(),
         },
         {
-          label: 'تایید',
-          type: 'primary',
+          label: "تایید",
+          type: "primary",
           onClick: (componentInstance) =>
             this.handleDeleteTreeNode(componentInstance),
           loading: (componentInstance) => componentInstance.isLoading,
@@ -283,25 +275,23 @@ export class TreeComponent implements OnInit{
     });
   }
 
-  handleDeleteTreeNode(componentInstance: any){
-    
-  }
+  handleDeleteTreeNode(componentInstance: any) {}
 
-  createEditNodeModal(node:any){
+  createEditNodeModal(node: any) {
     this.modalService.create({
-      nzTitle:'ویرایش درختواره ',
-      nzContent:CreateEditNodeModalComponent,
+      nzTitle: "ویرایش درختواره ",
+      nzContent: CreateEditNodeModalComponent,
       nzComponentParams: {
         node,
       },
       nzFooter: [
         {
-          label: 'بستن',
+          label: "بستن",
           onClick: (componentInstance) => componentInstance.destroyModal(),
         },
         {
-          label: 'ثبت',
-          type: 'primary',
+          label: "ثبت",
+          type: "primary",
           onClick: (componentInstance) =>
             this.handleDeleteTreeNode(componentInstance),
           loading: (componentInstance) => componentInstance.isLoading,
@@ -309,6 +299,4 @@ export class TreeComponent implements OnInit{
       ],
     });
   }
-
-
 }
