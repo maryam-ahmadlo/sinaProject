@@ -11,8 +11,8 @@ export class BookmarkService {
   getAll() {
     return this.httpClient.get<IBookmark>("/api/bookmark/getAll", {
       headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Basic b2ttQWRtaW46YWRtaW4=',
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });
   }

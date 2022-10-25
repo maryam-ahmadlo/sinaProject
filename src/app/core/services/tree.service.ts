@@ -20,26 +20,28 @@ export class TreeService {
     );
   }
 
+
+
   addBookMark(id: string) {
-    return this.httpClient.post("/api/bookmark/create", {
+    return this.httpClient.post("/api/bookmark/create?nodeId=", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+
+      params: {
+        nodeId: id,
       },
-     ),
-     
-      params:{noteId:id}
-    
     });
   }
 
-  downloadPDF(param : string){
-    return this.httpClient.get('/api/document/getContent',{
+  downloadPDF(param: string) {
+    return this.httpClient.get("/api/document/getContent", {
       headers: new HttpHeaders({
-
-      accept: 'application/octet-stream',
-      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      }),params: {docId:param},
-    })
+        accept: "application/octet-stream",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+      params: { docId: param },
+    });
   }
 }

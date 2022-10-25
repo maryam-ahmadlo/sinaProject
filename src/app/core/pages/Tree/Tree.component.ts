@@ -168,13 +168,25 @@ export class TreeComponent implements OnInit{
 
 
 
-  constructor(private activatedRoute:ActivatedRoute,   private modalService: NzModalService,) {
+  constructor(private activatedRoute:ActivatedRoute,   private modalService: NzModalService,private httpClient: HttpClient) {
     this.dataSource.setData(this.treeData);
     this.treeControl.expandAll();
   }
   ngOnInit(): void {
-   this.activatedRoute.data.subscribe((res)=>{console.log('tree',res);
-   })
+  //  this.activatedRoute.data.subscribe((res)=>{console.log('tree',res);
+  //  })
+
+
+
+   this.httpClient.get("/api/folder/getChildren", {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+      params: { fldId: "okm:categories" },
+    }).subscribe((r)=>console.log('rrr',r)
+    );
+  
   }
 
 

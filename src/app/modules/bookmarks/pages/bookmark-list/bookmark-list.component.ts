@@ -42,7 +42,8 @@ export class BookmarkListComponent implements OnInit {
     private modalService: NzModalService,
     private bookmarkService: BookmarkService,
     private message: NzMessageService,
-    private router:Router
+    private router: Router,
+    private httpClient : HttpClient,
   ) {}
 
   ngOnInit(): void {
@@ -54,14 +55,19 @@ export class BookmarkListComponent implements OnInit {
     //     }),
     //   })
     //   .subscribe(console.log);
-    this.activatedRoute.data.subscribe((r) => (this.data = r));
 
-    this.listOfData = new Array(200).fill(0).map((_, index) => ({
-      id: index,
-      name: `Edward King ${index}`,
-      age: 32,
-      address: `London, Park Lane no. ${index}`,
-    }));
+    
+
+    this.activatedRoute.data.subscribe(({bookmarkList}) =>  this.data=bookmarkList['bookmark']);
+    console.log(this.data);
+    
+ 
+    // this.listOfData = new Array(200).fill(0).map((_, index) => ({
+    //   id: index,
+    //   name: `Edward King ${index}`,
+    //   age: 32,
+    //   address: `London, Park Lane no. ${index}`,
+    // }));
   }
 
   listOfSelection = [
@@ -187,39 +193,36 @@ export class BookmarkListComponent implements OnInit {
       componentInstance.destroyModal();
       this.refresh();
     };
- 
- }
+  }
 
-
- refresh() {
-  this.router.navigate([], {
-    relativeTo: this.activatedRoute,
-    queryParams: {
-      refresh: new Date().getTime(),
-    },
-  });
-}
-
-createRenameBookmarkModal(id:string|number){
-  this.modalService.create({
-    nzTitle: "تغییر نام bookmark",
-    nzContent: CreateBookmarkRenameModalComponent,
-    nzComponentParams: {},
-    nzFooter: [
-      {
-        label: "انصراف",
-        type: "default",
-        onClick: (componentInstance) => componentInstance.destroyModal(),
+  refresh() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        refresh: new Date().getTime(),
       },
-      {
-        label: "تایید",
-        type: "primary",
-        onClick: (componentInstance) =>
-          this.handleDeleteBookmark(componentInstance, id),
-        loading: (componentInstance) => componentInstance.isLoading,
-      },
-    ],
-  });
-}
+    });
+  }
 
+  createRenameBookmarkModal(id: string | number) {
+    this.modalService.create({
+      nzTitle: "تغییر نام bookmark",
+      nzContent: CreateBookmarkRenameModalComponent,
+      nzComponentParams: {},
+      nzFooter: [
+        {
+          label: "انصراف",
+          type: "default",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "تایید",
+          type: "primary",
+          onClick: (componentInstance) =>
+            this.handleDeleteBookmark(componentInstance, id),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
 }
