@@ -29,6 +29,7 @@
     "rxjs": "~7.5.0",
     "time-picker": "^1.0.0",
     "tslib": "^2.3.0",
+    "xml2js": "^0.4.23",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

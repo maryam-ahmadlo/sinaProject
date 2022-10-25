@@ -17,6 +17,7 @@ export class TreeService {
           Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
         }),
         params: { fldId: "/okm:categories" },
+
       }
     );
   }

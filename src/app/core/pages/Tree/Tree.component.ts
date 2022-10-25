@@ -104,6 +104,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 })
 export class TreeComponent implements OnInit {
   private transformer = (node: ITreeNode, level: number): IFlatNode => {
+
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode =
       existingNode && existingNode.key === node.uuid
@@ -175,6 +176,7 @@ export class TreeComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
+
     private httpClient:HttpClient
   ) {
     this.activatedRoute.data.subscribe(({ tree }) => {
@@ -196,6 +198,7 @@ export class TreeComponent implements OnInit {
     //     params: { fldId: "/okm:categories" },
     //   }).subscribe((r)=>console.log('rrr',r)
     //   );
+
   }
 
   // addNewNode(node: FlatNode): void {
@@ -218,6 +221,7 @@ export class TreeComponent implements OnInit {
   //     this.dataSource.setData(this.treeData);
   //   }
   // }
+
 
   createAddNodeModal(node: any) {
     this.modalService.create({
