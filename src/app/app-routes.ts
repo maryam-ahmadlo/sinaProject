@@ -3,6 +3,7 @@ import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
 import { of } from "rxjs";
 import { TreeRulesItemComponent } from "@core/components/tree-rules-item/tree-rules-item.component";
 import { UploadFileComponent } from "src/app/core/pages/upload-file/upload-file.component";
+import { TreeResolver } from "./core/resolver/tree.resolver";
 
 export const appRoutes: Routes = [
   {
@@ -17,6 +18,9 @@ export const appRoutes: Routes = [
       import("./core/pages/slidebar/slidebar.component").then(
         (m) => m.SlidebarComponent
       ),
+      // resolve:{
+      //   tree: TreeResolver
+      // },
     // canActivate: [LoggedInGuard],
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
     children: [
