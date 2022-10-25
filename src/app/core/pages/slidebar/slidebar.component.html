@@ -35,13 +35,18 @@
       marginRight: !isMobile ? 'auto' : 0
     }"
   >
+
+  <nz-page-header class="bg-header">
+    <nz-page-header-content >
+
     <div
       fxLayout="row"
       fxLayout.lt-md="column"
-      fxLayoutGap="20px"
+      fxLayoutGap="10px"
       fxLayoutAlign="space-between"
       class="bg-header"
       style="padding: 26px 10px"
+     
     >
       <button
         nz-button
@@ -132,11 +137,13 @@
         </button> -->
       </div>
     </div>
-
+  </nz-page-header-content>
+</nz-page-header>
     <nz-content>
       <div class="container" style="margin-top: 20px">
         <router-outlet></router-outlet>
       </div>
     </nz-content>
+   
   </nz-layout>
 </nz-layout>
