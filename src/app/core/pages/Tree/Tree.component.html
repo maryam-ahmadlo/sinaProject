@@ -1,4 +1,4 @@
-<div class="tree-container">
+<!-- <div class="tree-container">
   <nz-tree-view
   [nzTreeControl]="treeControl"
   [nzDataSource]="dataSource"
@@ -24,14 +24,7 @@
       #inputElement
     />
     &nbsp;
-    <button
-      nz-button
-      nzSize="small"
-      nzType="dashed"
-      (click)="saveNode(node, inputElement.value)"
-    >
-      Add
-    </button>
+ 
   </nz-tree-node>
 
   <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodeIndentLine>
@@ -41,7 +34,7 @@
 
     
 
-        <!-- <a [routerLink]="['/','customer','rules','detail']">{{node.name}}</a> -->
+       
         
     <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link" [routerLink]="['/','customer','rules','detail']">
       {{ node.name }}
@@ -51,13 +44,7 @@
     <nz-dropdown-menu #menu="nzDropdownMenu" >
       <ul nz-menu nzSelectable  style="width: 150px;">
         <li nz-menu-item >
-          <!-- <span
-            nz-typography
-            nzEditable
-            nzEditIcon="highlight"
-            nzEditTooltip="edit text"
-            [(nzContent)]="node.name"
-          ></span> -->
+         
           <button
           nz-button
           nzType="text"
@@ -92,4 +79,4 @@
   </nz-tree-node>
 </nz-tree-view>
 
-</div>
+</div> -->

@@ -28,7 +28,7 @@ import { NotificationDropdownComponent } from "@core/components/notification-dro
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { StateService } from "../../services";
 import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-group-msg-modal/create-send-group-msg-modal.component";
-import { NzModalService } from "ng-zorro-antd/modal";
+import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   standalone: true,
@@ -41,6 +41,7 @@ import { NzModalService } from "ng-zorro-antd/modal";
     NzBreadCrumbModule,
     FlexLayoutModule,
     NzGridModule,
+    NzModalModule,
     NzButtonModule,
     NzIconModule,
     RouterModule,

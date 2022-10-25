@@ -60,7 +60,7 @@ export class BookmarkListComponent implements OnInit {
     
 
     this.activatedRoute.data.subscribe(({bookmarkList}) =>  this.data=bookmarkList['bookmark']);
-    console.log(this.data);
+
  
   
   
@@ -102,9 +102,9 @@ export class BookmarkListComponent implements OnInit {
     },
   ];
   checked = false;
-  indeterminate = false;
+   indeterminate = false;
   listOfCurrentPageData: any = [];
-  listOfData: any = [];
+  // listOfData: any = [];
   setOfCheckedId = new Set<number>();
 
   updateCheckedSet(id: number, checked: boolean): void {
