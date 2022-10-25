@@ -17,6 +17,6 @@ export class SearchResolver implements Resolve<any> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.searchService.simpleSearch("name");
+    return this.searchService.simpleSearch(route.paramMap.get("name"));
   }
 }
