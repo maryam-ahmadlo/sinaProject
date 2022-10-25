@@ -26,7 +26,7 @@ export class TreeRulesItemComponent implements OnInit {
   ngOnInit(): void {}
 
   addBookmark() {
-    this.treeService.addBookMark("111").subscribe((res) => console.log(res));
+    this.treeService.addBookMark("f1cc7966-d1de-4b9e-9331-453d013bed24").subscribe((res) => console.log(res));
   }
   downloadPDF(){
     this.treeService.downloadPDF('1').subscribe((res)=>{
