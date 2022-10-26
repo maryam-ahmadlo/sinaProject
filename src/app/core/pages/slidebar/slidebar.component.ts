@@ -120,7 +120,7 @@ export class SlidebarComponent implements OnInit {
       nzFooter: [
         {
           label: "انصراف",
-          type:"default",
+          type: "default",
           onClick: (componentInstance) => componentInstance.destroyModal(),
         },
         {
@@ -143,7 +143,7 @@ export class SlidebarComponent implements OnInit {
       nzFooter: [
         {
           label: "انصراف",
-          type:"default",
+          type: "default",
           onClick: (componentInstance) => componentInstance.destroyModal(),
         },
         {
@@ -161,6 +161,9 @@ export class SlidebarComponent implements OnInit {
 
   UserManagement() {
     this.router.navigate(["/", "admin", "user-management"]);
+  }
+  PrivateCartable() {
+    this.router.navigate(["/", "admin", "private-cartable"]);
   }
   UploadFile() {
     this.router.navigate(["/", "customer", "uploadFile"]);

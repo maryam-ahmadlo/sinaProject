@@ -3,6 +3,7 @@ import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
 import { of } from "rxjs";
 import { TreeRulesItemComponent } from "@core/components/tree-rules-item/tree-rules-item.component";
 import { UploadFileComponent } from "src/app/core/pages/upload-file/upload-file.component";
+import { PrivateCartableComponent } from "src/app/core/pages/private-cartable/private-cartable.component";
 import { TreeResolver } from "./core/resolver/tree.resolver";
 
 export const appRoutes: Routes = [
@@ -47,9 +48,13 @@ export const appRoutes: Routes = [
           {
             path: "user-management",
             loadChildren: () =>
-              import(
-                "./modules/user-management/user-management-routes"
-              ).then((m) => m.userManagementRoutes),
+              import("./modules/user-management/user-management-routes").then(
+                (m) => m.userManagementRoutes
+              ),
+          },
+          {
+            path: "private-cartable",
+            component: PrivateCartableComponent,
           },
         ],
       },
