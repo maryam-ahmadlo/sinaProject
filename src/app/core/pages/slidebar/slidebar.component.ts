@@ -163,7 +163,10 @@ export class SlidebarComponent implements OnInit {
     this.router.navigate(["/", "admin", "user-management"]);
   }
   PrivateCartable() {
-    this.router.navigate(["/", "admin", "private-cartable"]);
+    this.router.navigate(["/", "customer", "private-cartable"]);
+  }
+  PrivateCartableAdmin() {
+    this.router.navigate(["/", "admin", "private-cartable-admin"]);
   }
   UploadFile() {
     this.router.navigate(["/", "customer", "uploadFile"]);

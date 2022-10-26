@@ -1,0 +1,83 @@
+<div class="advanced-container">
+  <nz-card nzTitle="مشاهده اطلاعات نامه های آماده ابلاغ">
+    <h6>مسیر ثبت شده در درختواره</h6>
+    <nz-breadcrumb nzSeparator=">">
+      <nz-breadcrumb-item>...</nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a>...</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>...</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div
+      fxLayout="row"
+      fxLayoutGap="10px"
+      fxLayout.lt-md="column"
+      style="margin: 1rem"
+    >
+      <div fxFlex="10">
+        <button nz-button nzType="primary" style="margin-left: 1%">
+          مشاهده
+        </button>
+      </div>
+      <div fxFlex="15">
+        <button nz-button nzType="default" style="margin-left: 1%">
+          رد کردن درخواست
+        </button>
+      </div>
+      <div fxFlex="15">
+        <button
+          nz-button
+          nzType="primary"
+          style="margin-left: 1%"
+          (click)="addDocumentModal()"
+        >
+          افزودن مستندات تکمیلی
+        </button>
+      </div>
+    </div>
+    <nz-table #basicTable>
+      <thead>
+        <tr>
+          <th>ردیف</th>
+          <th>انتخاب</th>
+          <th>عنوان</th>
+          <th>موضوع</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.name }}</td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+          <td>
+            <a>Action 一 {{ data.name }}</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a>Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div
+      fxLayout="row"
+      fxLayoutGap="10px"
+      fxLayout.lt-md="column"
+      style="margin: 1rem"
+    >
+      <div fxFlex="20">
+        <button
+          nz-button
+          nzType="primary"
+          style="margin-left: 1%"
+          (click)="observeGroupModalComponent()"
+        >
+          ابلاغ
+        </button>
+      </div>
+      <div fxFlex="20">
+        <button nz-button nzType="default" style="margin-left: 1%">
+          انصراف
+        </button>
+      </div>
+    </div>
+  </nz-card>
+</div>

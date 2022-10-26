@@ -1,0 +1,31 @@
+<form nz-form nzLayout="vertical" [formGroup]="form">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-tree-select
+        formControlName="value"
+        (ngModelChange)="onChange($event)"
+        [nzNodes]="nodes"
+        nzShowSearch
+        nzCheckable
+        nzPlaceHolder="لیست شعب "
+      ></nz-tree-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="">کاربران </nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzMode="tags"
+        nzPlaceHolder="نام کاربران"
+        formControlName="listOfTagOptions"
+      >
+        <nz-option
+          *ngFor="let option of listOfOption"
+          [nzLabel]="option.label"
+          [nzValue]="option.value"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</form>
