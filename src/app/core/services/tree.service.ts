@@ -7,21 +7,35 @@ import { ITreeNode } from "src/shared/common/src/lib/interfaces";
 })
 export class TreeService {
   constructor(private httpClient: HttpClient) {}
-
+  getRoot() {
+    return this.httpClient.get('/api/categories/root', {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
+  }
   getAllNodes() {
-    return this.httpClient.get<ITreeNode[]>(
-      "/api/categories/root",
-      {
-        headers: new HttpHeaders({
-          accept: "application/json",
-          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-        }),
-        params: { fldId: "/okm:categories" },
-
-      }
-    );
+    return this.httpClient.get<any>('/Api/categories/getAll', {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+      // params: { fldId: "/okm:categories" },
+    });
   }
 
+  renameNode(uuid: string, name: string) {
+    return this.httpClient.post<any>(`/api/categories/${uuid}`, {
+      params: {
+        rename: { newName: name },
+      },
+    });
+  }
+
+  deleteNode(uuid: string) {
+    return this.httpClient.delete(`/api/categories/${uuid}/delete`);
+  }
   addBookMark(id: string) {
     return this.httpClient.post("/api/bookmark/create?nodeId=", {
       headers: new HttpHeaders({

@@ -23,6 +23,7 @@ import { ITreeNode } from "src/shared/common/src/lib/interfaces";
 import { IFlatNode } from "src/shared/common/src/lib/interfaces/FlatNode";
 import { FlatTreeControl } from "@angular/cdk/tree";
 import { SelectionModel } from "@angular/cdk/collections";
+import { TreeService } from "../../services/tree.service";
 
 // const TREE_DATA: TreeNode[] = [
 //   {
@@ -176,20 +177,21 @@ export class TreeComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
-
+    private treeService:TreeService,
     private httpClient:HttpClient
   ) {
-    this.activatedRoute.data.subscribe(({ tree }) => {
-      this.tree = tree.folder;
-    });
+    // this.activatedRoute.data.subscribe(({ tree }) => {
+    //   this.tree = tree.folder;
+    // });
     //this.dataSource.setData(this.tree);
-    this.treeControl.expandAll();
-
-    console.log(this.tree[0].path.split("/")[2]);
+    // this.treeControl.expandAll();
+    
+    // console.log('treeeeee',this.tree);
 
     //console.log("dataSource", this.dataSource);
   }
   ngOnInit(): void {
+    this.treeService.getAllNodes().subscribe((r)=>console.log(r))
     //  this.httpClient.get("/api/folder/getChildren?fdIdId=okm:categories", {
     //     headers: new HttpHeaders({
     //       accept: "application/json",
@@ -274,7 +276,9 @@ export class TreeComponent implements OnInit {
     });
   }
 
-  handleDeleteTreeNode(componentInstance: any) {}
+  handleDeleteTreeNode(componentInstance: any) {
+   // this.treeService.deleteNode(uuid);
+  }
 
   createEditNodeModal(node: any) {
     this.modalService.create({
@@ -292,10 +296,15 @@ export class TreeComponent implements OnInit {
           label: "ثبت",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleDeleteTreeNode(componentInstance),
+            this.handleRenameTreeNode(componentInstance),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
+  }
+
+  handleRenameTreeNode(componentInstance:any){
+
+    //this.treeService.renameNode(uuid,name).subscribe((r)=>console.log(r))
   }
 }
