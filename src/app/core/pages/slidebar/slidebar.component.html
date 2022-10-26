@@ -110,13 +110,9 @@
           بارگذاری فایل
           <span nz-icon nzType="upload" nzTheme="outline"></span>
         </button>
-        <button
-          nz-button
-          nzType="dashed"
-          nzShape="round"
-          [routerLink]="['/', 'customer', 'notifications']"
-        >
-          مشاهده پیام گروهی
+
+        <button nz-button nzType="dashed" nzShape="round" [routerLink]="['/','customer','notifications']">
+  
           <i nz-icon nzType="bell" class="icon"></i>
         </button>
         <button nz-button nzType="dashed" (click)="bookmark()" nzShape="round">

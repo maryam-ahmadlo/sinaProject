@@ -178,11 +178,11 @@
       </nz-form-item>
     </div>
 
-    <div fxLayout="row" fxLayout.lt-sm="column">
+  
       <nz-form-item>
         <nz-form-label for="searchFilter">محدوده جستجو</nz-form-label>
         <nz-form-control>
-          <nz-button-group id="searchFilter">
+          <nz-button-group id="searchFilter" fxLayout.lt-sm="column" >
             <button nz-button nzType="dashed" class="button-filter">
               <input
                 type="checkbox"
@@ -215,7 +215,7 @@
           </nz-button-group>
         </nz-form-control>
       </nz-form-item>
-    </div>
+  
 
     <button nz-button nzType="primary" style="margin-left: 1%">جستجو</button>
     <button nz-button nzType="default" type="reset">بازنشانی</button>
