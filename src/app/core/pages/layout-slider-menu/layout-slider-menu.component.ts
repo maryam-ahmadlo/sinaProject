@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { RouterModule } from '@angular/router';
-import { TreeComponent } from '../Tree';
+// import { TreeComponent } from '../Tree';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { SearchLayoutComponent } from 'src/app/modules/search/pages';
@@ -19,7 +19,6 @@ import { SearchLayoutComponent } from 'src/app/modules/search/pages';
         FlexLayoutModule,
         NzPageHeaderModule,
         RouterModule,
-       TreeComponent,
        NzButtonModule,
        SearchLayoutComponent
     ],

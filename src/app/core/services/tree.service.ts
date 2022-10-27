@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { of } from "rxjs";
 import { IFlatNode, ITreeNode } from "src/shared/common/src/lib/interfaces";
 
 @Injectable({
@@ -17,7 +16,18 @@ export class TreeService {
       params: { fldId: "/okm:categories" },
     });
   }
- 
+
+
+  getAllNodes() {
+    return this.httpClient.get<any>("/Api/categories/getAll", {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+      // params: { fldId: "/okm:categories" },
+    });
+  }
+
 
   renameNode(uuid: string, name: string) {
     return this.httpClient.post<any>(`/api/categories/${uuid}`, {

@@ -1,7 +1,7 @@
 <!-- <div class="tree-container">
   <nz-tree-view
   [nzTreeControl]="treeControl"
-  [nzDataSource]="dataSource"
+  [nzDataSource]="tree"
   [trackBy]="trackBy"
 >
   <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodeIndentLine>
@@ -83,7 +83,9 @@
 
 
 
+
 <div class="tree-container" >
+
 <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource">
   <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
     <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" [routerLink]="['/','customer','rules','detail']" >
@@ -196,5 +198,9 @@
     </nz-dropdown-menu>
 
   </nz-tree-node>
+
 </nz-tree-view>
 </div>
+
+
+
