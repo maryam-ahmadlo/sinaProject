@@ -35,39 +35,20 @@
       marginRight: !isMobile ? 'auto' : 0
     }"
   >
-    <div
-      fxLayout="row"
-      fxLayout.lt-md="column"
-      fxLayoutGap="10px"
-      fxLayoutAlign="space-between"
-      class="bg-header"
-      style="padding: 26px 10px"
-    >
-      <button
-        nz-button
-        nzType="dashed"
-        (click)="PrivateCartableAdmin()"
-        nzShape="round"
-      >
-        کارتابل شخصی ادمین<span
-          nz-icon
-          nzType="message"
-          nzTheme="outline"
-        ></span>
-      </button>
-      <button
-        nz-button
-        nzType="dashed"
-        (click)="createSendGroupMsgModal()"
-        nzShape="round"
-      >
-        ارسال پیام گروهی
-        <span nz-icon nzType="message" nzTheme="outline"></span>
-      </button>
 
+    
+        <div
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutGap="10px"
+          fxLayoutAlign="space-between"
+          class="bg-header bg-size"
+          
+        >
       <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="15px">
         <!-- <div *hasRole="['admin']"> -->
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
+
           <button
             nz-button
             nzType="dashed"

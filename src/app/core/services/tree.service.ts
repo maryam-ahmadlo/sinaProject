@@ -17,16 +17,6 @@ export class TreeService {
     });
   }
 
-  getChildren(id:string){
-    return this.httpClient.get<ITreeNode[]>('/api/folder/getChildren',{
-      headers: new HttpHeaders({
-      accept: "application/json",
-      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-    }),
-    params: { fldId: `/okm:categories/${id}` },
-  });
-  }
-
 
   getAllNodes() {
     return this.httpClient.get<any>("/Api/categories/getAll", {
@@ -37,6 +27,7 @@ export class TreeService {
       // params: { fldId: "/okm:categories" },
     });
   }
+
 
   renameNode(uuid: string, name: string) {
     return this.httpClient.post<any>(`/api/categories/${uuid}`, {

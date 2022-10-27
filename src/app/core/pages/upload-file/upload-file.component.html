@@ -3,13 +3,14 @@
     <nz-card nzTitle="اطلاعات نامه">
       <div>
         <nz-form-item fxFlex="90">
-          <nz-form-label nzFor="title" style="display:flex">عنوان</nz-form-label>
+          <nz-form-label nzRequired nzFor="title" style="display: flex"
+            >عنوان</nz-form-label
+          >
           <nz-form-control>
             <input
               nz-input
               nzSize="large"
               formControlName="title"
-              name="title"
               type="text"
               id="title"
               placeholder="عنوان را وارد کنید"
@@ -19,15 +20,16 @@
       </div>
       <div>
         <nz-form-item fxFlex="90">
-          <nz-form-label nzFor="topic" style="display:flex">موضوع</nz-form-label>
+          <nz-form-label nzRequired nzFor="subject" style="display: flex"
+            >موضوع</nz-form-label
+          >
           <nz-form-control>
             <input
               nz-input
               nzSize="large"
-              formControlName="topic"
-              name="topic"
+              formControlName="subject"
               type="text"
-              id="topic"
+              id="subject"
               placeholder="موضوع را وارد کنید"
             />
           </nz-form-control>
@@ -35,15 +37,16 @@
       </div>
       <div>
         <nz-form-item fxFlex="90">
-          <nz-form-label nzFor="context" style="display:flex">متن بخشنامه</nz-form-label>
+          <nz-form-label nzRequired nzFor="text" style="display: flex"
+            >متن بخشنامه</nz-form-label
+          >
           <nz-form-control>
             <textarea
               nz-input
               nzSize="large"
-              formControlName="context"
-              name="context"
+              formControlName="text"
               type="text"
-              id="context"
+              id="text"
               placeholder="متن بخشنامه را وارد کنید"
             ></textarea>
           </nz-form-control>
@@ -51,13 +54,15 @@
       </div>
       <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
         <nz-form-item fxFlex="33">
-          <nz-form-label nzFor="level" style="display:flex">سطح</nz-form-label>
+          <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
+            >سطح</nz-form-label
+          >
           <nz-form-control>
             <nz-select
               fxFlex="100"
-              id="level"
+              id="categoryId"
               nzSize="large"
-              formControlName="level"
+              formControlName="categoryId"
               nzPlaceHolder="سطح 1 "
             >
               <nz-option nzValue="1" nzLabel="سطح 1"></nz-option>
@@ -68,13 +73,15 @@
         </nz-form-item>
 
         <nz-form-item fxFlex="33">
-          <nz-form-label nzFor="versionNum" style="display:flex"> نوع سند</nz-form-label>
+          <nz-form-label nzRequired nzFor="documentType" style="display: flex">
+            نوع سند</nz-form-label
+          >
           <nz-form-control>
             <nz-select
               fxFlex="100"
               nzSize="large"
-              id="ducumentType"
-              formControlName="ducumentType"
+              id="documentType"
+              formControlName="documentType"
               nzPlaceHolder="نوع سند"
             >
               <nz-option nzValue="circular" nzLabel="بخشنامه"></nz-option>
@@ -85,13 +92,15 @@
         </nz-form-item>
 
         <nz-form-item fxFlex="33">
-          <nz-form-label nzFor="versionNum" style="display:flex">شماره نسخه</nz-form-label>
+          <nz-form-label nzRequired nzFor="versionNumber" style="display: flex"
+            >شماره نسخه</nz-form-label
+          >
           <nz-form-control>
             <nz-select
               fxFlex="100"
-              id="versionNum"
+              id="versionNumber"
               nzSize="large"
-              formControlName="versionNum"
+              formControlName="versionNumber"
               nzPlaceHolder="شماره نسخه"
             >
               <nz-option nzValue="1" nzLabel="اولین"></nz-option>
@@ -104,30 +113,32 @@
       </div>
       <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
         <nz-form-item fxFlex="33">
-          <nz-form-label nzFor="branch" style="display:flex">نام شعبه</nz-form-label>
+          <nz-form-label nzRequired nzFor="branchName" style="display: flex"
+            >نام شعبه</nz-form-label
+          >
           <nz-form-control>
             <input
               nz-input
               nzSize="large"
-              formControlName="branch"
-              name="branch"
+              formControlName="branchName"
               type="text"
-              id="branch"
+              id="branchName"
               placeholder="نام شعبه را وارد کنید"
             />
           </nz-form-control>
         </nz-form-item>
 
         <nz-form-item fxFlex="33">
-          <nz-form-label nzFor="number" style="display:flex">شماره سند</nz-form-label>
+          <nz-form-label nzRequired nzFor="ruleNumber" style="display: flex"
+            >شماره سند</nz-form-label
+          >
           <nz-form-control>
             <input
               nz-input
               nzSize="large"
-              formControlName="number"
-              name="number"
+              formControlName="ruleNumber"
               type="text"
-              id="number"
+              id="ruleNumber"
               placeholder="شماره سند را وارد کنید"
             />
           </nz-form-control>
@@ -139,9 +150,9 @@
         <nz-form-item fxFlex="90">
           <nz-form-control>
             <nz-tabset
-              id="relations"
+              id="related"
               nzSize="large"
-              formControlName="relations"
+              formControlName="related"
               nzType="card"
               style="margin: 1rem"
             >
@@ -247,15 +258,16 @@
     <nz-card nzTitle="افزودن کلمات کلیدی">
       <div>
         <nz-form-item fxFlex="90">
-          <nz-form-label nzFor="keyword" style="display:flex">کلمه کلیدی</nz-form-label>
+          <nz-form-label nzRequired nzFor="keywords" style="display: flex"
+            >کلمه کلیدی</nz-form-label
+          >
           <nz-form-control>
             <input
               nz-input
               nzSize="large"
-              formControlName="keyword"
-              name="keyword"
+              formControlName="keywords"
               type="text"
-              id="keyword"
+              id="keywords"
             />
           </nz-form-control>
         </nz-form-item>

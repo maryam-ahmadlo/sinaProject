@@ -1,5 +1,5 @@
 export interface IBookmark {
-  id: number | string;
+  id: number ;
   user: string;
   name: string;
   node: string;

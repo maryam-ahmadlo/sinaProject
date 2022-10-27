@@ -2,7 +2,7 @@
   <nz-page-header-content>
     <nz-table
       class="table-responsive"
-      #rowSelectionTable
+      #table
       nzShowSizeChanger
       [nzData]="data"
       (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
@@ -23,13 +23,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of rowSelectionTable.data; let i = index">
+        <tr *ngFor="let item of table.data; let i = index">
           <td>{{ i + 1 }}</td>
           <td
-            [nzChecked]="setOfCheckedId.has(data.id)"
-            (nzCheckedChange)="onItemChecked(data.id, $event)"
+            [nzChecked]="setOfCheckedId.has(item.id)"
+            (nzCheckedChange)="onItemChecked(item.id, $event)"
           ></td>
-          <td>{{ data.name }}</td>
+          <td>{{ item.name }}</td>
 
           <td>
             <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link">
@@ -39,9 +39,9 @@
 
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <li nz-menu-item (click)="createShowBookMarkModal(data.id)">مشاهده</li>
-                <li nz-menu-item (click)="createRenameBookmarkModal(data.id)">تغییر نام</li>
-                <li nz-menu-item (click)="createDeleteBookmarkModal(data.id)">حذف</li>
+                <li nz-menu-item (click)="createShowBookMarkModal(item.id)">مشاهده</li>
+                <li nz-menu-item (click)="createRenameBookmarkModal(item.id)">تغییر نام</li>
+                <li nz-menu-item (click)="createDeleteBookmarkModal(item.id)">حذف</li>
                 
               </ul>
             </nz-dropdown-menu>

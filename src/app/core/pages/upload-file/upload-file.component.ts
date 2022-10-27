@@ -28,6 +28,19 @@ import { NzDividerModule } from "ng-zorro-antd/divider";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddFileModalComponent } from "@core/components/index";
 
+export interface IUploadFileForm {
+  title: FormControl<string>;
+  subject: FormControl<string>;
+  text: FormControl<string>;
+  categoryId: FormControl<string>;
+  code: FormControl<string>;
+  documentType: FormControl<string>;
+  versionNumber: FormControl<string>;
+  branchName: FormControl<string>;
+  ruleNumber: FormControl<string>;
+  related: FormControl<string>;
+  keywords: FormControl<string>;
+}
 @Component({
   selector: "app-upload-file",
   templateUrl: "./upload-file.component.html",
@@ -57,21 +70,18 @@ import { CreateAddFileModalComponent } from "@core/components/index";
 })
 export class UploadFileComponent implements OnInit {
   public isWait = false;
-  uploadFileForm: UntypedFormGroup = new UntypedFormGroup({
-    title: new UntypedFormControl(null),
-    topic: new UntypedFormControl(null),
-    context: new UntypedFormControl(null),
-    level: new UntypedFormControl(null),
-    ducumentType: new UntypedFormControl(null),
-    versionNum: new UntypedFormControl(null),
-    branch: new UntypedFormControl(null),
-    number: new UntypedFormControl(null),
-    relations: new UntypedFormControl(null),
-    keyword: new FormGroup<any>({
-      select: new UntypedFormControl(null),
-      row: new FormControl(null),
-      title: new FormControl(null),
-    }),
+  uploadFileForm: FormGroup<IUploadFileForm> = new FormGroup({
+    title: new FormControl(null , Validators.required),
+    subject: new FormControl(null , Validators.required),
+    text: new FormControl(null , Validators.required),
+    categoryId: new FormControl(null , Validators.required),
+    code: new FormControl(null , Validators.required),
+    documentType: new FormControl(null , Validators.required),
+    versionNumber: new FormControl(null , Validators.required),
+    branchName: new FormControl(null , Validators.required),
+    ruleNumber: new FormControl(null , Validators.required),
+    related: new FormControl(null , Validators.required),
+    keywords: new FormControl(null , Validators.required),
   });
 
   constructor(private router: Router, private modalService: NzModalService) {}

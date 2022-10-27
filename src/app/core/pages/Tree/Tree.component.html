@@ -83,10 +83,60 @@
 
 
 
-<!-- 
+
+<div class="tree-container" >
+
 <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource">
   <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
-    {{ node.label }}
+    <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" [routerLink]="['/','customer','rules','detail']" >
+      {{ node.label }}
+      <span nz-icon nzType="setting" nzTheme="outline"></span>
+    </a>
+    
+
+    <nz-dropdown-menu #menu="nzDropdownMenu" >
+      <ul nz-menu nzSelectable  style="width: 150px;">
+        <li nz-menu-item >
+         
+          <button
+          nz-button
+          nzType="text"
+          nzSize="small"
+          (click)="createEditNodeModal(node)"
+        >
+          ویرایش 
+          <span nz-icon nzType="edit" nzTheme="outline"></span>
+        </button>
+
+         
+        </li>
+        <li nz-menu-item >
+          <button
+            nz-button
+            nzType="text"
+            nzSize="small"
+            (click)="createAddNodeModal(node)"
+          >
+            اضافه
+            <span nz-icon nzType="plus" nzTheme="outline"></span>
+          </button>
+        </li>
+        <li nz-menu-item >
+          <button nz-button  nzType="text" nzSize="small" (click)="createDeleteNodeModal(node)">
+            حذف
+            <span nz-icon nzType="minus" nzTheme="outline"></span>
+          </button>
+        </li>
+
+        <li nz-menu-item >
+          <button nz-button  nzType="text" nzSize="small" [routerLink]="['/','customer','uploadFile',node.id]" >
+            بارگذاری فایل
+            <span nz-icon nzType="file-add" nzTheme="outline"></span>
+          </button>
+        </li>
+      </ul>
+     
+    </nz-dropdown-menu>
   </nz-tree-node>
 
   <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodePadding>
@@ -96,6 +146,61 @@
     <nz-tree-node-toggle *ngIf="node.loading" nzTreeNodeNoopToggle>
       <span nz-icon nzType="loading" nzTreeNodeToggleActiveIcon></span>
     </nz-tree-node-toggle>
-    {{ node.label }}
+    <a nz-dropdown [nzDropdownMenu]="menu"  nzTrigger="click" [routerLink]="['/','customer','rules','detail']" >
+      {{ node.label }}
+   
+      <span nz-icon nzType="setting" nzTheme="outline"></span>
+    </a>
+    
+
+    <nz-dropdown-menu #menu="nzDropdownMenu" >
+      <ul nz-menu nzSelectable  style="width: 150px;">
+        <li nz-menu-item >
+         
+          <button
+          nz-button
+          nzType="text"
+          nzSize="small"
+          (click)="createEditNodeModal(node)"
+        >
+          ویرایش 
+          <span nz-icon nzType="edit" nzTheme="outline"></span>
+        </button>
+
+         
+        </li>
+        <li nz-menu-item >
+          <button
+            nz-button
+            nzType="text"
+            nzSize="small"
+            (click)="createAddNodeModal(node)"
+          >
+            اضافه
+            <span nz-icon nzType="plus" nzTheme="outline"></span>
+          </button>
+        </li>
+        <li nz-menu-item >
+          <button nz-button  nzType="text" nzSize="small" (click)="createDeleteNodeModal(node)">
+            حذف
+            <span nz-icon nzType="minus" nzTheme="outline"></span>
+          </button>
+        </li>
+
+        <li nz-menu-item >
+          <button nz-button  nzType="text" nzSize="small" [routerLink]="['/','customer','uploadFile',node.id]" >
+            بارگذاری فایل
+            <span nz-icon nzType="file-add" nzTheme="outline"></span>
+          </button>
+        </li>
+      </ul>
+     
+    </nz-dropdown-menu>
+
   </nz-tree-node>
-</nz-tree-view> -->
+
+</nz-tree-view>
+</div>
+
+
+
