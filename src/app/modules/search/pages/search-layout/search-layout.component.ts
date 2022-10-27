@@ -18,6 +18,7 @@ import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzListModule } from "ng-zorro-antd/list";
 import { SearchResultComponent } from "../../components";
 import { DatepickerModule } from "src/shared/components";
+import { SearchService } from "src/app/core/services/search.service";
 @Component({
   selector: "app-search-layout",
   standalone: true,
@@ -46,7 +47,7 @@ export class SearchLayoutComponent implements OnInit {
   searchItem = {};
 
   simpleSearchForm: UntypedFormGroup = new UntypedFormGroup({
-    search: new UntypedFormControl(null, [Validators.required]),
+    name: new UntypedFormControl(null, [Validators.required]),
   });
 
   advancedSearchForm: UntypedFormGroup = new UntypedFormGroup({
@@ -65,7 +66,7 @@ export class SearchLayoutComponent implements OnInit {
     keywords: new UntypedFormControl(null),
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private searchService:SearchService) {}
 
   ngOnInit(): void {}
 
@@ -81,7 +82,11 @@ export class SearchLayoutComponent implements OnInit {
       ...this.simpleSearchForm.value,
     };
 
+   
+    
     this.showResult = this.simpleSearchForm.valid;
+this.searchService.simpleSearch(this.simpleSearchForm.get('name').value).subscribe((r)=>console.log('rr',r)
+)
   }
   onAdvancedSubmit() {
     this.searchItem = {

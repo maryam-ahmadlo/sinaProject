@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ITreeNode } from "src/shared/common/src/lib/interfaces";
+import { IFlatNode, ITreeNode } from "src/shared/common/src/lib/interfaces";
 
 @Injectable({
   providedIn: "root",
@@ -8,15 +8,28 @@ import { ITreeNode } from "src/shared/common/src/lib/interfaces";
 export class TreeService {
   constructor(private httpClient: HttpClient) {}
   getRoot() {
-    return this.httpClient.get('/api/categories/root', {
+    return this.httpClient.get<ITreeNode[]>("/api/folder/getChildren", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
+      params: { fldId: "/okm:categories" },
     });
   }
+
+  getChildren(id:string){
+    return this.httpClient.get<ITreeNode[]>('/api/folder/getChildren',{
+      headers: new HttpHeaders({
+      accept: "application/json",
+      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+    }),
+    params: { fldId: `/okm:categories/${id}` },
+  });
+  }
+
+
   getAllNodes() {
-    return this.httpClient.get<any>('/Api/categories/getAll', {
+    return this.httpClient.get<any>("/Api/categories/getAll", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",

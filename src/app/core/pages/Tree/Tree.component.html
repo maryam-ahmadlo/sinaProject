@@ -1,7 +1,7 @@
 <!-- <div class="tree-container">
   <nz-tree-view
   [nzTreeControl]="treeControl"
-  [nzDataSource]="dataSource"
+  [nzDataSource]="tree"
   [trackBy]="trackBy"
 >
   <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodeIndentLine>
@@ -80,3 +80,22 @@
 </nz-tree-view>
 
 </div> -->
+
+
+
+
+<nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource">
+  <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
+    {{ node.label }}
+  </nz-tree-node>
+
+  <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodePadding>
+    <nz-tree-node-toggle *ngIf="!node.loading">
+      <span nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></span>
+    </nz-tree-node-toggle>
+    <nz-tree-node-toggle *ngIf="node.loading" nzTreeNodeNoopToggle>
+      <span nz-icon nzType="loading" nzTreeNodeToggleActiveIcon></span>
+    </nz-tree-node-toggle>
+    {{ node.label }}
+  </nz-tree-node>
+</nz-tree-view>

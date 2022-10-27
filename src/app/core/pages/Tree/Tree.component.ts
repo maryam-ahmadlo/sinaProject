@@ -1,8 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import {
-  NzTreeFlatDataSource,
-  NzTreeFlattener,
   NzTreeViewModule,
 } from "ng-zorro-antd/tree-view";
 
@@ -14,75 +12,34 @@ import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { ActivatedRoute, RouterModule } from "@angular/router";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddNodeModalComponent } from "@core/components/create-add-node-modal/create-add-node-modal.component";
 import { CreateDeleteNodeModalComponent } from "@core/components/create-delete-node-modal/create-delete-node-modal.component";
 import { CreateEditNodeModalComponent } from "@core/components/create-edit-node-modal/create-edit-node-modal.component";
-import { ITreeNode } from "src/shared/common/src/lib/interfaces";
 import { IFlatNode } from "src/shared/common/src/lib/interfaces/FlatNode";
-import { FlatTreeControl } from "@angular/cdk/tree";
-import { SelectionModel } from "@angular/cdk/collections";
+import { FlatTreeControl, TreeControl } from "@angular/cdk/tree";
 import { TreeService } from "../../services/tree.service";
+import { CollectionViewer, DataSource, SelectionChange } from "@angular/cdk/collections";
+import { BehaviorSubject, map, merge, Observable, of, tap } from "rxjs";
 
-// const TREE_DATA: TreeNode[] = [
+
+
+// const TREE_DATA: IFlatNode[] = [
 //   {
-//     // name: "root",
-//     // key: "0",
-//     // children: [
-//     //   {
-//     name: "مجموعه مقررات بانک مرکزی",
-//     key: "1",
-//     children: [
-//       {
-//         name: "مقررات حوزه نظارت",
-//         key: "1-0",
-//         children: [],
-//       },
-//       {
-//         name: "ناظر بر فعالیت",
-//         key: "1-1",
-//         children: [],
-//       },
-//       {
-//         name: "مقررات نهادی",
-//         key: "1-2",
-//         children: [],
-//       },
-//       {
-//         name: "مقررات احتیاطی",
-//         key: "1-3",
-//         children: [
-//           {
-//             name: "بخشنامه های مبتنی بر قوانین مرجع",
-//             key: "1-3-0",
-//           },
-//           {
-//             name: "بخشنامه های پژوهش محور",
-//             key: "1-3-1",
-//           },
-//         ],
-//       },
-//     ],
+//     id: 0,
+//     label: 'Expand to load',
+//     level: 0,
+//     expandable: true
 //   },
 //   {
-//     key: "2",
-//     name: "آیین نامه ها و دستورالعمل ها",
-//     children: [
-//       { name: "آیین نامه", key: "2-0" },
-//       {
-//         name: "دستورالعمل",
-//         key: "2-1",
-//       },
-//       {
-//         name: "قوانین مرجع",
-//         key: "2-2",
-//       },
-//     ],
-//   },
-//   //   ],
-//   // },
+//     id: 1,
+//     label: 'Expand to load',
+//     level: 0,
+//     expandable: true
+//   }
 // ];
+
+
 
 @Component({
   selector: "app-tree",
@@ -103,46 +60,52 @@ import { TreeService } from "../../services/tree.service";
     RouterModule,
   ],
 })
-export class TreeComponent implements OnInit {
-  private transformer = (node: ITreeNode, level: number): IFlatNode => {
+export class TreeComponent {
+  // private transformer = (node: ITreeNode): IFlatNode => {
 
-    const existingNode = this.nestedNodeMap.get(node);
-    const flatNode =
-      existingNode && existingNode.key === node.uuid
-        ? existingNode
-        : {
-            expandable: node.hasChildren,
-            name: node.path.split('/')[2],
-            level,
-            key: node.uuid
-          };
-    flatNode.name = node.path.split('/')[2];
-    this.flatNodeMap.set(flatNode, node);
-    this.nestedNodeMap.set(node, flatNode);
-    return flatNode;
-  };
+  //   const existingNode = this.nestedNodeMap.get(node);
+  //   const flatNode =
+  //     existingNode && existingNode.key === node.uuid
+  //       ? existingNode
+  //       : {
+  //           expandable: node.hasChildren,
+  //           name: node.path.split('/')[2],
+  //           key: node.uuid
+  //         };
+  //   flatNode.name = node.path.split('/')[2];
+  //   this.flatNodeMap.set(flatNode, node);
+  //   this.nestedNodeMap.set(node, flatNode);
+  //   return flatNode;
+  // };
 
-  flatNodeMap = new Map<IFlatNode, ITreeNode>();
-  nestedNodeMap = new Map<ITreeNode, IFlatNode>();
-  selectListSelection = new SelectionModel<IFlatNode>(true);
+  // flatNodeMap = new Map<IFlatNode, ITreeNode>();
+  // nestedNodeMap = new Map<ITreeNode, IFlatNode>();
+  // selectListSelection = new SelectionModel<IFlatNode>(true);
 
 
-  treeControl = new FlatTreeControl<IFlatNode>(
-    (node) => node.level,
-    (node) => node.expandable
-  );
+  // treeControl = new FlatTreeControl<IFlatNode>(
+  //   (node) => Number(node.key),
+  //   (node) => node.expandable
+  // );
   // treeFlattener = new NzTreeFlattener(
   //   this.transformer,
-  //   (node) => node.level,
+  //   (node) => Number(node.key),
   //   (node) => node.expandable,
-  //   (node) => {this.httpClient.get('')}
+  //   (node) => {
+  //      this.treeService.getChildren(node.path).subscribe((r)=>{
+  //       console.log('rrr',r);
+       
+        
+  //     })
+  //   }
+
   // );
 
-  //dataSource = new NzTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  // //dataSource = new NzTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  hasChild = (_: number, node: IFlatNode): boolean => node.expandable;
-  hasNoContent = (_: number, node: IFlatNode): boolean => node.name === "";
-  trackBy = (_: number, node: IFlatNode): string => `${node.key}-${node.name}`;
+  // hasChild = (_: number, node: IFlatNode): boolean => node.expandable;
+  // hasNoContent = (_: number, node: IFlatNode): boolean => node.name === "";
+  // trackBy = (_: number, node: IFlatNode): string => `${node.key}-${node.name}`;
 
   // delete(node: IFlatNode): void {
   //   const originNode = this.flatNodeMap.get(node);
@@ -172,58 +135,37 @@ export class TreeComponent implements OnInit {
   //  this.dataSource.setData(this.tree);
   // }
 
-  tree: ITreeNode[];
+
+  tree: IFlatNode[];
+  dataSource:any;
+  treeControl = new FlatTreeControl<IFlatNode>(
+    node => node.level,
+    node => node.expandable
+  );
+
+
+
+
+
+  hasChild = (_: number, node: IFlatNode): boolean => node.expandable;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
-    private treeService:TreeService,
-    private httpClient:HttpClient
-  ) {
-    // this.activatedRoute.data.subscribe(({ tree }) => {
-    //   this.tree = tree.folder;
-    // });
-    //this.dataSource.setData(this.tree);
-    // this.treeControl.expandAll();
-    
-    // console.log('treeeeee',this.tree);
+    protected treeService:TreeService,
+    ) {
 
-    //console.log("dataSource", this.dataSource);
-  }
-  ngOnInit(): void {
-    this.treeService.getAllNodes().subscribe((r)=>console.log(r))
-    //  this.httpClient.get("/api/folder/getChildren?fdIdId=okm:categories", {
-    //     headers: new HttpHeaders({
-    //       accept: "application/json",
-    //       Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-    //     }),
-    //     params: { fldId: "/okm:categories" },
-    //   }).subscribe((r)=>console.log('rrr',r)
-    //   );
+      this.activatedRoute.data.subscribe(({ tree }) => {
+        this.tree={...tree.folder,level:0, label:tree.folder.path.split('/')[2], id: tree.folder.uuid, expandable:tree.folder.hasChildren};
+      console.log(this.tree);
+      
+      
+      });
 
+      this.dataSource = new DynamicDatasource(this.treeControl,this.tree,treeService);
   }
 
-  // addNewNode(node: FlatNode): void {
-  //   const parentNode = this.flatNodeMap.get(node);
-  //   if (parentNode) {
-  //     parentNode.children = parentNode.children || [];
-  //     parentNode.children.push({
-  //       name: "",
-  //       key: `${parentNode.key}-${parentNode.children.length}`,
-  //     });
-  //     this.dataSource.setData(this.treeData);
-  //     this.treeControl.expand(node);
-  //   }
-  // }
-
-  // saveNode(node: FlatNode, value: string): void {
-  //   const nestedNode = this.flatNodeMap.get(node);
-  //   if (nestedNode) {
-  //     nestedNode.name = value;
-  //     this.dataSource.setData(this.treeData);
-  //   }
-  // }
-
+ 
 
   createAddNodeModal(node: any) {
     this.modalService.create({
@@ -307,4 +249,83 @@ export class TreeComponent implements OnInit {
 
     //this.treeService.renameNode(uuid,name).subscribe((r)=>console.log(r))
   }
+}
+
+
+
+
+export class DynamicDatasource implements DataSource<IFlatNode> {
+   getChildren(node: IFlatNode): Observable<IFlatNode[]> {
+  let data;
+     this.treeService.getChildren(node.id.toString()).subscribe((r)=> data=r);
+     return data
+  }
+  private flattenedData: BehaviorSubject<IFlatNode[]>;
+  private childrenLoadedSet = new Set<IFlatNode>();
+
+  constructor(private treeControl: TreeControl<IFlatNode>, initData: IFlatNode[],protected treeService:TreeService,) {
+    this.flattenedData = new BehaviorSubject<IFlatNode[]>(initData);
+    treeControl.dataNodes = initData;
+  }
+
+  connect(collectionViewer: CollectionViewer): Observable<IFlatNode[]> {
+    let changes = [
+      collectionViewer.viewChange,
+      this.treeControl.expansionModel.changed.pipe(tap(change => this.handleExpansionChange(change))),
+      this.flattenedData
+    ];
+    return merge(changes).pipe(map(() => this.expandFlattenedNodes(this.flattenedData.getValue())));
+  }
+
+  expandFlattenedNodes(nodes: IFlatNode[]): IFlatNode[] {
+    const treeControl = this.treeControl;
+    const results: IFlatNode[] = [];
+    const currentExpand: boolean[] = [];
+    currentExpand[0] = true;
+
+    nodes.forEach(node => {
+      let expand = true;
+      for (let i = 0; i <= treeControl.getLevel(node); i++) {
+        expand = expand && currentExpand[i];
+      }
+      if (expand) {
+        results.push(node);
+      }
+      if (treeControl.isExpandable(node)) {
+        currentExpand[treeControl.getLevel(node) + 1] = treeControl.isExpanded(node);
+      }
+    });
+    return results;
+  }
+
+  handleExpansionChange(change: SelectionChange<IFlatNode>): void {
+    if (change.added) {
+      change.added.forEach(node => this.loadChildren(node));
+    }
+  }
+
+  loadChildren(node: IFlatNode): void {
+    if (this.childrenLoadedSet.has(node)) {
+      return;
+    }
+    node.loading = true;
+    this.getChildren(node).subscribe(children => {
+      node.loading = false;
+      const flattenedData = this.flattenedData.getValue();
+      const index = flattenedData.indexOf(node);
+      if (index !== -1) {
+        flattenedData.splice(index + 1, 0, ...children);
+        this.childrenLoadedSet.add(node);
+      }
+      this.flattenedData.next(flattenedData);
+    });
+  }
+
+  disconnect(): void {
+    this.flattenedData.complete();
+  }
+}
+
+function delay(arg0: number): import("rxjs").OperatorFunction<{ id: number; label: string; level: number; expandable: boolean; }[], IFlatNode[]> {
+  throw new Error("Function not implemented.");
 }

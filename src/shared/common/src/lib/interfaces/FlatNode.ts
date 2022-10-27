@@ -1,7 +1,12 @@
 export interface IFlatNode {
+    // expandable: boolean;
+    // name: string;
+    // key: string;
+
     expandable: boolean;
-    name: string;
-    key: string;
+    id: number;
+    label: string;
     level: number;
+    loading?: boolean;
   }
   

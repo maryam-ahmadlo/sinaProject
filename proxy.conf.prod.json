@@ -1,9 +1,9 @@
 {
-    "/Api/*": {
+    "/url/*": {
       "target": "http://localhost:8085/api",
       "secure": true,
       "changeOrigin": true,
-      "pathRewrite": { "^/Api/" : "" }
+      "pathRewrite": { "^/url/" : "" }
     }
 ,
     "/api/*": {
