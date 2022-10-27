@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { RouterModule } from '@angular/router';
-// import { TreeComponent } from '../Tree';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { SearchLayoutComponent } from 'src/app/modules/search/pages';
+import { TreeComponent } from '../Tree/Tree.component';
+
 
 
 @Component({
@@ -20,7 +19,7 @@ import { SearchLayoutComponent } from 'src/app/modules/search/pages';
         NzPageHeaderModule,
         RouterModule,
        NzButtonModule,
-       SearchLayoutComponent
+       TreeComponent
     ],
 })
 export class LayoutSiderMenuComponent implements OnInit {
