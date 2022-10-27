@@ -35,8 +35,7 @@
       marginRight: !isMobile ? 'auto' : 0
     }"
   >
-    <nz-page-header class="bg-header">
-      <nz-page-header-content>
+    
         <div
           fxLayout="row"
           fxLayout.lt-md="column"
@@ -54,115 +53,97 @@
             <i nz-icon nzType="menu" style="color: white"></i>
           </button>
 
-          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
+          <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="15px">
             <!-- <div *hasRole="['admin']"> -->
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
+              <button
+                nz-button
+                nzType="dashed"
+                (click)="PrivateCartableAdmin()"
+                nzShape="round"
+              >
+                کارتابل شخصی ادمین<span
+                  nz-icon
+                  nzType="message"
+                  nzTheme="outline"
+                ></span>
+              </button>
+              <button
+                nz-button
+                nzType="dashed"
+                (click)="createSendGroupMsgModal()"
+                nzShape="round"
+              >
+                ارسال پیام گروهی
+                <span nz-icon nzType="message" nzTheme="outline"></span>
+              </button>
 
-            <button
-              nz-button
-              nzType="dashed"
-              (click)="PrivateCartable()"
-              nzShape="round"
-            >
-              کارتابل شخصی کاربر<span
-                nz-icon
-                nzType="message"
-                nzTheme="outline"
-              ></span>
-            </button>
-            <button
-              nz-button
-              nzType="dashed"
-              (click)="PrivateCartableAdmin()"
-              nzShape="round"
-            >
-              کارتابل شخصی ادمین<span
-                nz-icon
-                nzType="message"
-                nzTheme="outline"
-              ></span>
-            </button>
-            <button
-              nz-button
-              nzType="dashed"
-              (click)="createSendGroupMsgModal()"
-              nzShape="round"
-            >
-              ارسال پیام گروهی
-              <span nz-icon nzType="message" nzTheme="outline"></span>
-            </button>
+              <button
+                nz-button
+                nzType="dashed"
+                (click)="createSendUrgentMsgModal()"
+                nzShape="round"
+              >
+                ارسال پیام فوری
+                <span nz-icon nzType="message" nzTheme="outline"></span>
+              </button>
 
-            <button
-              nz-button
-              nzType="dashed"
-              (click)="createSendUrgentMsgModal()"
-              nzShape="round"
-            >
-              ارسال پیام فوری
-              <span nz-icon nzType="message" nzTheme="outline"></span>
-            </button>
-
-            <button
-              nz-button
-              nzType="dashed"
-              nzShape="round"
-              (click)="UserManagement()"
-            >
-              تعریف کاربران و دسترسی ها
-              <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
-            </button>
-            <!-- </div> -->
-
-            <!-- <div *hasRole="['customer']"> -->
-            <button
-              nz-button
-              nzType="dashed"
-              nzShape="round"
-              (click)="UploadFile()"
-            >
-              بارگذاری فایل
-              <span nz-icon nzType="upload" nzTheme="outline"></span>
-            </button>
-            <button
-              nz-button
-              nzType="dashed"
-              nzShape="round"
-              [routerLink]="['/', 'customer', 'notifications']"
-            >
-              مشاهده پیام گروهی
-              <i nz-icon nzType="bell" class="icon"></i>
-            </button>
-            <button
-              nz-button
-              nzType="dashed"
-              (click)="bookmark()"
-              nzShape="round"
-            >
-              bookmarks
-              <i nz-icon nzType="star" nzTheme="outline"></i>
-            </button>
+              <button
+                nz-button
+                nzType="dashed"
+                nzShape="round"
+                (click)="UserManagement()"
+              >
+                تعریف کاربران و دسترسی ها
+                <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
+              </button>
+              <!-- </div> -->
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
+              <!-- <div *hasRole="['customer']"> -->
+              <button
+                nz-button
+                nzType="dashed"
+                (click)="PrivateCartable()"
+                nzShape="round"
+              >
+                کارتابل شخصی کاربر<span
+                  nz-icon
+                  nzType="message"
+                  nzTheme="outline"
+                ></span>
+              </button>
+              <button
+                nz-button
+                nzType="dashed"
+                nzShape="round"
+                (click)="UploadFile()"
+              >
+                بارگذاری فایل
+                <span nz-icon nzType="upload" nzTheme="outline"></span>
+              </button>
+              <button
+                nz-button
+                nzType="dashed"
+                nzShape="round"
+                [routerLink]="['/', 'customer', 'notifications']"
+              >
+                پیام ها
+                <i nz-icon nzType="bell" class="icon"></i>
+              </button>
+              <button
+                nz-button
+                nzType="dashed"
+                (click)="bookmark()"
+                nzShape="round"
+              >
+                bookmarks
+                <i nz-icon nzType="star" nzTheme="outline"></i>
+              </button>
+              <!-- </div> -->
+            </div>
             <!-- </div> -->
             <!-- <button
-        <<div *hasRole="['customer']"> -->
-        <button
-          nz-button
-          nzType="dashed"
-          nzShape="round"
-          (click)="UploadFile()"
-        >
-          بارگذاری فایل
-          <span nz-icon nzType="upload" nzTheme="outline"></span>
-        </button>
-
-        <button nz-button nzType="dashed" nzShape="round" [routerLink]="['/','customer','notifications']">
-  
-          <i nz-icon nzType="bell" class="icon"></i>
-        </button>
-        <button nz-button nzType="dashed" (click)="bookmark()" nzShape="round">
-          bookmarks
-          <i nz-icon nzType="star" nzTheme="outline"></i>
-        </button>
-        <!-- </div> -->
-        <!-- <button
           nz-popconfirm
           nzPopconfirmTitle="میخواهید خارج شوید ؟ "
           (nzOnConfirm)="logout()"
@@ -175,8 +156,7 @@
         </button> -->
           </div>
         </div>
-      </nz-page-header-content>
-    </nz-page-header>
+  
     <nz-content>
       <div class="container" style="margin-top: 20px">
         <router-outlet></router-outlet>
