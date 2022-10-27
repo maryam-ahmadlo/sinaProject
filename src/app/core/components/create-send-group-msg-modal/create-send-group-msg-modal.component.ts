@@ -4,6 +4,7 @@ import { NzModalModule, NzModalRef } from "ng-zorro-antd/modal";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzInputModule } from "ng-zorro-antd/input";
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
@@ -13,6 +14,9 @@ import {
 import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { TextEditorComponent } from "../text-editor/text-editor.component";
+import { HttpClient } from "@angular/common/http";
+import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
+import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
 
 @Component({
   selector: "app-create-send-group-msg-modal",
@@ -26,94 +30,94 @@ import { TextEditorComponent } from "../text-editor/text-editor.component";
     NzTreeSelectModule,
     FormsModule,
     NzSelectModule,
-    TextEditorComponent,
+    NgxEditorModule,
   ],
   templateUrl: "./create-send-group-msg-modal.component.html",
   styleUrls: ["./create-send-group-msg-modal.component.less"],
 })
 export class CreateSendGroupMsgModalComponent implements OnInit {
-  
   isLoading: boolean;
   listOfOption: Array<{ label: string; value: string }> = [];
-  // listOfTagOptions : any = [];
+  listOfUsers: any = [];
   // value: string[] = ['0-0-0'];
 
-  // form: FormGroup<{
-  //   content: FormControl<string>;
-  //   branches: FormControl<string[]>;
-  //   recipients: FormControl<string[]>;
-  // }> = new FormGroup({
-  //   content: new FormControl(null),
-  //   branches: new FormControl(null, [Validators.required]),
-  //   recipients: new FormControl(null, [Validators.required]),
-  // });
+  branch: any = [];
 
   form: FormGroup<{
-    content: FormControl<string>;
-    value: FormControl<string[]>;
-    listOfTagOptions: FormControl<string[]>;
+    message: FormControl<string>;
+    branches: FormControl<string[]>;
+    messageReceivers: FormControl<string[]>;
   }> = new FormGroup({
-    content: new FormControl(null),
-    value: new FormControl(null, [Validators.required]),
-    listOfTagOptions: new FormControl(null, [Validators.required]),
+    message: new FormControl(
+      { value: "", disabled: false },
+      Validators.required
+    ),
+    branches: new FormControl(null, [Validators.required]),
+    messageReceivers: new FormControl(null, [Validators.required]),
   });
 
-  constructor(private modal: NzModalRef) {}
+  constructor(private modal: NzModalRef, private httpClient: HttpClient) {
+    this.httpClient.get<IBranch[]>("/url/branches").subscribe((r) => {
+      for (let i = 0; i < r.length; i++) {
+        let json = {
+          title: r[i].name,
+          value: r[i].code,
+          key: r[i].id,
+        };
+
+        this.branch.push(json);
+      }
+    });
+
+    this.httpClient
+      .get<any>("/url/users?page=0&size=10&sort=")
+      .subscribe((r) => {
+        for (let i = 0; i < r.content.length; i++) {
+          let json = {
+            label: r.content[i]["id"],
+            value: r.content[i]["id"],
+          };
+          this.listOfUsers.push(json);
+        }
+      });
+  }
 
   destroyModal(): void {
     this.modal.destroy();
   }
-
-  nodes = [
-    {
-      title: "Node1",
-      value: "0-0",
-      key: "0-0",
-      children: [
-        {
-          title: "Child Node1",
-          value: "0-0-0",
-          key: "0-0-0",
-          isLeaf: true,
-        },
-      ],
-    },
-    {
-      title: "Node2",
-      value: "0-1",
-      key: "0-1",
-      children: [
-        {
-          title: "Child Node3",
-          value: "0-1-0",
-          key: "0-1-0",
-          isLeaf: true,
-        },
-        {
-          title: "Child Node4",
-          value: "0-1-1",
-          key: "0-1-1",
-          isLeaf: true,
-        },
-        {
-          title: "Child Node5",
-          value: "0-1-2",
-          key: "0-1-2",
-          isLeaf: true,
-        },
-      ],
-    },
-  ];
 
   onChange($event: string[]): void {
     console.log($event);
   }
 
   ngOnInit(): void {
-    const children: Array<{ label: string; value: string }> = [];
-    for (let i = 10; i < 36; i++) {
-      children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
-    }
-    this.listOfOption = children;
+    this.editor = new Editor();
+  }
+
+  editor: Editor;
+  toolbar: Toolbar = [
+    ["bold", "italic"],
+    ["underline", "strike"],
+    ["code", "blockquote"],
+    ["ordered_list", "bullet_list"],
+    [{ heading: ["h1", "h2", "h3", "h4", "h5", "h6"] }],
+    ["link", "image"],
+    ["text_color", "background_color"],
+    ["align_left", "align_center", "align_right", "align_justify"],
+  ];
+
+  // form = new FormGroup({
+  //   editorContent: new FormControl(
+  //     { value: "", disabled: false },
+  //     Validators.required()
+  //   ),
+  // });
+
+  get doc(): AbstractControl {
+    return this.form.get("message");
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 }

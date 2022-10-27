@@ -5,7 +5,7 @@
         <nz-form-control>
     
             <nz-select nzMode="tags" nzPlaceHolder="نام کاربران" formControlName="listOfTagOptions">
-                <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+                <nz-option *ngFor="let option of listOfRoles" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
               </nz-select>
   
         </nz-form-control>
@@ -33,7 +33,7 @@
         <nz-form-label nzRequired nzFor="">نقش کاربر  </nz-form-label>
         <nz-form-control>
     <nz-select nzMode="tags" nzPlaceHolder="انتخاب از لیست نقش ها" formControlName="listOfTagOptions">
-        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+        <nz-option *ngFor="let option of listOfRoles" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
       </nz-select>
  </nz-form-control>
  </nz-form-item>
@@ -42,7 +42,7 @@
     <nz-form-label nzRequired nzFor="">دسترسی </nz-form-label>
     <nz-form-control>
 <nz-select nzMode="tags" nzPlaceHolder="انتخاب از لیست دسترسی ها" formControlName="listOfTagOptions">
-    <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+    <nz-option *ngFor="let option of listOfRoles" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
   </nz-select>
 </nz-form-control>
 </nz-form-item>

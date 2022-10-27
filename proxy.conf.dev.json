@@ -1,10 +1,10 @@
 {
-    "/Api/*": {
+    "/url/*": {
       "target": "http://localhost:8085/api",
       "secure": true,
       "changeOrigin": true,
       "logLevel": "debug",
-      "pathRewrite": { "^/Api/" : "" }
+      "pathRewrite": { "^/url/" : "" }
     },
     "/api/*": {
       "target": "http://localhost:8080/OpenKM/services/rest",

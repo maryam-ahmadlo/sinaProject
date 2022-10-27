@@ -20,9 +20,9 @@ export const appRoutes: Routes = [
       import("./core/pages/slidebar/slidebar.component").then(
         (m) => m.SlidebarComponent
       ),
-    // resolve:{
-    //   tree: TreeResolver
-    // },
+    resolve:{
+      tree: TreeResolver
+    },
     // canActivate: [LoggedInGuard],
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
     children: [

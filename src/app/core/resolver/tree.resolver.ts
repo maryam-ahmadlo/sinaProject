@@ -14,6 +14,6 @@ import { TreeService } from '../services/tree.service';
 export class TreeResolver implements Resolve<ITreeNode[]> {
   constructor(private treeService:TreeService){}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITreeNode[]> {
-    return this.treeService.getAllNodes();
+    return this.treeService.getRoot();
   }
 }
