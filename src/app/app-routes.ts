@@ -1,9 +1,6 @@
 import { Routes } from "@angular/router";
-import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
 import { of } from "rxjs";
-import { TreeRulesItemComponent } from "@core/components/tree-rules-item/tree-rules-item.component";
-import { UploadFileComponent } from "src/app/core/pages/upload-file/upload-file.component";
-import { PrivateCartableComponent } from "src/app/core/pages/private-cartable/private-cartable.component";
+import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
 import { PrivateCartableAdminComponent } from "./core/pages/private-cartable admin/private-cartable-admin.component";
 import { TreeResolver } from "./core/resolver/tree.resolver";
 
@@ -20,8 +17,8 @@ export const appRoutes: Routes = [
       import("./core/pages/slidebar/slidebar.component").then(
         (m) => m.SlidebarComponent
       ),
-    resolve:{
-      tree: TreeResolver
+    resolve: {
+      tree: TreeResolver,
     },
     // canActivate: [LoggedInGuard],
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
@@ -82,10 +79,26 @@ export const appRoutes: Routes = [
               },
             ],
           },
-          { path: "private-cartable", component: PrivateCartableComponent },
+          {
+            path: "private-cartable",
+            loadComponent: () =>
+              import(
+                "./core/pages/private-cartable-customer/private-cartable-customer.component"
+              ).then((m) => m.PrivateCartablecustomerComponent),
+          },
           {
             path: "uploadFile",
-            component: UploadFileComponent,
+            loadComponent: () =>
+              import("./core/pages/upload-file/upload-file.component").then(
+                (m) => m.UploadFileComponent
+              ),
+          },
+          {
+            path: "uploadFile/:id",
+            loadComponent: () =>
+              import("./core/pages/upload-file/upload-file.component").then(
+                (m) => m.UploadFileComponent
+              ),
           },
 
           {
@@ -93,7 +106,10 @@ export const appRoutes: Routes = [
             children: [
               {
                 path: "detail",
-                component: TreeRulesItemComponent,
+                loadComponent: () =>
+                  import(
+                    "./core/components/tree-rules-item/tree-rules-item.component"
+                  ).then((m) => m.TreeRulesItemComponent),
               },
             ],
           },

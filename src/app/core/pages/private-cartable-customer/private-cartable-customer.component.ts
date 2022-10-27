@@ -10,8 +10,8 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: "app-private-cartable",
-  templateUrl: "./private-cartable.component.html",
-  styleUrls: ["./private-cartable.component.css"],
+  templateUrl: "./private-cartable-customer.component.html",
+  styleUrls: ["./private-cartable-customer.component.css"],
   standalone: true,
   imports: [
     CommonModule,
@@ -23,7 +23,7 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
     NzDividerModule,
   ],
 })
-export class PrivateCartableComponent implements OnInit {
+export class PrivateCartablecustomerComponent implements OnInit {
   constructor(private modalService: NzModalService) {}
 
   ngOnInit(): void {}

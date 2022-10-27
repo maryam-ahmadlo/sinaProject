@@ -1,8 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import {
-  NzTreeViewModule,
-} from "ng-zorro-antd/tree-view";
+import { NzTreeViewModule } from "ng-zorro-antd/tree-view";
 
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
@@ -27,10 +25,6 @@ import {
 } from "@angular/cdk/collections";
 import { TreeService } from "../../services/tree.service";
 import { BehaviorSubject, map, merge, Observable, of, tap } from "rxjs";
-
-
-
-let httpClient: HttpClient;
 
 @Component({
   selector: "app-tree",
@@ -57,24 +51,24 @@ export class TreeComponent implements OnInit {
   Tree: ITreeNode[];
 
   constructor(
+    public httpClient: HttpClient,
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
-    private treeService: TreeService,
+    private treeService: TreeService
   ) {
-    // this.activatedRoute.data.subscribe(({ tree }) => {
-    //   this.Tree = tree.folder;
-    //   for (let i = 0; i < this.Tree.length; i++) {
-    //     let json = {
-    //       id: this.Tree[i].uuid,
-    //       label: this.Tree[i].path.split("/")[2],
-    //       level: 0,
-    //       expandable: this.Tree[i].hasChildren,
-    //     };
-    //     this.treeData.push(json);
-    //   }
-    //   getChildren(this.treeData[0]).subscribe((children) => {console.log('child',children);
-    //   });
-    // });
+    this.activatedRoute.data.subscribe(({ tree }) => {
+      tree.folder.forEach((v: any) => {
+        console.log(v);
+
+        let json = {
+          id: v.uuid,
+          label: v.path.split("/")[2],
+          level: 0,
+          expandable: v.hasChildren,
+        };
+        this.treeData.push(json);
+      });
+    });
   }
   ngOnInit(): void {}
 
@@ -86,7 +80,7 @@ export class TreeComponent implements OnInit {
   dataSource = new DynamicDatasource(
     this.treeControl,
     this.treeData,
-    this.treeService
+    this.httpClient
   );
 
   hasChild = (_: number, node: IFlatNode): boolean => node.expandable;
@@ -172,35 +166,6 @@ export class TreeComponent implements OnInit {
     //this.treeService.renameNode(uuid,name).subscribe((r)=>console.log(r))
   }
 }
-
-function getChildren(node: IFlatNode) {
-  let treeData: IFlatNode[] = [];
-  return httpClient.get<ITreeNode>("/api/folder/getChildren", {
-      headers: new HttpHeaders({
-        accept: "application/json",
-        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      }),
-      params: { fldId: `/okm:categories/${node.id}` },
-    })
-    .pipe((res) => {
-      console.log("res", res);
-      res.forEach((v) => {
-        let json = {
-          id: v.uuid,
-          label: v.path.split("/")[2],
-          level: 0,
-          expandable: v.hasChildren,
-        };
-        treeData.push(json);
-        treeData.push(json);
-      });
-
-      console.log("of(treeData)", of(treeData));
-
-      return of(treeData);
-    });
-}
-
 class DynamicDatasource implements DataSource<IFlatNode> {
   private flattenedData: BehaviorSubject<IFlatNode[]>;
   private childrenLoadedSet = new Set<IFlatNode>();
@@ -208,8 +173,10 @@ class DynamicDatasource implements DataSource<IFlatNode> {
   constructor(
     private treeControl: TreeControl<IFlatNode>,
     initData: IFlatNode[],
-    private treeService: TreeService
+    private httpClient: HttpClient
   ) {
+    console.log("initData", initData);
+
     this.flattenedData = new BehaviorSubject<IFlatNode[]>(initData);
     treeControl.dataNodes = initData;
   }
@@ -222,7 +189,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
       ),
       this.flattenedData,
     ];
-    return merge(changes).pipe(
+    return merge(...changes).pipe(
       map(() => this.expandFlattenedNodes(this.flattenedData.getValue()))
     );
   }
@@ -261,16 +228,37 @@ class DynamicDatasource implements DataSource<IFlatNode> {
     }
     node.loading = true;
 
-    getChildren(node).subscribe((children) => {
-      node.loading = false;
-      const flattenedData = this.flattenedData.getValue();
-      const index = flattenedData.indexOf(node);
-      if (index !== -1) {
-        flattenedData.splice(index + 1, 0, ...children);
-        this.childrenLoadedSet.add(node);
-      }
-      this.flattenedData.next(flattenedData);
-    });
+    let treeData: IFlatNode[] = [];
+    this.httpClient
+      .get<ITreeNode>("/api/folder/getChildren", {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+        params: { fldId: `${node.id}` },
+      })
+      .subscribe((children) => {
+        console.log("children", children);
+
+        children.folder.forEach((v: any) => {
+          let json = {
+            id: v.uuid,
+            label: v.path.split("/")[node.level + 3],
+            level: node.level + 1,
+            expandable: v.hasChildren,
+          };
+          treeData.push(json);
+        });
+        node.loading = false;
+        const flattenedData = this.flattenedData.getValue();
+        const index = flattenedData.indexOf(node);
+        if (index !== -1) {
+          flattenedData.splice(index + 1, 0, ...treeData);
+          this.childrenLoadedSet.add(node);
+        }
+
+        this.flattenedData.next(flattenedData);
+      });
   }
 
   disconnect(): void {

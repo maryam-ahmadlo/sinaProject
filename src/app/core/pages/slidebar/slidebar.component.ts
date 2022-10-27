@@ -112,6 +112,8 @@ export class SlidebarComponent implements OnInit {
   bookmark() {
     this.router.navigate(["/", "customer", "bookmarks"]);
   }
+
+  
   createSendGroupMsgModal() {
     this.modalService.create({
       nzTitle: "ارسال پیام گروهی ",

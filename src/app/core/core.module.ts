@@ -10,11 +10,6 @@ import { RouterModule } from '@angular/router';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from './guards';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { PrivateCartableComponent } from './pages/private-cartable/private-cartable.component';
-import { AddDocumentComponent } from './components/add-document/add-document.component';
-import { AddDocumentModalComponent } from './components/add-document-modal/add-document-modal.component';
-
-
 
 @NgModule({
   imports: [
@@ -24,11 +19,7 @@ import { AddDocumentModalComponent } from './components/add-document-modal/add-d
     NzMessageModule,
     FlexLayoutModule,
   ],
-  declarations: [
-    PrivateCartableComponent,
-    AddDocumentComponent,
-    AddDocumentModalComponent
-  ],
+  declarations: [],
  
 })
 export class CoreModule {

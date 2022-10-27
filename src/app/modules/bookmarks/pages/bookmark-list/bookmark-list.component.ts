@@ -34,7 +34,7 @@ import { ThisReceiver } from "@angular/compiler";
   styleUrls: ["./bookmark-list.component.less"],
 })
 export class BookmarkListComponent implements OnInit {
-  data: any = [];
+  data: IBookmark[] = [];
 
   isLoading: boolean;
 
@@ -61,6 +61,10 @@ export class BookmarkListComponent implements OnInit {
 
     this.activatedRoute.data.subscribe(({bookmarkList}) =>  this.data=bookmarkList['bookmark']);
 
+    this.data.forEach((v)=>{
+      Number(v.id)
+    })
+ console.log(this.data);
  
   
   
@@ -142,9 +146,9 @@ export class BookmarkListComponent implements OnInit {
       ) && !this.checked;
   }
 
-  createShowBookMarkModal(id: string ) {
+  createShowBookMarkModal(id: number) {
     let bookmark: IBookmark;
-    this.bookmarkService.getOne(id).subscribe((r) => (bookmark = r));
+    this.bookmarkService.getOne(id.toString()).subscribe((r) => (bookmark = r));
     this.modalService.create({
       nzTitle: "مشاهده bookmark",
       nzContent: CreateBookmarkShownModalComponent,

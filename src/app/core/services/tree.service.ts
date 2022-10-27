@@ -9,7 +9,7 @@ import { IFlatNode, ITreeNode } from "src/shared/common/src/lib/interfaces";
 export class TreeService {
   constructor(private httpClient: HttpClient) {}
   getRoot() {
-    return this.httpClient.get<ITreeNode[]>('/api/folder/getChildren', {
+    return this.httpClient.get<ITreeNode[]>("/api/folder/getChildren", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
@@ -17,32 +17,7 @@ export class TreeService {
       params: { fldId: "/okm:categories" },
     });
   }
-  // getChildren(node:IFlatNode) {
-  //   let treeData: IFlatNode[] =[];
-  //   return this.httpClient.get<ITreeNode>('/api/folder/getChildren', {
-  //     headers: new HttpHeaders({
-  //       accept: "application/json",
-  //       Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-  //     }),
-  //     params: { fldId: `/okm:categories/${node.id}` },
-  //   }).pipe((res)=>{
-  //     console.log('res',res);
-  //     res.forEach(v =>{
-  //       let json ={ 
-  //         id: v.uuid,
-  //         label:v.path.split('/')[2],
-  //         level:0,
-  //         expandable:v.hasChildren};
-  //         treeData.push(json);
-  //        treeData.push(json);
-  //     })
-    
-  //     console.log('of(treeData)',of(treeData));
-      
-      
-  //     return of(treeData)
-  //   });
-  // }
+ 
 
   renameNode(uuid: string, name: string) {
     return this.httpClient.post<any>(`/api/categories/${uuid}`, {
