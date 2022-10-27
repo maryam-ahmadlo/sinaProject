@@ -35,20 +35,22 @@
       marginRight: !isMobile ? 'auto' : 0
     }"
   >
+    <div
+      fxLayout="row"
+      fxLayout.lt-md="column"
+      fxLayoutGap="10px"
+      fxLayoutAlign="space-between"
+      class="bg-header bg-size"
+    >
+      <div>
+        <button nz-button nzType="link" (click)="onCollapse()">
+          <i nz-icon nzType="menu" style="color: white"></i>
+        </button>
+      </div>
 
-    
-        <div
-          fxLayout="row"
-          fxLayout.lt-md="column"
-          fxLayoutGap="10px"
-          fxLayoutAlign="space-between"
-          class="bg-header bg-size"
-          
-        >
       <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="15px">
         <!-- <div *hasRole="['admin']"> -->
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
-
           <button
             nz-button
             nzType="dashed"
