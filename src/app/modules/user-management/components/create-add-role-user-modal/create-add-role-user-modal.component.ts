@@ -12,6 +12,8 @@ import { NzFormModule } from "ng-zorro-antd/form";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzSelectModule } from "ng-zorro-antd/select";
+import { UserManagementService } from "../../services/user-management.service";
+import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
 
 @Component({
   selector: "app-create-add-role-user-modal",
@@ -31,7 +33,7 @@ import { NzSelectModule } from "ng-zorro-antd/select";
 })
 export class CreateAddRoleUserModalComponent implements OnInit {
   isLoading: boolean;
-  listOfOption: Array<{ label: string; value: string }> = [];
+  listOfRoles: Array<{ label: string; value: string}> = [];
 
   form: FormGroup<{
     content: FormControl<string>;
@@ -42,63 +44,47 @@ export class CreateAddRoleUserModalComponent implements OnInit {
     value: new FormControl(null, [Validators.required]),
     listOfTagOptions: new FormControl(null, [Validators.required]),
   });
+  nodes :any = [];
 
-  constructor(private modal: NzModalRef) {}
+  constructor(private modal: NzModalRef,private userManagementService:UserManagementService) {
+    this.userManagementService.getBranches().subscribe((r)=>{
+
+      console.log('r',r);
+      for (let i = 0; i < r.length; i++) {
+      let json={
+        title: r[i].name,
+        value: r[i].code,
+        key: r[i].id,
+      }
+
+      this.nodes.push(json);
+    }
+    });
+
+    this.userManagementService.getRules().subscribe((r)=>{
+      for (let i = 0; i < r.length; i++) {
+        let json={
+          label: r[i].id ==="ROLE_ADMIN"?'ادمین':'کاربر',
+          value: r[i].id,
+
+        }
+  
+        this.listOfRoles.push(json);
+      }
+     
+    })
+  }
 
   destroyModal(): void {
     this.modal.destroy();
   }
 
-  nodes = [
-    {
-      title: "Node1",
-      value: "0-0",
-      key: "0-0",
-      children: [
-        {
-          title: "Child Node1",
-          value: "0-0-0",
-          key: "0-0-0",
-          isLeaf: true,
-        },
-      ],
-    },
-    {
-      title: "Node2",
-      value: "0-1",
-      key: "0-1",
-      children: [
-        {
-          title: "Child Node3",
-          value: "0-1-0",
-          key: "0-1-0",
-          isLeaf: true,
-        },
-        {
-          title: "Child Node4",
-          value: "0-1-1",
-          key: "0-1-1",
-          isLeaf: true,
-        },
-        {
-          title: "Child Node5",
-          value: "0-1-2",
-          key: "0-1-2",
-          isLeaf: true,
-        },
-      ],
-    },
-  ];
+ 
 
   onChange($event: string[]): void {
     console.log($event);
   }
 
   ngOnInit(): void {
-    const children: Array<{ label: string; value: string }> = [];
-    for (let i = 10; i < 36; i++) {
-      children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
-    }
-    this.listOfOption = children;
   }
 }

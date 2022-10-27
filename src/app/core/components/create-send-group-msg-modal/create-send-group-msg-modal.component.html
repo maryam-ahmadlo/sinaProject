@@ -1,26 +1,27 @@
 <form nz-form nzLayout="vertical" [formGroup]="form">
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="content">متن پیام </nz-form-label>
+    <nz-form-label nzRequired nzFor="message">متن پیام </nz-form-label>
     <nz-form-control>
-      <app-text-editor></app-text-editor>
-      <!-- <textarea
-        nz-input
-        id="content"
-        formControlName="content"
-        [nzAutosize]="{ minRows: 5, maxRows: 5 }"
-      ></textarea> -->
+    
+      <div class="editor">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+        </ngx-editor-menu>
+        <ngx-editor [editor]="editor"  formControlName="message">
+        </ngx-editor>
+      </div>
+    
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="">ارسال به </nz-form-label>
+    <nz-form-label nzRequired nzFor="branches">ارسال به </nz-form-label>
     <nz-form-control>
-      <!-- <input type="text" nz-input id="branches" formControlName="branches" /> -->
-
+     
       <nz-tree-select
-        formControlName="value"
+        formControlName="branches"
         (ngModelChange)="onChange($event)"
-        [nzNodes]="nodes"
+        [nzNodes]="branch"
+        id="branches"
         nzShowSearch
         nzCheckable
         nzPlaceHolder="لیست شعب "
@@ -29,26 +30,21 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="">کاربران </nz-form-label>
+    <nz-form-label nzRequired nzFor="messageReceivers">کاربران </nz-form-label>
     <nz-form-control>
       <nz-select
         nzMode="tags"
         nzPlaceHolder="نام کاربران"
-        formControlName="listOfTagOptions"
+        id="messageReceivers"
+        formControlName="messageReceivers"
       >
         <nz-option
-          *ngFor="let option of listOfOption"
+          *ngFor="let option of listOfUsers"
           [nzLabel]="option.label"
           [nzValue]="option.value"
         ></nz-option>
       </nz-select>
-      <!-- 
-      <input
-        type="text"
-        nz-input
-        id="recipients"
-        formControlName="recipients"
-      /> -->
+    
     </nz-form-control>
   </nz-form-item>
 </form>

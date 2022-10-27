@@ -133,7 +133,10 @@ export class SlidebarComponent implements OnInit {
       ],
     });
   }
-  handleGroupMsg(componentInstance: any) {}
+  handleGroupMsg(componentInstance: any) {
+    console.log(componentInstance);
+    
+  }
 
   createSendUrgentMsgModal() {
     this.modalService.create({
