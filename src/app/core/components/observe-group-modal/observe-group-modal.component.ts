@@ -12,7 +12,6 @@ import {
 } from "@angular/forms";
 import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzSelectModule } from "ng-zorro-antd/select";
-import { TextEditorComponent } from "../text-editor/text-editor.component";
 
 @Component({
   selector: "app-observe-group-modal",
@@ -26,7 +25,6 @@ import { TextEditorComponent } from "../text-editor/text-editor.component";
     NzTreeSelectModule,
     FormsModule,
     NzSelectModule,
-    TextEditorComponent,
   ],
   templateUrl: "./observe-group-modal.component.html",
   styleUrls: ["./observe-group-modal.component.less"],
