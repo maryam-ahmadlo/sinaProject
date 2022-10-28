@@ -174,7 +174,7 @@
                     </button>
                   </div>
                 </div>
-                <nz-table #basicTable style="margin-top: 1rem">
+                <nz-table #basicTable style="margin-top: 1rem" class="table-responsive">
                   <thead>
                     <tr>
                       <th>ردیف</th>
@@ -228,7 +228,7 @@
                     </button>
                   </div>
                 </div>
-                <nz-table #basicTable style="margin-top: 1rem">
+                <nz-table #basicTable style="margin-top: 1rem" class="table-responsive">
                   <thead>
                     <tr>
                       <th>ردیف</th>
@@ -282,7 +282,7 @@
                     </button>
                   </div>
                 </div>
-                <nz-table #basicTable style="margin-top: 1rem">
+                <nz-table #basicTable style="margin-top: 1rem" class="table-responsive">
                   <thead>
                     <tr>
                       <th>ردیف</th>
@@ -355,7 +355,7 @@
           </button>
         </div>
       </div>
-      <nz-table #basicTable>
+      <nz-table #basicTable class="table-responsive">
         <thead>
           <tr>
             <th>ردیف</th>
@@ -379,7 +379,7 @@
     </nz-card>
     <div class="result">
       <button nz-button nzType="primary" style="margin-left: 1%">تایید</button>
-      <button nz-button nzType="default">انصراف</button>
+      <button nz-button nzType="default" [routerLink]="['/','customer']">انصراف</button>
     </div>
   </form>
 </div>

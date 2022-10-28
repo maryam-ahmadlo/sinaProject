@@ -22,11 +22,11 @@ import { NewestResultComponent } from "../newest-result/newest-result.component"
 })
 export class SearchResultComponent implements OnInit {
   constructor(private router: Router) {}
-  @Input() items: any = {
-    search: "",
-  };
+  @Input() items: any ;
 
   ngOnInit(): void {
+    console.log(this.items);
+    
     this.router.navigate([ '/','customer','dashboard','newest']);
   }
 }
