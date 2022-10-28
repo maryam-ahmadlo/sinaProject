@@ -1,7 +1,11 @@
 <div class="container" fxLayout="column" fxLayoutGap="20px">
   <section class="item-container">
     <div fxLayout="row" dir="ltr" fxLayout.lt-md="column">
-      <img src="../../../../assets/images/expiredLogo.png" class="tag" />
+      <img
+        src="../../../../assets/images/expierd.png"
+        alt="منسوخ شده"
+        class="tag"
+      />
       <h3 class="item-title">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem,
         aut rerum? Rem sit libero, quam enim omnis, suscipit eius distinctio
@@ -10,18 +14,24 @@
       </h3>
     </div>
     <div fxLayout="row" fxLayoutGap="16px" fxLayout.lt-sm="column">
+      <div class="more">
       <button nz-button nzType="text">
         متن بخشنامه
         <small><a href="#"> اطلاعات بیشتر </a></small>
       </button>
-      <button nz-button nzType="text" (click)="downloadPDF()">
-        دانلود PDF
-        <span nz-icon nzType="file-pdf" nzTheme="outline"></span>
-      </button>
-      <button nz-button nzType="text" (click)="addBookmark()">
-        bookmark
-        <span nz-icon nzType="star" nzTheme="outline"></span>
-      </button>
+    </div>
+      <div class="pdf">
+        <button nz-button nzType="text" (click)="downloadPDF()">
+          دانلود PDF
+          <span nz-icon nzType="file-pdf" nzTheme="outline"></span>
+        </button>
+      </div>
+      <div class="bookmark">
+        <button nz-button nzType="text" (click)="addBookmark()">
+          bookmark
+          <span nz-icon nzType="star" nzTheme="outline"></span>
+        </button>
+      </div>
     </div>
   </section>
 
