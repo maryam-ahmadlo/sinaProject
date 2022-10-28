@@ -112,14 +112,7 @@ export class BookmarkListComponent implements OnInit {
     };
   }
 
-  refresh() {
-    this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        refresh: new Date().getTime(),
-      },
-    });
-  }
+
 
   createRenameBookmarkModal(item: IBookmark) {
     console.log(item);
@@ -148,6 +141,7 @@ export class BookmarkListComponent implements OnInit {
   }
 
   handleRenameBookmark(componentInstance: any, id: number) {
+
     this.bookmarkService
       .renameBookmark(componentInstance.form.get("name").value, id)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
@@ -158,5 +152,15 @@ export class BookmarkListComponent implements OnInit {
       componentInstance.destroyModal();
       this.refresh();
     };
+  }
+
+
+  refresh() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        refresh: new Date().getTime(),
+      },
+    });
   }
 }

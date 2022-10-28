@@ -56,14 +56,19 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
 
   constructor(private modal: NzModalRef, private httpClient: HttpClient) {
     this.httpClient.get<IBranch[]>("/url/branches").subscribe((r) => {
-      for (let i = 0; i < r.length; i++) {
+      // for (let i = 0; i < r.length; i++) {
         let json = {
-          title: r[i].name,
-          value: r[i].code,
-          key: r[i].id,
+          // title: r[i].name,
+          // value: r[i].code,
+          // key: r[i].id,
+          title: 'okmAdmin',
+          value: 'okmAdmin',
+          key: 'okmAdmin',
         };
         this.branch.push(json);
-      }
+        console.log(this.branch);
+        
+      // }
     });
 
     this.httpClient

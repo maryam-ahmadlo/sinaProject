@@ -115,6 +115,8 @@ export class SlidebarComponent implements OnInit {
 
   
   createSendGroupMsgModal() {
+  
+
     this.modalService.create({
       nzTitle: "ارسال پیام گروهی ",
       nzContent: CreateSendGroupMsgModalComponent,
@@ -136,7 +138,29 @@ export class SlidebarComponent implements OnInit {
     });
   }
   handleGroupMsg(componentInstance: any) {
-    console.log(componentInstance);
+    console.log(componentInstance.form['value'].message);
+ console.log();
+ 
+    let date:Date=new Date();
+   
+    
+    let json={
+      sender: "okmAdmin",
+      message: componentInstance.form['value'].message,
+      sendDate: date.toJSON(),
+      messageReceivers: [
+        {
+          sender: "okmAdmin",
+          receiver: componentInstance.form['value'].messageReceivers,
+          message: componentInstance.form['value'].message,
+          seenDate: ""
+        }
+      ]
+    }
+    this.httpclient.post<any>('/url/groupMessages',json).subscribe((r)=>{
+      console.log('rrrr',r);
+      
+    });
     
   }
 

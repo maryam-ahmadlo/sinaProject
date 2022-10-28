@@ -7,6 +7,7 @@ import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
+import { NotificationModalComponent } from "../notification-modal/notification-modal.component";
 @Component({
   selector: "app-notification-dropdown",
   templateUrl: "./notification-dropdown.component.html",
@@ -31,7 +32,7 @@ export class NotificationDropdownComponent {
 
   ngOnInit(): void {
     this.httpClient
-      .get("/api/bookmark/getAll", {
+      .get("/url/groupMessages/okmAdmin/inbox", {
         headers: new HttpHeaders({
           accept: "application/json",
           Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
@@ -47,7 +48,22 @@ export class NotificationDropdownComponent {
       }));
   }
 
-
+createNotificationModal(item:any){
+  this.modalService.create({
+    nzTitle: "مشاهده پیام",
+    nzContent: NotificationModalComponent,
+    nzComponentParams: {
+      item,
+    },
+    nzFooter: [
+      {
+        label: "بستن",
+        type: "default",
+        onClick: (componentInstance) => componentInstance.destroyModal(),
+      },
+    ],
+  });
+}
 
 
 }

@@ -86,7 +86,12 @@ export class UploadFileComponent implements OnInit {
     keywords: new FormControl(null , Validators.required),
   });
 
-  constructor(private router: Router, private modalService: NzModalService) {}
+  constructor(private router: Router, private modalService: NzModalService,private activatedRoute:ActivatedRoute) {
+    console.log(this.activatedRoute.snapshot.params['id']);
+    
+    this.uploadFileForm.get('categoryId').patchValue(this.activatedRoute.snapshot.params['id']);
+    
+  }
 
   ngOnInit(): void {}
 

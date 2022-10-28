@@ -6,6 +6,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 
 @Component({
   selector: 'leasing-notification-modal',
@@ -27,9 +28,23 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzButtonModule,
     NzModalModule,
     NzTypographyModule,
+    NzPageHeaderModule
   ],
 })
 export class NotificationModalComponent  {
+
+  isLoading: boolean;
+  @Input() item: any;
+  constructor(private modal: NzModalRef) {}
+  ngOnInit(): void {
+   console.log('bbbbbbbbbbbbb',this.item);
+   
+  }
+
+  destroyModal(): void {
+    this.modal.destroy();
+  }
+
   // @Input() notification: any;
   // isLoading: boolean;
 
