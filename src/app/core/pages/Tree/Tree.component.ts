@@ -69,7 +69,7 @@ export class TreeComponent implements OnInit {
     private router: Router
   ) {
     this.activatedRoute.data.subscribe(({ tree }) => {
-      tree.folder.forEach((v: any) => {
+      Array.prototype.forEach.call(tree.folder, (v: any) => {
         let json = {
           path: v.path,
           id: v.uuid,
@@ -243,8 +243,6 @@ class DynamicDatasource implements DataSource<IFlatNode> {
     initData: IFlatNode[],
     private httpClient: HttpClient
   ) {
-    console.log("initData", initData);
-
     this.flattenedData = new BehaviorSubject<IFlatNode[]>(initData);
     treeControl.dataNodes = initData;
   }
