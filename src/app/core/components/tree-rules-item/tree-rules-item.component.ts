@@ -6,6 +6,7 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { TreeService } from "../../services/tree.service";
+import { ActivatedRoute } from "@angular/router";
 @Component({
   selector: "app-tree-rules-item",
   standalone: true,
@@ -21,7 +22,10 @@ import { TreeService } from "../../services/tree.service";
   styleUrls: ["./tree-rules-item.component.less"],
 })
 export class TreeRulesItemComponent implements OnInit {
-  constructor(private treeService: TreeService) {}
+  nodeId: string;
+  constructor(private treeService: TreeService, private activatedRoute:ActivatedRoute) {
+    this.nodeId=this.activatedRoute.snapshot.params['id'];
+  }
 
   ngOnInit(): void {}
 

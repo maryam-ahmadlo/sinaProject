@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzModalModule, NzModalRef } from 'ng-zorro-antd/modal';
+import { IFlatNode } from 'src/shared/common/src/lib/interfaces';
 
 @Component({
   selector: 'app-create-delete-node-modal',
@@ -10,7 +11,7 @@ import { NzModalModule, NzModalRef } from 'ng-zorro-antd/modal';
   styleUrls: ['./create-delete-node-modal.component.less']
 })
 export class CreateDeleteNodeModalComponent {
-  @Input() node: any;
+  @Input() node: IFlatNode;
   isLoading: boolean;
 
   constructor(private modal: NzModalRef) {}

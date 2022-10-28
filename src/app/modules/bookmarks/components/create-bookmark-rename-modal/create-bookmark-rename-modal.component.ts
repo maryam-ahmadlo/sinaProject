@@ -15,7 +15,7 @@ import { NzInputModule } from "ng-zorro-antd/input";
 })
 export class CreateBookmarkRenameModalComponent implements OnInit {
   isLoading: boolean;
-  @Input() bookmark: IBookmark;
+  @Input() item: IBookmark;
   form: FormGroup<{
     name: FormControl<string>;
   }> = new FormGroup({
@@ -23,7 +23,9 @@ export class CreateBookmarkRenameModalComponent implements OnInit {
   });
   constructor(private modal: NzModalRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.form.get('name').setValue(this.item.name);
+  }
 
   destroyModal(): void {
     this.modal.destroy();

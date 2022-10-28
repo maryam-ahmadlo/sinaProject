@@ -18,18 +18,24 @@ export class TreeService {
   }
 
 
-  getAllNodes() {
-    return this.httpClient.get<any>("/Api/categories/getAll", {
+  createCategory(body: { path: string; code: string }) {
+    return this.httpClient.post<any>("/url/categories/create", body, {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
-      // params: { fldId: "/okm:categories" },
     });
   }
 
-
-  renameNode(uuid: string, name: string) {
+  deleteCategory(id: string) {
+    return this.httpClient.delete(`api/categories/${id}/delete`, {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
+  }
+  renameCategory(uuid: string, name: string) {
     return this.httpClient.post<any>(`/api/categories/${uuid}`, {
       params: {
         rename: { newName: name },

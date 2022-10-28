@@ -3,7 +3,7 @@ export interface IFlatNode {
     // name: string;
     // key: string;
     // level: number;
-
+path:string;
     expandable: boolean;
     id: string;
     label: string;

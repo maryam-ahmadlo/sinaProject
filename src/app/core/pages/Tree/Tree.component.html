@@ -88,7 +88,7 @@
 
 <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource">
   <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
-    <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" [routerLink]="['/','customer','rules','detail']" >
+    <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" [routerLink]="['/','customer','rules','detail',node.id]" >
       {{ node.label }}
       <span nz-icon nzType="setting" nzTheme="outline"></span>
     </a>
@@ -146,7 +146,7 @@
     <nz-tree-node-toggle *ngIf="node.loading" nzTreeNodeNoopToggle>
       <span nz-icon nzType="loading" nzTreeNodeToggleActiveIcon></span>
     </nz-tree-node-toggle>
-    <a nz-dropdown [nzDropdownMenu]="menu"  nzTrigger="click" [routerLink]="['/','customer','rules','detail']" >
+    <a nz-dropdown [nzDropdownMenu]="menu"  nzTrigger="click" [routerLink]="['/','customer','rules','detail',node.id]" >
       {{ node.label }}
    
       <span nz-icon nzType="setting" nzTheme="outline"></span>

@@ -9,6 +9,7 @@ import {
 } from "@angular/forms";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzInputModule } from "ng-zorro-antd/input";
+import { IFlatNode, ITreeNode } from "src/shared/common/src/lib/interfaces";
 
 @Component({
   selector: "app-create-add-node-modal",
@@ -23,8 +24,8 @@ import { NzInputModule } from "ng-zorro-antd/input";
   templateUrl: "./create-add-node-modal.component.html",
   styleUrls: ["./create-add-node-modal.component.less"],
 })
-export class CreateAddNodeModalComponent {
-  @Input() node: any;
+export class CreateAddNodeModalComponent implements OnInit {
+  @Input() node: IFlatNode;
   isLoading: boolean;
   form: FormGroup<{
     level: FormControl<string>;
@@ -36,6 +37,11 @@ export class CreateAddNodeModalComponent {
     code: new FormControl(null, [Validators.required]),
   });
   constructor(private modal: NzModalRef) {}
+  ngOnInit(): void {
+
+    this.form.get('level').setValue(this.node.path);
+  
+  }
 
   destroyModal(): void {
     this.modal.destroy();

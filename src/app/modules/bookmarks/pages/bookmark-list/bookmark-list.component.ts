@@ -43,38 +43,17 @@ export class BookmarkListComponent implements OnInit {
     private modalService: NzModalService,
     private bookmarkService: BookmarkService,
     private message: NzMessageService,
-    private router: Router,
- 
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    // this.httpClient
-    //   .get("/api/bookmark/getAll", {
-    //     headers: new HttpHeaders({
-    //       accept: "application/json",
-    //       Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-    //     }),
-    //   })
-    //   .subscribe(console.log);
+    this.activatedRoute.data.subscribe(({ bookmarkList }) =>
+      bookmarkList["bookmark"] ? this.data.push(bookmarkList["bookmark"]) : []
+    );
 
-    
-
-    this.activatedRoute.data.subscribe(({bookmarkList}) =>  this.data=bookmarkList['bookmark']);
-
-    this.data.forEach((v)=>{
-      Number(v.id)
-    })
- console.log(this.data);
- 
-  
-  
-
-    // this.listOfData = new Array(200).fill(0).map((_, index) => ({
-    //   id: index,
-    //   name: `Edward King ${index}`,
-    //   age: 32,
-    //   address: `London, Park Lane no. ${index}`,
-    // }));
+    this.data.forEach((v) => {
+      Number(v.id);
+    });
   }
 
   listOfSelection = [
@@ -106,7 +85,7 @@ export class BookmarkListComponent implements OnInit {
     },
   ];
   checked = false;
-   indeterminate = false;
+  indeterminate = false;
   listOfCurrentPageData: any = [];
   // listOfData: any = [];
   setOfCheckedId = new Set<number>();
@@ -146,14 +125,12 @@ export class BookmarkListComponent implements OnInit {
       ) && !this.checked;
   }
 
-  createShowBookMarkModal(id: number) {
-    let bookmark: IBookmark;
-    this.bookmarkService.getOne(id.toString()).subscribe((r) => (bookmark = r));
+  createShowBookMarkModal(item: IBookmark) {
     this.modalService.create({
       nzTitle: "مشاهده bookmark",
       nzContent: CreateBookmarkShownModalComponent,
       nzComponentParams: {
-        bookmark,
+        item,
       },
       nzFooter: [
         {
@@ -165,7 +142,7 @@ export class BookmarkListComponent implements OnInit {
     });
   }
 
-  createDeleteBookmarkModal(id: string | number) {
+  createDeleteBookmarkModal(item: IBookmark) {
     this.modalService.create({
       nzTitle: "حذف bookmark",
       nzContent: CreateBookamrkDeleteModalComponent,
@@ -180,14 +157,14 @@ export class BookmarkListComponent implements OnInit {
           label: "تایید",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleDeleteBookmark(componentInstance, id),
+            this.handleDeleteBookmark(componentInstance, item.id),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
 
-  handleDeleteBookmark(componentInstance: any, id: string | number) {
+  handleDeleteBookmark(componentInstance: any, id: number) {
     componentInstance.isLoading = true;
 
     this.bookmarkService
@@ -211,11 +188,15 @@ export class BookmarkListComponent implements OnInit {
     });
   }
 
-  createRenameBookmarkModal(id: string | number) {
+  createRenameBookmarkModal(item: IBookmark) {
+    console.log(item);
+
     this.modalService.create({
       nzTitle: "تغییر نام bookmark",
       nzContent: CreateBookmarkRenameModalComponent,
-      nzComponentParams: {},
+      nzComponentParams: {
+        item,
+      },
       nzFooter: [
         {
           label: "انصراف",
@@ -226,10 +207,23 @@ export class BookmarkListComponent implements OnInit {
           label: "تایید",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleDeleteBookmark(componentInstance, id),
+            this.handleRenameBookmark(componentInstance, item.id),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
+  }
+
+  handleRenameBookmark(componentInstance: any, id: number) {
+    this.bookmarkService
+      .renameBookmark(componentInstance.form.get("name").value, id)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
+
+    const handleRes = () => {
+      this.message.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 }
