@@ -5,11 +5,19 @@
       #rowSelectionTable
       nzShowSizeChanger
       [nzData]="listOfData"
-     
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
     >
       <thead>
         <tr>
           <th>ردیف</th>
+          <th
+            [nzSelections]="listOfSelection"
+            [(nzChecked)]="checked"
+            [nzIndeterminate]="indeterminate"
+            (nzCheckedChange)="onAllChecked($event)"
+          >
+            انتخاب
+          </th>
           <th>نام</th>
           <th>عملیات</th>
         </tr>
@@ -17,7 +25,10 @@
       <tbody>
         <tr *ngFor="let data of rowSelectionTable.data; let i = index">
           <td>{{ i + 1 }}</td>
-       
+          <td
+            [nzChecked]="setOfCheckedId.has(data.id)"
+            (nzCheckedChange)="onItemChecked(data.id, $event)"
+          ></td>
           <td>{{ data.name }}</td>
 
           <td>

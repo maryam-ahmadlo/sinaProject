@@ -6,18 +6,28 @@
       </li>
 
       <li nz-menu-item nzSelected>
-        <a [routerLink]="['newest']"> جدیدترین</a>
+        <a [routerLink]="['newest']">
+          جدیدترین</a
+        >
       </li>
       <li nz-menu-item>
-        <a [routerLink]="['oldest']">قدیمی ترین</a>
+        <a [routerLink]="['oldest']"
+          >قدیمی ترین</a
+        >
       </li>
       <li nz-menu-item>
-        <a [routerLink]="['similar']">شبیه ترین</a>
+        <a [routerLink]="['similar']"
+          >شبیه ترین</a
+        >
       </li>
     </ul>
   </div>
   <div>
-    <nz-tag nzColor="success">{{ items.name }}</nz-tag>
+    <nz-tag nzColor="success">{{
+      items.search || items.searchExpression
+    }}</nz-tag>
   </div>
   <router-outlet></router-outlet>
 </div>
+
+

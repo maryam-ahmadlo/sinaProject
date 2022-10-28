@@ -28,6 +28,8 @@ import { CreateUpdateUserModalComponent } from "../../components/create-update-u
 })
 export class UserManagementListComponent implements OnInit {
   isLoading: boolean;
+
+  listOfCurrentPageData: any = [];
   listOfUsers: IUser[] = [];
  
   constructor(
