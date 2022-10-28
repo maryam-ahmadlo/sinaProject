@@ -64,7 +64,6 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
           value: r[i].code,
           key: r[i].id,
         };
-
         this.branch.push(json);
       }
     });

@@ -34,8 +34,18 @@ export class BookmarkService {
 
   
 
-  deleteOne(id: number | string) {
-    return this.httpClient.get<IBookmark>("/api/bookmark/delete", {
+  deleteOne(id: number) {
+    return this.httpClient.delete<IBookmark>("/api/bookmark/delete", {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+      params: { bookmarkId: id },
+    });
+  }
+
+  renameBookmark(body:string,id:number){
+    return this.httpClient.put('/api/bookmark/rename',body,{
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",

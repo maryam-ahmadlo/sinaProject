@@ -9,7 +9,7 @@ import { NzMenuModule } from "ng-zorro-antd/menu";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzInputModule } from "ng-zorro-antd/input";
-import { ActivatedRoute, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddNodeModalComponent } from "@core/components/create-add-node-modal/create-add-node-modal.component";
@@ -24,7 +24,16 @@ import {
   SelectionChange,
 } from "@angular/cdk/collections";
 import { TreeService } from "../../services/tree.service";
-import { BehaviorSubject, map, merge, Observable, of, tap } from "rxjs";
+import {
+  BehaviorSubject,
+  finalize,
+  map,
+  merge,
+  Observable,
+  of,
+  tap,
+} from "rxjs";
+import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
 
 @Component({
   selector: "app-tree",
@@ -43,6 +52,7 @@ import { BehaviorSubject, map, merge, Observable, of, tap } from "rxjs";
     NzModalModule,
     NzDropDownModule,
     RouterModule,
+    NzMessageModule,
   ],
 })
 export class TreeComponent implements OnInit {
@@ -54,13 +64,14 @@ export class TreeComponent implements OnInit {
     public httpClient: HttpClient,
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
-    private treeService: TreeService
+    private treeService: TreeService,
+    private nzMessage: NzMessageService,
+    private router: Router
   ) {
     this.activatedRoute.data.subscribe(({ tree }) => {
       tree.folder.forEach((v: any) => {
-        console.log(v);
-
         let json = {
+          path: v.path,
           id: v.uuid,
           label: v.path.split("/")[2],
           level: 0,
@@ -85,7 +96,7 @@ export class TreeComponent implements OnInit {
 
   hasChild = (_: number, node: IFlatNode): boolean => node.expandable;
 
-  createAddNodeModal(node: any) {
+  createAddNodeModal(node: IFlatNode) {
     this.modalService.create({
       nzTitle: "افزودن درختواره ",
       nzContent: CreateAddNodeModalComponent,
@@ -110,9 +121,27 @@ export class TreeComponent implements OnInit {
 
   handleAddTreeNode(componentInstance: any) {
     componentInstance.isLoading = true;
+
+    let json = {
+      path:
+        componentInstance.form.get("level").value +
+        "/" +
+        componentInstance.form.get("title").value,
+      code: componentInstance.form.value.code,
+    };
+    this.treeService
+      .createCategory(json)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
+
+      const handleRes = () => {
+        this.nzMessage.success("عملیات با موفقیت انجام شد");
+        componentInstance.destroyModal();
+        this.refresh();
+      };
   }
 
-  createDeleteNodeModal(node: any) {
+  createDeleteNodeModal(node: IFlatNode) {
     this.modalService.create({
       nzTitle: "حذف درختواره ",
       nzContent: CreateDeleteNodeModalComponent,
@@ -128,18 +157,31 @@ export class TreeComponent implements OnInit {
           label: "تایید",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleDeleteTreeNode(componentInstance),
+            this.handleDeleteTreeNode(componentInstance, node),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
 
-  handleDeleteTreeNode(componentInstance: any) {
-    // this.treeService.deleteNode(uuid);
+  handleDeleteTreeNode(componentInstance: any, node: IFlatNode) {
+    componentInstance.isLoading = true;
+    this.treeService
+      .deleteCategory(node.id)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(()=> handleRes());
+
+
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 
-  createEditNodeModal(node: any) {
+  createEditNodeModal(node: IFlatNode) {
+    console.log(node);
+
     this.modalService.create({
       nzTitle: "ویرایش درختواره ",
       nzContent: CreateEditNodeModalComponent,
@@ -163,9 +205,36 @@ export class TreeComponent implements OnInit {
   }
 
   handleRenameTreeNode(componentInstance: any) {
-    //this.treeService.renameNode(uuid,name).subscribe((r)=>console.log(r))
+    componentInstance.isLoading = true;
+
+    let name =
+      componentInstance.form.get("level").value +
+      "/" +
+      componentInstance.form.get("title").value;
+    let code = componentInstance.form.value.code;
+
+    this.treeService
+      .renameCategory(code, name)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
+
+      const handleRes = () => {
+        this.nzMessage.success("عملیات با موفقیت انجام شد");
+        componentInstance.destroyModal();
+        this.refresh();
+      };
+  }
+
+  refresh() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        refresh: new Date().getTime(),
+      },
+    });
   }
 }
+
 class DynamicDatasource implements DataSource<IFlatNode> {
   private flattenedData: BehaviorSubject<IFlatNode[]>;
   private childrenLoadedSet = new Set<IFlatNode>();
@@ -238,10 +307,9 @@ class DynamicDatasource implements DataSource<IFlatNode> {
         params: { fldId: `${node.id}` },
       })
       .subscribe((children) => {
-        console.log("children", children);
-
         children.folder.forEach((v: any) => {
           let json = {
+            path: v.path,
             id: v.uuid,
             label: v.path.split("/")[node.level + 3],
             level: node.level + 1,

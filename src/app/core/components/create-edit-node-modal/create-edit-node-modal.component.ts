@@ -4,6 +4,7 @@ import { NzModalModule, NzModalRef } from "ng-zorro-antd/modal";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { IFlatNode } from "src/shared/common/src/lib/interfaces";
 
 @Component({
   selector: "app-create-edit-node-modal",
@@ -18,8 +19,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
   templateUrl: "./create-edit-node-modal.component.html",
   styleUrls: ["./create-edit-node-modal.component.css"],
 })
-export class CreateEditNodeModalComponent {
-  @Input() node: any;
+export class CreateEditNodeModalComponent implements OnInit {
+  @Input() node: IFlatNode;
   isLoading: boolean;
 
   form: FormGroup<{
@@ -33,6 +34,11 @@ export class CreateEditNodeModalComponent {
   });
 
   constructor(private modal: NzModalRef) {}
+  ngOnInit(): void {
+   this.form.get('level').setValue(this.node.path);
+   this.form.get('title').setValue(this.node.label);
+   this.form.get('code').setValue(this.node.id);
+  }
 
   destroyModal(): void {
     this.modal.destroy();
