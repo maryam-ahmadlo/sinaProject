@@ -1,17 +1,17 @@
-.advanced-container{
-    padding: 5%;
-      background-color: rgb(231, 231, 231);
-      border-radius: 5px;
-    }
-    
-.result{
-    display: flex;
-    justify-content: flex-end;
+.advanced-container {
+  padding: 5%;
+  background-color: rgb(231, 231, 231);
+  border-radius: 5px;
 }
-    
-    @media screen and (min-width:1440px){
-      .advanced-container{
-        padding: 3%;
-      }
-    }
-    
+
+.result {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 1440px) {
+  .advanced-container {
+    padding: 3%;
+  }
+}
