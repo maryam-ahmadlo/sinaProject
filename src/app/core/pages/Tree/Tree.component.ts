@@ -69,7 +69,7 @@ export class TreeComponent implements OnInit {
     private router: Router
   ) {
     this.activatedRoute.data.subscribe(({ tree }) => {
-      tree.folder.forEach((v: any) => {
+      Array.prototype.forEach.call(tree.folder, (v: any) => {
         let json = {
           path: v.path,
           id: v.uuid,
@@ -134,11 +134,11 @@ export class TreeComponent implements OnInit {
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
-      const handleRes = () => {
-        this.nzMessage.success("عملیات با موفقیت انجام شد");
-        componentInstance.destroyModal();
-        this.refresh();
-      };
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 
   createDeleteNodeModal(node: IFlatNode) {
@@ -169,8 +169,7 @@ export class TreeComponent implements OnInit {
     this.treeService
       .deleteCategory(node.id)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
-      .subscribe(()=> handleRes());
-
+      .subscribe(() => handleRes());
 
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
@@ -218,11 +217,11 @@ export class TreeComponent implements OnInit {
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
-      const handleRes = () => {
-        this.nzMessage.success("عملیات با موفقیت انجام شد");
-        componentInstance.destroyModal();
-        this.refresh();
-      };
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 
   refresh() {
@@ -244,7 +243,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
     initData: IFlatNode[],
     private httpClient: HttpClient
   ) {
-    
+
     this.flattenedData = new BehaviorSubject<IFlatNode[]>(initData);
     treeControl.dataNodes = initData;
   }

@@ -30,22 +30,17 @@ import { CreateAddFileModalComponent } from "@core/components/index";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 
 export interface IUploadFileForm {
-  categoryId: FormControl<string>;
   title: FormControl<string>;
-  code: FormControl<string>;
   subject: FormControl<string>;
-  branchName: FormControl<string>;
-  ruleNumber: FormControl<string>;
   text: FormControl<string>;
-  description: FormControl<string>;
-  notifiedDate: FormControl<string>;
-  // state: FormControl<string>;  ????
+  categoryId: FormControl<string>;
+  code: FormControl<string>;
   documentType: FormControl<string>;
   versionNumber: FormControl<string>;
+  branchName: FormControl<string>;
+  ruleNumber: FormControl<string>;
   related: FormControl<string>;
-  amendment: FormControl<string>;
-  addendum: FormControl<string>;
-  // keywords: FormControl<string>;
+  keywords: FormControl<string>;
 }
 @Component({
   selector: "app-upload-file",
@@ -78,21 +73,17 @@ export interface IUploadFileForm {
 export class UploadFileComponent implements OnInit {
   public isWait = false;
   uploadFileForm: FormGroup<IUploadFileForm> = new FormGroup({
-    categoryId: new FormControl(null, Validators.required),
-    title: new FormControl(null, Validators.required),
-    code: new FormControl(null, Validators.required),
-    subject: new FormControl(null, Validators.required),
-    branchName: new FormControl(null, Validators.required),
-    ruleNumber: new FormControl(null, Validators.required),
-    text: new FormControl(null, Validators.required),
-    description: new FormControl(null, Validators.required),
-    notifiedDate: new FormControl(null, Validators.required),
-    documentType: new FormControl(null, Validators.required),
-    versionNumber: new FormControl(null, Validators.required),
-    related: new FormControl(null, Validators.required),
-    amendment:  new FormControl(null, Validators.required),
-    addendum:  new FormControl(null, Validators.required),
-    // keywords: new FormControl(null, Validators.required),
+    title: new FormControl(null , Validators.required),
+    subject: new FormControl(null , Validators.required),
+    text: new FormControl(null , Validators.required),
+    categoryId: new FormControl(null , Validators.required),
+    code: new FormControl(null , Validators.required),
+    documentType: new FormControl(null , Validators.required),
+    versionNumber: new FormControl(null , Validators.required),
+    branchName: new FormControl(null , Validators.required),
+    ruleNumber: new FormControl(null , Validators.required),
+    related: new FormControl(null , Validators.required),
+    keywords: new FormControl(null , Validators.required),
   });
 
   constructor(private router: Router, private modalService: NzModalService) {}
@@ -117,5 +108,3 @@ export class UploadFileComponent implements OnInit {
     });
   }
 }
-
-
