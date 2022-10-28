@@ -243,6 +243,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
     initData: IFlatNode[],
     private httpClient: HttpClient
   ) {
+
     this.flattenedData = new BehaviorSubject<IFlatNode[]>(initData);
     treeControl.dataNodes = initData;
   }
@@ -255,7 +256,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
       ),
       this.flattenedData,
     ];
-    return merge(changes).pipe(
+    return merge(...changes).pipe(
       map(() => this.expandFlattenedNodes(this.flattenedData.getValue()))
     );
   }
@@ -321,7 +322,8 @@ class DynamicDatasource implements DataSource<IFlatNode> {
           flattenedData.splice(index + 1, 0, ...treeData);
           this.childrenLoadedSet.add(node);
         }
-
+       
+        
         this.flattenedData.next(flattenedData);
       });
   }

@@ -14,9 +14,10 @@ import {
 import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { TextEditorComponent } from "../text-editor/text-editor.component";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
 import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
+import { IUser } from "src/shared/common/src/lib/interfaces";
 
 @Component({
   selector: "app-create-send-group-msg-modal",
@@ -37,10 +38,7 @@ import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
 })
 export class CreateSendGroupMsgModalComponent implements OnInit {
   isLoading: boolean;
-  listOfOption: Array<{ label: string; value: string }> = [];
   listOfUsers: any = [];
-  // value: string[] = ['0-0-0'];
-
   branch: any = [];
 
   form: FormGroup<{
@@ -69,15 +67,20 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     });
 
     this.httpClient
-      .get<any>("/url/users?page=0&size=10&sort=")
-      .subscribe((r) => {
-        for (let i = 0; i < r.content.length; i++) {
+      .get<IUser[]>("/url/users", {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+      })
+      .subscribe((user) => {
+        user.forEach((r) => {
           let json = {
-            label: r.content[i]["id"],
-            value: r.content[i]["id"],
+            label: r.name,
+            value: r.id,
           };
           this.listOfUsers.push(json);
-        }
+        });
       });
   }
 
@@ -104,13 +107,6 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     ["text_color", "background_color"],
     ["align_left", "align_center", "align_right", "align_justify"],
   ];
-
-  // form = new FormGroup({
-  //   editorContent: new FormControl(
-  //     { value: "", disabled: false },
-  //     Validators.required()
-  //   ),
-  // });
 
   get doc(): AbstractControl {
     return this.form.get("message");

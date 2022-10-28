@@ -17,7 +17,6 @@ export class TreeService {
     });
   }
 
-
   createCategory(body: { path: string; code: string }) {
     return this.httpClient.post<any>("/url/categories/create", body, {
       headers: new HttpHeaders({
