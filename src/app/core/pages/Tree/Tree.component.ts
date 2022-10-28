@@ -134,11 +134,11 @@ export class TreeComponent implements OnInit {
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
-      const handleRes = () => {
-        this.nzMessage.success("عملیات با موفقیت انجام شد");
-        componentInstance.destroyModal();
-        this.refresh();
-      };
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 
   createDeleteNodeModal(node: IFlatNode) {
@@ -169,8 +169,7 @@ export class TreeComponent implements OnInit {
     this.treeService
       .deleteCategory(node.id)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
-      .subscribe(()=> handleRes());
-
+      .subscribe(() => handleRes());
 
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
@@ -218,11 +217,11 @@ export class TreeComponent implements OnInit {
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
-      const handleRes = () => {
-        this.nzMessage.success("عملیات با موفقیت انجام شد");
-        componentInstance.destroyModal();
-        this.refresh();
-      };
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 
   refresh() {
@@ -258,7 +257,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
       ),
       this.flattenedData,
     ];
-    return merge(...changes).pipe(
+    return merge(changes).pipe(
       map(() => this.expandFlattenedNodes(this.flattenedData.getValue()))
     );
   }
