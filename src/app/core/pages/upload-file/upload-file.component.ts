@@ -27,7 +27,6 @@ import { NzTableModule } from "ng-zorro-antd/table";
 import { NzDividerModule } from "ng-zorro-antd/divider";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddFileModalComponent } from "@core/components/index";
-import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 
 export interface IUploadFileForm {
   title: FormControl<string>;
@@ -67,7 +66,6 @@ export interface IUploadFileForm {
     NzTabsModule,
     NzTableModule,
     NzModalModule,
-    NzPageHeaderModule
   ],
 })
 export class UploadFileComponent implements OnInit {
