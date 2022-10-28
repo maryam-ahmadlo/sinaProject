@@ -66,7 +66,7 @@ export class SearchLayoutComponent implements OnInit {
     keywords: new UntypedFormControl(null),
   });
 
-  constructor(private router: Router,private searchService:SearchService) {}
+  constructor(private router: Router, private searchService: SearchService) {}
 
   ngOnInit(): void {}
 
@@ -82,11 +82,10 @@ export class SearchLayoutComponent implements OnInit {
       ...this.simpleSearchForm.value,
     };
 
-   
-    
     this.showResult = this.simpleSearchForm.valid;
-this.searchService.simpleSearch(this.simpleSearchForm.get('name').value).subscribe((r)=>console.log('rr',r)
-)
+    this.searchService
+      .simpleSearch(this.simpleSearchForm.get("name").value)
+      .subscribe((r) => console.log("rr", r));
   }
   onAdvancedSubmit() {
     this.searchItem = {

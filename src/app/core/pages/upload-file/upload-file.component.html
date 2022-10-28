@@ -65,9 +65,9 @@
               formControlName="categoryId"
               nzPlaceHolder="سطح 1 "
             >
-              <nz-option nzValue="1" nzLabel="سطح 1"></nz-option>
-              <nz-option nzValue="2" nzLabel="سطح 2"></nz-option>
-              <nz-option nzValue="3" nzLabel="سطح 3"></nz-option>
+              <nz-option nzValue="0" nzLabel="سطح 1"></nz-option>
+              <nz-option nzValue="1" nzLabel="سطح 2"></nz-option>
+              <nz-option nzValue="2" nzLabel="سطح 3"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -323,7 +323,7 @@
     </nz-card>
     <div class="result">
       <button nz-button nzType="primary" style="margin-left: 1%">تایید</button>
-      <button nz-button nzType="default">انصراف</button>
+      <button nz-button nzType="default" [routerLink]="['/','customer']">انصراف</button>
     </div>
   </form>
 </div>

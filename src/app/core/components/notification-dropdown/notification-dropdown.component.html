@@ -39,8 +39,8 @@
 
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <li nz-menu-item>مشاهده</li>
-                <li nz-menu-item>حذف</li>
+                <li nz-menu-item (click)="createNotificationModal(data)">مشاهده</li>
+                <!-- <li nz-menu-item>حذف</li> -->
               
               </ul>
             </nz-dropdown-menu>
