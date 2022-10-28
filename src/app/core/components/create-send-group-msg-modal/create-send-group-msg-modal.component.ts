@@ -13,7 +13,6 @@ import {
 } from "@angular/forms";
 import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzSelectModule } from "ng-zorro-antd/select";
-import { TextEditorComponent } from "../text-editor/text-editor.component";
 import { HttpClient } from "@angular/common/http";
 import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
 import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
