@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NzModalModule, NzModalRef } from "ng-zorro-antd/modal";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzInputModule } from "ng-zorro-antd/input";
+import { HttpClient } from "@angular/common/http";
+import { IBranch } from "src/shared/common/src/lib/interfaces";
 import {
   FormControl,
   FormGroup,
@@ -29,23 +31,51 @@ import { NzSelectModule } from "ng-zorro-antd/select";
   templateUrl: "./observe-group-modal.component.html",
   styleUrls: ["./observe-group-modal.component.less"],
 })
-export class ObserveGroupModalComponent implements OnInit {
-  isLoading: boolean;
-  listOfOption: Array<{ label: string; value: string }> = [];
-
-  form: FormGroup<{
-    content: FormControl<string>;
-    value: FormControl<string[]>;
-    listOfTagOptions: FormControl<string[]>;
-  }> = new FormGroup({
-    content: new FormControl(null),
-    value: new FormControl(null, [Validators.required]),
-    listOfTagOptions: new FormControl(null, [Validators.required]),
-  });
+export class ObserveGroupModalComponent {
   isVisible = false;
   isConfirmLoading = false;
+  isLoading: boolean;
+  listOfOption: Array<{ label: string; value: string }> = [];
+  listOfUsers: any = [];
+  branch: any = [];
 
-  constructor(private modal: NzModalRef) {}
+  form: FormGroup<{
+    branches: FormControl<string[]>;
+    messageReceivers: FormControl<string[]>;
+  }> = new FormGroup({
+    branches: new FormControl(null, [Validators.required]),
+    messageReceivers: new FormControl(null, [Validators.required]),
+  });
+
+  constructor(private modal: NzModalRef, private httpClient: HttpClient) {
+    this.httpClient.get<IBranch[]>("/url/branches").subscribe((r) => {
+      // for (let i = 0; i < r.length; i++) {
+      let json = {
+        // title: r[i].name,
+        // value: r[i].code,
+        // key: r[i].id,
+        title: "okmAdmin",
+        value: "okmAdmin",
+        key: "okmAdmin",
+      };
+      this.branch.push(json);
+      console.log(this.branch);
+
+      // }
+    });
+
+    this.httpClient
+      .get<any>("/url/users?page=0&size=10&sort=")
+      .subscribe((r) => {
+        for (let i = 0; i < r.content.length; i++) {
+          let json = {
+            label: r.content[i]["id"],
+            value: r.content[i]["id"],
+          };
+          this.listOfUsers.push(json);
+        }
+      });
+  }
 
   destroyModal(): void {
     this.modal.destroy();
@@ -100,13 +130,5 @@ export class ObserveGroupModalComponent implements OnInit {
 
   onChange($event: string[]): void {
     console.log($event);
-  }
-
-  ngOnInit(): void {
-    const children: Array<{ label: string; value: string }> = [];
-    for (let i = 10; i < 36; i++) {
-      children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
-    }
-    this.listOfOption = children;
   }
 }

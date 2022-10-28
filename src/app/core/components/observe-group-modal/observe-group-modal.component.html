@@ -1,10 +1,13 @@
 <form nz-form nzLayout="vertical" [formGroup]="form">
   <nz-form-item>
+    <nz-form-label nzRequired nzFor="branches">ارسال به </nz-form-label>
     <nz-form-control>
+     
       <nz-tree-select
-        formControlName="value"
+        formControlName="branches"
         (ngModelChange)="onChange($event)"
-        [nzNodes]="nodes"
+        [nzNodes]="branch"
+        id="branches"
         nzShowSearch
         nzCheckable
         nzPlaceHolder="لیست شعب "
@@ -13,19 +16,21 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="">کاربران </nz-form-label>
+    <nz-form-label nzRequired nzFor="messageReceivers">کاربران </nz-form-label>
     <nz-form-control>
       <nz-select
         nzMode="tags"
         nzPlaceHolder="نام کاربران"
-        formControlName="listOfTagOptions"
+        id="messageReceivers"
+        formControlName="messageReceivers"
       >
         <nz-option
-          *ngFor="let option of listOfOption"
+          *ngFor="let option of listOfUsers"
           [nzLabel]="option.label"
           [nzValue]="option.value"
         ></nz-option>
       </nz-select>
+    
     </nz-form-control>
   </nz-form-item>
 </form>
