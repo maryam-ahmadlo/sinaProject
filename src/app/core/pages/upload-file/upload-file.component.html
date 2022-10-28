@@ -145,13 +145,18 @@
         </nz-form-item>
       </div>
     </nz-card>
-
     <nz-card nzTitle="افزودن روابط مرتبط">
-      <div fxFlex="90">
-        <nz-tabset nzSize="large" nzType="card" style="margin: 1rem">
-          <nz-form-item
-            ><nz-form-control>
-              <nz-tab nzTitle="مرتبط" id="related" formControlName="related">
+      <div>
+        <nz-form-item fxFlex="90">
+          <nz-form-control>
+            <nz-tabset
+              id="related"
+              nzSize="large"
+              formControlName="related"
+              nzType="card"
+              style="margin: 1rem"
+            >
+              <nz-tab nzTitle="مرتبط">
                 <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
                   <div fxFlex="10">
                     <button
@@ -173,39 +178,9 @@
                       مشاهده
                     </button>
                   </div>
-                </div>
-                <nz-table #basicTable style="margin-top: 1rem">
-                  <thead>
-                    <tr>
-                      <th>ردیف</th>
-                      <th>انتخاب</th>
-                      <th>عنوان</th>
-                      <th>موضوع</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let data of basicTable.data">
-                      <td>{{ data.name }}</td>
-                      <td>{{ data.age }}</td>
-                      <td>{{ data.address }}</td>
-                      <td>
-                        <a>Action 一 {{ data.name }}</a>
-                        <nz-divider nzType="vertical"></nz-divider>
-                        <a>Delete</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </nz-table></nz-tab
-              ></nz-form-control
-            ></nz-form-item
-          >
-          <nz-form-item
-            ><nz-form-control>
-              <nz-tab
-                nzTitle="اصلاحیه"
-                formControlName="amendment"
-                id="amendment"
+                </div></nz-tab
               >
+              <nz-tab nzTitle="اصلاحیه">
                 <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
                   <div fxFlex="10">
                     <button
@@ -227,39 +202,9 @@
                       مشاهده
                     </button>
                   </div>
-                </div>
-                <nz-table #basicTable style="margin-top: 1rem">
-                  <thead>
-                    <tr>
-                      <th>ردیف</th>
-                      <th>انتخاب</th>
-                      <th>عنوان</th>
-                      <th>موضوع</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let data of basicTable.data">
-                      <td>{{ data.name }}</td>
-                      <td>{{ data.age }}</td>
-                      <td>{{ data.address }}</td>
-                      <td>
-                        <a>Action 一 {{ data.name }}</a>
-                        <nz-divider nzType="vertical"></nz-divider>
-                        <a>Delete</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </nz-table></nz-tab
-              ></nz-form-control
-            ></nz-form-item
-          >
-          <nz-form-item
-            ><nz-form-control>
-              <nz-tab
-                nzTitle="الحاقیه"
-                formControlName="addendum"
-                id="addendum"
+                </div></nz-tab
               >
+              <nz-tab nzTitle="الحاقیه">
                 <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
                   <div fxFlex="10">
                     <button
@@ -281,36 +226,35 @@
                       مشاهده
                     </button>
                   </div>
-                </div>
-                <nz-table #basicTable style="margin-top: 1rem">
-                  <thead>
-                    <tr>
-                      <th>ردیف</th>
-                      <th>انتخاب</th>
-                      <th>عنوان</th>
-                      <th>موضوع</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let data of basicTable.data">
-                      <td>{{ data.name }}</td>
-                      <td>{{ data.age }}</td>
-                      <td>{{ data.address }}</td>
-                      <td>
-                        <a>Action 一 {{ data.name }}</a>
-                        <nz-divider nzType="vertical"></nz-divider>
-                        <a>Delete</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </nz-table></nz-tab
-              ></nz-form-control
-            ></nz-form-item
-          >
-        </nz-tabset>
+                </div></nz-tab
+              >
+            </nz-tabset>
+            <nz-table #basicTable>
+              <thead>
+                <tr>
+                  <th>ردیف</th>
+                  <th>انتخاب</th>
+                  <th>عنوان</th>
+                  <th>موضوع</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                  <td>{{ data.name }}</td>
+                  <td>{{ data.age }}</td>
+                  <td>{{ data.address }}</td>
+                  <td>
+                    <a>Action 一 {{ data.name }}</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a>Delete</a>
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </nz-card>
-
     <nz-card nzTitle="افزودن کلمات کلیدی">
       <div>
         <nz-form-item fxFlex="90">
