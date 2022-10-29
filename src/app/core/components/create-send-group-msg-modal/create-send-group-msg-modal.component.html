@@ -18,14 +18,13 @@
     <nz-form-control>
      
       <nz-tree-select
-        formControlName="branches"
-        (ngModelChange)="onChange($event)"
-        [nzNodes]="branch"
-        id="branches"
-        nzShowSearch
-        nzCheckable
-        nzPlaceHolder="لیست شعب "
-      ></nz-tree-select>
+      formControlName="branches"
+      (ngModelChange)="onChange($event)"
+      [nzNodes]="nodes"
+      nzShowSearch
+      nzCheckable
+      nzPlaceHolder="لیست شعب "
+    ></nz-tree-select>
     </nz-form-control>
   </nz-form-item>
 
@@ -35,13 +34,12 @@
       <nz-select
         nzMode="tags"
         nzPlaceHolder="نام کاربران"
-        id="messageReceivers"
-        formControlName="messageReceivers"
+        formControlName="users"
       >
         <nz-option
           *ngFor="let option of listOfUsers"
-          [nzLabel]="option.label"
-          [nzValue]="option.value"
+          [nzLabel]="option.name"
+          [nzValue]="option.id"
         ></nz-option>
       </nz-select>
     

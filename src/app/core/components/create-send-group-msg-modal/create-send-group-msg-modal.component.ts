@@ -13,8 +13,9 @@ import {
 } from "@angular/forms";
 import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzSelectModule } from "ng-zorro-antd/select";
-import { HttpClient } from "@angular/common/http";
+import { UserManagementService } from "src/app/modules/user-management/services/user-management.service";
 import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
+import { IUser } from "src/shared/common/src/lib/interfaces";
 import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
 
 @Component({
@@ -36,11 +37,8 @@ import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
 })
 export class CreateSendGroupMsgModalComponent implements OnInit {
   isLoading: boolean;
-  listOfOption: Array<{ label: string; value: string }> = [];
-  listOfUsers: any = [];
-  // value: string[] = ['0-0-0'];
-
-  branch: any = [];
+  listOfRoles: Array<{ label: string; value: string }> = [];
+  listOfUsers: IUser[] = [];
 
   form: FormGroup<{
     message: FormControl<string>;
@@ -54,43 +52,47 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     branches: new FormControl(null, [Validators.required]),
     messageReceivers: new FormControl(null, [Validators.required]),
   });
+  nodes: any = [];
 
-  constructor(private modal: NzModalRef, private httpClient: HttpClient) {
-    this.httpClient.get<IBranch[]>("/url/branches").subscribe((r) => {
-      // for (let i = 0; i < r.length; i++) {
+  constructor(
+    private modal: NzModalRef,
+    private userManagementService: UserManagementService
+  ) {
+    this.userManagementService.getBranches().subscribe((r) => {
+      for (let i = 0; i < r.length; i++) {
         let json = {
-          // title: r[i].name,
-          // value: r[i].code,
-          // key: r[i].id,
-          title: 'okmAdmin',
-          value: 'okmAdmin',
-          key: 'okmAdmin',
+          title: r[i].name,
+          value: r[i].id,
+          key: r[i],
         };
-        this.branch.push(json);
-        console.log(this.branch);
-        
-      // }
+        this.nodes.push(json);
+      }
     });
 
-    this.httpClient
-      .get<any>("/url/users?page=0&size=10&sort=")
-      .subscribe((r) => {
-        for (let i = 0; i < r.content.length; i++) {
-          let json = {
-            label: r.content[i]["id"],
-            value: r.content[i]["id"],
-          };
-          this.listOfUsers.push(json);
-        }
-      });
+    this.userManagementService.getRules().subscribe((r) => {
+      for (let i = 0; i < r.length; i++) {
+        let json = {
+          label: r[i].id === "ROLE_ADMIN" ? "ادمین" : "کاربر",
+          value: r[i].id,
+        };
+        this.listOfRoles.push(json);
+      }
+    });
   }
 
   destroyModal(): void {
     this.modal.destroy();
   }
 
-  onChange($event: string[]): void {
-    console.log($event);
+  onChange($event: IBranch[]): void {
+    $event.forEach((r) => {
+      r.roles.forEach((user) => {
+        user.users.forEach((user) => {
+          this.listOfUsers.push(user);
+          console.log(this.listOfUsers);
+        });
+      });
+    });
   }
 
   ngOnInit(): void {

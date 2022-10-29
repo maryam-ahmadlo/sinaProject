@@ -29,7 +29,7 @@ import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { StateService } from "../../services";
 import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-group-msg-modal/create-send-group-msg-modal.component";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzBadgeModule } from "ng-zorro-antd/badge";
 @Component({
   standalone: true,
   selector: "app-slidebar",
@@ -114,10 +114,7 @@ export class SlidebarComponent implements OnInit {
     this.router.navigate(["/", "customer", "bookmarks"]);
   }
 
-  
   createSendGroupMsgModal() {
-  
-
     this.modalService.create({
       nzTitle: "ارسال پیام گروهی ",
       nzContent: CreateSendGroupMsgModalComponent,
@@ -139,30 +136,23 @@ export class SlidebarComponent implements OnInit {
     });
   }
   handleGroupMsg(componentInstance: any) {
-    console.log(componentInstance.form['value'].message);
- console.log();
- 
-    let date:Date=new Date();
-   
-    
-    let json={
+    let date: Date = new Date();
+
+    let json = {
       sender: "okmAdmin",
-      message: componentInstance.form['value'].message,
+      message: componentInstance.form["value"].message,
       sendDate: date.toJSON(),
       messageReceivers: [
         {
           sender: "okmAdmin",
-          receiver: componentInstance.form['value'].messageReceivers,
-          message: componentInstance.form['value'].message,
-          seenDate: ""
-        }
-      ]
-    }
-    this.httpclient.post<any>('/url/groupMessages',json).subscribe((r)=>{
-      console.log('rrrr',r);
-      
-    });
-    
+          receiver: componentInstance.form["value"].messageReceivers,
+          message: componentInstance.form["value"].message,
+          seenDate: "",
+        },
+      ],
+    };
+    this.httpclient.post<any>("/url/groupMessages", json).subscribe();
+    console.log(componentInstance.form);
   }
 
   createSendUrgentMsgModal() {
