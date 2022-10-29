@@ -19,10 +19,12 @@ export class UserManagementService {
   }
 
   getRules() {
-    return this.httpClient.get<{
-      id: string;
-      active: boolean;
-    }[]>("/url/roles", {
+    return this.httpClient.get<
+      {
+        id: string;
+        active: boolean;
+      }[]
+    >("/url/roles", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
@@ -30,8 +32,8 @@ export class UserManagementService {
     });
   }
 
-  getUsers(){
-    return this.httpClient.get<IUser[]>('/url/users', {
+  getUsers() {
+    return this.httpClient.get<IUser[]>("/url/users", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
@@ -39,13 +41,16 @@ export class UserManagementService {
     });
   }
 
-  assignRole(users:IUser[],roles:any){
-    return this.httpClient.put<any>('/api/auth/assignRole',`user=${users}&role=${roles}`,
-    {
-      headers: new HttpHeaders({
-        accept: "application/json",
-        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      }),
-    });
+  assignRole(users: IUser[], roles: any) {
+    return this.httpClient.put<any>(
+      "/api/auth/assignRole",
+      `user=${users}&role=${roles}`,
+      {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+      }
+    );
   }
 }
