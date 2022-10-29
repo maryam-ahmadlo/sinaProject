@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export interface IBranch {
   id: string;
   name: string;
@@ -9,6 +11,7 @@ export interface IBranch {
     {
       id: string;
       active: boolean;
+      users:IUser[]
     }
   ];
 }

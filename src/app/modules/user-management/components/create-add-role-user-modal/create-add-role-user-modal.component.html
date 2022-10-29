@@ -1,51 +1,68 @@
 <form nz-form nzLayout="vertical" [formGroup]="form">
- 
-    <nz-form-item>
-        <nz-form-label nzRequired nzFor="">نام کاربر </nz-form-label>
-        <nz-form-control>
-    
-            <nz-select nzMode="tags" nzPlaceHolder="نام کاربران" formControlName="listOfTagOptions">
-                <nz-option *ngFor="let option of listOfRoles" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-              </nz-select>
-  
-        </nz-form-control>
-      </nz-form-item>
-  
-    <nz-form-item>
-      <nz-form-label nzRequired nzFor="">شعبه </nz-form-label>
-      <nz-form-control>
-        <!-- <input type="text" nz-input id="branches" formControlName="branches" /> -->
-  
-        <nz-tree-select
-        formControlName="value"
+  <nz-form-item>
+    <nz-form-label nzRequired >شعبه </nz-form-label>
+    <nz-form-control>
+      <!-- <input type="text" nz-input id="branches" formControlName="branches" /> -->
+      <nz-tree-select
+        formControlName="branches"
         (ngModelChange)="onChange($event)"
         [nzNodes]="nodes"
         nzShowSearch
         nzCheckable
         nzPlaceHolder="لیست شعب "
       ></nz-tree-select>
-  
-  
-      </nz-form-control>
-    </nz-form-item>
-  
-    <nz-form-item>
-        <nz-form-label nzRequired nzFor="">نقش کاربر  </nz-form-label>
-        <nz-form-control>
-    <nz-select nzMode="tags" nzPlaceHolder="انتخاب از لیست نقش ها" formControlName="listOfTagOptions">
-        <nz-option *ngFor="let option of listOfRoles" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-      </nz-select>
- </nz-form-control>
- </nz-form-item>
+    </nz-form-control>
+  </nz-form-item>
 
- <nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired >نام کاربر </nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzMode="tags"
+        nzPlaceHolder="نام کاربران"
+        formControlName="users"
+      >
+        <nz-option
+          *ngFor="let option of listOfUsers"
+          [nzLabel]="option.name"
+          [nzValue]="option.id"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired >نقش کاربر </nz-form-label>
+    <nz-form-control>
+      <nz-select
+      [nzMaxMultipleCount]="1"
+        nzMode="tags"
+        nzPlaceHolder="انتخاب از لیست نقش ها"
+        formControlName="roles"
+      >
+        <nz-option
+          *ngFor="let option of listOfRoles"
+          [nzLabel]="option.label"
+          [nzValue]="option.value"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- <nz-form-item>
     <nz-form-label nzRequired nzFor="">دسترسی </nz-form-label>
     <nz-form-control>
-<nz-select nzMode="tags" nzPlaceHolder="انتخاب از لیست دسترسی ها" formControlName="listOfTagOptions">
-    <nz-option *ngFor="let option of listOfRoles" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-  </nz-select>
-</nz-form-control>
-</nz-form-item>
-
-  </form>
-  
+      <nz-select
+        nzMode="tags"
+        nzPlaceHolder="انتخاب از لیست دسترسی ها"
+        formControlName="listOfTagOptions"
+      >
+        <nz-option
+          *ngFor="let option of listOfRoles"
+          [nzLabel]="option.label"
+          [nzValue]="option.value"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item> -->
+</form>

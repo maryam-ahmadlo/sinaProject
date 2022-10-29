@@ -38,4 +38,14 @@ export class UserManagementService {
       }),
     });
   }
+
+  assignRole(users:IUser[],roles:any){
+    return this.httpClient.put<any>('/api/auth/assignRole',`user=${users}&role=${roles}`,
+    {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
+  }
 }

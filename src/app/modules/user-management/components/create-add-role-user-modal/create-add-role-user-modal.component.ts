@@ -14,6 +14,7 @@ import { NzTreeSelectModule } from "ng-zorro-antd/tree-select";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { UserManagementService } from "../../services/user-management.service";
 import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
+import { IUser } from "src/shared/common/src/lib/interfaces";
 
 @Component({
   selector: "app-create-add-role-user-modal",
@@ -33,58 +34,62 @@ import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
 })
 export class CreateAddRoleUserModalComponent implements OnInit {
   isLoading: boolean;
-  listOfRoles: Array<{ label: string; value: string}> = [];
+  listOfRoles: Array<{ label: string; value: string }> = [];
+  listOfUsers: IUser[] = [];
 
   form: FormGroup<{
-    content: FormControl<string>;
-    value: FormControl<string[]>;
-    listOfTagOptions: FormControl<string[]>;
+    branches: FormControl<string[]>;
+    users: FormControl<string[]>;
+    roles: FormControl<string[]>;
   }> = new FormGroup({
-    content: new FormControl(null),
-    value: new FormControl(null, [Validators.required]),
-    listOfTagOptions: new FormControl(null, [Validators.required]),
+    branches: new FormControl(null, [Validators.required]),
+    users: new FormControl(null, [Validators.required]),
+    roles: new FormControl(null, [Validators.required]),
   });
-  nodes :any = [];
+  nodes: any = [];
 
-  constructor(private modal: NzModalRef,private userManagementService:UserManagementService) {
-    this.userManagementService.getBranches().subscribe((r)=>{
-
-      console.log('r',r);
+  constructor(
+    private modal: NzModalRef,
+    private userManagementService: UserManagementService
+  ) {
+    this.userManagementService.getBranches().subscribe((r) => {
       for (let i = 0; i < r.length; i++) {
-      let json={
-        title: r[i].name,
-        value: r[i].code,
-        key: r[i].id,
+        
+        let json = {
+          title: r[i].name,
+          value: r[i].id,
+          key: r[i],
+        };
+        this.nodes.push(json);
       }
-
-      this.nodes.push(json);
-    }
     });
 
-    this.userManagementService.getRules().subscribe((r)=>{
+    this.userManagementService.getRules().subscribe((r) => {
       for (let i = 0; i < r.length; i++) {
-        let json={
-          label: r[i].id ==="ROLE_ADMIN"?'ادمین':'کاربر',
+        let json = {
+          label: r[i].id === "ROLE_ADMIN" ? "ادمین" : "کاربر",
           value: r[i].id,
-
-        }
-  
+        };
         this.listOfRoles.push(json);
       }
-     
-    })
+    });
   }
 
   destroyModal(): void {
     this.modal.destroy();
   }
 
- 
-
-  onChange($event: string[]): void {
-    console.log($event);
+  onChange($event: IBranch[]): void {
+    $event.forEach((r) => {
+      r.roles.forEach((user) => {
+      user.users.forEach((user)=>{
+        this.listOfUsers.push(user);
+      });
+      });
+    });
+    console.log('listOfUsers',this.listOfUsers);
+    
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
