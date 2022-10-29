@@ -122,7 +122,15 @@
             nzType="dashed"
             nzShape="round"
             [routerLink]="['/', 'customer', 'notifications']"
+            style="position: relative;"
           >
+
+       
+            <nz-badge [nzCount]="5" style="position: absolute;top: 5px;left: 10px;">
+              <a class="head-example"></a>
+            </nz-badge>
+          
+          
             پیام ها
             <i nz-icon nzType="bell" class="icon"></i>
           </button>
