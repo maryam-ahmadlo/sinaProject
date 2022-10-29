@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 @Component({
   selector: 'leasing-notification-modal',
@@ -28,7 +29,8 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
     NzButtonModule,
     NzModalModule,
     NzTypographyModule,
-    NzPageHeaderModule
+    NzPageHeaderModule,
+    NzListModule
   ],
 })
 export class NotificationModalComponent  {

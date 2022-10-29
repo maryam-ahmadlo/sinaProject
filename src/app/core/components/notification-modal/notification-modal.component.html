@@ -16,8 +16,28 @@
 </div> -->
 
 
-<nz-page-header>
+<!-- <nz-page-header>
+  <nz-page-header-title>
+    <div fxLayout="column"> 
+      <span>فرستنده : {{item.sender}}</span>
+      <span> گیرنده : {{item.receiver}}</span>
+    </div>
+  </nz-page-header-title>
   <nz-page-header-content>
-      {{item.name}}
+
+      {{item.message}}
   </nz-page-header-content>
-</nz-page-header>
+</nz-page-header> -->
+
+
+<nz-list nzBordered >
+  <nz-list-item >
+    <span><strong>فرستنده : </strong>{{item.sender}}</span>
+    </nz-list-item>
+    <nz-list-item >
+    <span> <strong>گیرنده :</strong> {{item.receiver}}</span>
+  </nz-list-item>
+  <nz-list-item>
+    <span> <strong>متن پیام :</strong> {{item.message}}</span>
+  </nz-list-item>
+</nz-list>

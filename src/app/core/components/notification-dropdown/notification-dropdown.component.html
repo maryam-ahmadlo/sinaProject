@@ -4,7 +4,7 @@
       class="table-responsive"
       #rowSelectionTable
       nzShowSizeChanger
-      [nzData]="listOfData"
+      [nzData]="listOfMessages"
       
     >
       <thead>
@@ -18,7 +18,7 @@
         <tr *ngFor="let data of rowSelectionTable.data; let i = index">
           <td>{{ i + 1 }}</td>
       
-          <td>{{ data.name }}</td>
+          <td>{{ data.message }}</td>
 
           <td>
             <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link">

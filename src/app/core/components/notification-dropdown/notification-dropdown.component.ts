@@ -25,7 +25,7 @@ import { NotificationModalComponent } from "../notification-modal/notification-m
 })
 export class NotificationDropdownComponent {
   data: any = [];
-  listOfData:any=[];
+  listOfMessages:any=[];
   isLoading: boolean;
 
   constructor(private httpClient: HttpClient,private modalService: NzModalService) {}
@@ -38,14 +38,15 @@ export class NotificationDropdownComponent {
           Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
         }),
       })
-      .subscribe(console.log);
+      .subscribe((msg)=>{
+        console.log(msg);
+        
+        this.listOfMessages = msg;
+        console.log(this.listOfMessages);
+        
+      });
 
-      this.listOfData = new Array(200).fill(0).map((_, index) => ({
-        id: index,
-        name: `Edward King ${index}`,
-        age: 32,
-        address: `London, Park Lane no. ${index}`,
-      }));
+     
   }
 
 createNotificationModal(item:any){
