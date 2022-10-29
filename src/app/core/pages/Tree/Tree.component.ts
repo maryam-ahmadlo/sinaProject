@@ -255,7 +255,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
       ),
       this.flattenedData,
     ];
-    return merge(...changes).pipe(
+    return merge(...(changes as any)).pipe(
       map(() => this.expandFlattenedNodes(this.flattenedData.getValue()))
     );
   }
