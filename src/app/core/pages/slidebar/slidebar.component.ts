@@ -29,7 +29,7 @@ import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { StateService } from "../../services";
 import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-group-msg-modal/create-send-group-msg-modal.component";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
-
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 @Component({
   standalone: true,
   selector: "app-slidebar",
@@ -51,6 +51,7 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
     LayoutSiderMenuComponent,
     SearchLayoutComponent,
     NzPageHeaderModule,
+    NzBadgeModule,
     NotificationDropdownComponent,
   ],
   templateUrl: "./slidebar.component.html",

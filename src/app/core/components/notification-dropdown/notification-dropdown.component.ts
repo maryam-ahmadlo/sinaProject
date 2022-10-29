@@ -25,7 +25,7 @@ import { NotificationModalComponent } from "../notification-modal/notification-m
 })
 export class NotificationDropdownComponent {
   data: any = [];
-
+  listOfData:any=[];
   isLoading: boolean;
 
   constructor(private httpClient: HttpClient,private modalService: NzModalService) {}
@@ -65,73 +65,5 @@ createNotificationModal(item:any){
   });
 }
 
-  listOfSelection = [
-    {
-      text: "Select All Row",
-      onSelect: () => {
-        this.onAllChecked(true);
-      },
-    },
-    {
-      text: "Select Odd Row",
-      onSelect: () => {
-        this.listOfCurrentPageData.forEach(
-          (data: { id: number }, index: number) =>
-            this.updateCheckedSet(data.id, index % 2 !== 0)
-        );
-        this.refreshCheckedStatus();
-      },
-    },
-    {
-      text: "Select Even Row",
-      onSelect: () => {
-        this.listOfCurrentPageData.forEach(
-          (data: { id: number }, index: number) =>
-            this.updateCheckedSet(data.id, index % 2 === 0)
-        );
-        this.refreshCheckedStatus();
-      },
-    },
-  ];
-  checked = false;
-  indeterminate = false;
-  listOfCurrentPageData: any = [];
-  listOfData: any = [];
-  setOfCheckedId = new Set<number>();
-
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
-
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
-  }
-
-  onAllChecked(value: boolean): void {
-    this.listOfCurrentPageData.forEach((item: { id: number }) =>
-      this.updateCheckedSet(item.id, value)
-    );
-    this.refreshCheckedStatus();
-  }
-
-  onCurrentPageDataChange($event: any): void {
-    this.listOfCurrentPageData = $event;
-    this.refreshCheckedStatus();
-  }
-
-  refreshCheckedStatus(): void {
-    this.checked = this.listOfCurrentPageData.every((item: { id: number }) =>
-      this.setOfCheckedId.has(item.id)
-    );
-    this.indeterminate =
-      this.listOfCurrentPageData.some((item: { id: number }) =>
-        this.setOfCheckedId.has(item.id)
-      ) && !this.checked;
-  }
 
 }
