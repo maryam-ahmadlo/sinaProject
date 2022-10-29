@@ -10,6 +10,7 @@ import { CreateAddRoleUserModalComponent } from "../../components";
 import { ActivatedRoute } from "@angular/router";
 import { IUser } from "src/shared/common/src/lib/interfaces";
 import { CreateUpdateUserModalComponent } from "../../components/create-update-user-modal/create-update-user-modal.component";
+import { UserManagementService } from "../../services/user-management.service";
 
 @Component({
   selector: "app-create-user-management-modal",
@@ -34,7 +35,8 @@ export class UserManagementListComponent implements OnInit {
  
   constructor(
     private modalService: NzModalService,
-    private activatedRoue: ActivatedRoute
+    private activatedRoue: ActivatedRoute,
+    private userManagementService:UserManagementService
   ) {
     this.activatedRoue.data.subscribe(({ user }) => {
       this.listOfUsers = user;
@@ -65,7 +67,17 @@ export class UserManagementListComponent implements OnInit {
       ],
     });
   }
-  handleUserRole(componentInstance: any) {}
+  handleUserRole(componentInstance: any) {
+
+    //console.log(componentInstance.form.value);
+    this.userManagementService.assignRole(componentInstance.form.get('users').value, componentInstance.form.get('roles').value).subscribe(
+      (r)=>{
+        console.log(r);
+        
+      }
+    )
+    
+  }
 
 
 

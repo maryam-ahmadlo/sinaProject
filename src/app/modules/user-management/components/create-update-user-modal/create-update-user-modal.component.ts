@@ -4,11 +4,12 @@ import { IUser } from "src/shared/common/src/lib/interfaces";
 import { NzModalRef } from "ng-zorro-antd/modal";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { NzFormModule } from "ng-zorro-antd/form";
+import { NzInputModule } from "ng-zorro-antd/input";
 
 @Component({
   selector: "app-create-update-user-modal",
   standalone: true,
-  imports: [CommonModule,NzFormModule,ReactiveFormsModule],
+  imports: [CommonModule,NzFormModule,ReactiveFormsModule,NzInputModule],
   templateUrl: "./create-update-user-modal.component.html",
   styleUrls: ["./create-update-user-modal.component.css"],
 })

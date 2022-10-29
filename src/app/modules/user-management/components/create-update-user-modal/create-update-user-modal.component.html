@@ -1,45 +1,27 @@
-<form
-nz-form
-[formGroup]="form"
-nzLayout="vertical"
-
->
+<form nz-form [formGroup]="form" nzLayout="vertical">
+  <nz-form-item>
+    <nz-form-label nzFor="name">ایمیل</nz-form-label>
+    <nz-form-control>
+      <input
+        formControlName="name"
+        nz-input
+        nzSize="large"
+        type="text"
+        id="name"
+      />
+    </nz-form-control>
+  </nz-form-item>
 
   <nz-form-item>
     <nz-form-label nzFor="name">ایمیل</nz-form-label>
     <nz-form-control>
-
-        <input
-          formControlName="name"
-          nz-input
-          nzSize="large"
-          type="text"
-          id="name"
-        
-        />
-  
-     
+      <input
+        formControlName="name"
+        nz-input
+        nzSize="large"
+        type="text"
+        id="name"
+      />
     </nz-form-control>
   </nz-form-item>
-
-
-  <nz-form-item>
-    <nz-form-label nzFor="name">ایمیل</nz-form-label>
-    <nz-form-control>
-
-        <input
-          formControlName="name"
-          nz-input
-          nzSize="large"
-          type="text"
-          id="name"
-        
-        />
-  
-     
-    </nz-form-control>
-  </nz-form-item>
-
-
-
-  </form>
+</form>
