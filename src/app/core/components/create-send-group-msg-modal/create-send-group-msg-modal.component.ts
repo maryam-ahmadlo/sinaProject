@@ -41,11 +41,11 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
   listOfUsers: IUser[] = [];
 
   form: FormGroup<{
-    message: FormControl<string>;
+    messageText: FormControl<string>;
     branches: FormControl<string[]>;
     messageReceivers: FormControl<string[]>;
   }> = new FormGroup({
-    message: new FormControl(
+    messageText: new FormControl(
       { value: "", disabled: false },
       Validators.required
     ),

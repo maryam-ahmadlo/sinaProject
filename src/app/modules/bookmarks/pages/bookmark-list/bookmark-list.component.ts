@@ -48,7 +48,15 @@ export class BookmarkListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ bookmarkList }) =>
-      bookmarkList["bookmark"] ? this.data.push(bookmarkList["bookmark"]) : []
+ {
+    if(bookmarkList["bookmark"].length>1){
+      this.book
+    }
+      bookmarkList["bookmark"] ? this.data.push(bookmarkList["bookmark"]) : [];
+
+      console.log(this.data.length)
+
+ }
     );
 
     this.data.forEach((v) => {

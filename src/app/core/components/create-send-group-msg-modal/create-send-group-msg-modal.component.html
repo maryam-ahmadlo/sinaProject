@@ -1,30 +1,26 @@
 <form nz-form nzLayout="vertical" [formGroup]="form">
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="message">متن پیام </nz-form-label>
+    <nz-form-label nzRequired nzFor="messageText">متن پیام </nz-form-label>
     <nz-form-control>
-    
       <div class="editor">
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
         </ngx-editor-menu>
-        <ngx-editor [editor]="editor"  formControlName="message">
-        </ngx-editor>
+        <ngx-editor [editor]="editor" formControlName="messageText"> </ngx-editor>
       </div>
-    
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label nzRequired nzFor="branches">ارسال به </nz-form-label>
     <nz-form-control>
-     
       <nz-tree-select
-      formControlName="branches"
-      (ngModelChange)="onChange($event)"
-      [nzNodes]="nodes"
-      nzShowSearch
-      nzCheckable
-      nzPlaceHolder="لیست شعب "
-    ></nz-tree-select>
+        formControlName="branches"
+        (ngModelChange)="onChange($event)"
+        [nzNodes]="nodes"
+        nzShowSearch
+        nzCheckable
+        nzPlaceHolder="لیست شعب "
+      ></nz-tree-select>
     </nz-form-control>
   </nz-form-item>
 
@@ -34,7 +30,7 @@
       <nz-select
         nzMode="tags"
         nzPlaceHolder="نام کاربران"
-        formControlName="users"
+        formControlName="messageReceivers"
       >
         <nz-option
           *ngFor="let option of listOfUsers"
@@ -42,7 +38,6 @@
           [nzValue]="option.id"
         ></nz-option>
       </nz-select>
-    
     </nz-form-control>
   </nz-form-item>
 </form>
