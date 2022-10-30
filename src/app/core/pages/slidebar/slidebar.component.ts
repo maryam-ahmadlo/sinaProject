@@ -4,11 +4,7 @@ import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
-import {
-  FlexLayoutModule,
-  FlexModule,
-  MediaObserver,
-} from "@angular/flex-layout";
+import { FlexLayoutModule, MediaObserver } from "@angular/flex-layout";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import {
@@ -19,7 +15,7 @@ import {
   RouterModule,
 } from "@angular/router";
 
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 import { NzDrawerModule } from "ng-zorro-antd/drawer";
 import { LayoutSiderMenuComponent } from "../layout-slider-menu/layout-slider-menu.component";
@@ -31,7 +27,7 @@ import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-g
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { NzBadgeModule } from "ng-zorro-antd/badge";
 import { finalize } from "rxjs";
-import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
+import { NzMessageService } from "ng-zorro-antd/message";
 @Component({
   standalone: true,
   selector: "app-slidebar",
@@ -139,26 +135,17 @@ export class SlidebarComponent implements OnInit {
     });
   }
   handleGroupMsg(componentInstance: any) {
-    console.log(componentInstance.form["value"].message);
-    console.log();
-
-    let date: Date = new Date();
-
     let json = {
       sender: "okmAdmin",
-      message: componentInstance.form["value"].message,
-      sendDate: date.toJSON(),
+      messageText: componentInstance.form["value"].messageText,
       messageReceivers: [
         {
-          sender: "okmAdmin",
           receiver: componentInstance.form["value"].messageReceivers,
-          message: componentInstance.form["value"].message,
-          seenDate: "",
         },
       ],
     };
     this.httpclient
-      .post<any>("/url/groupMessages", json)
+      .post<any>("/url/messages/send/grouping", json)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
