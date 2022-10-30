@@ -48,14 +48,15 @@ export class BookmarkListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ bookmarkList }) =>
- {
-    if(bookmarkList["bookmark"].length>1){
-      this.book
+     {
+    if(bookmarkList["bookmark"] && bookmarkList["bookmark"].length >1){
+      this.data= bookmarkList["bookmark"];
+
+    }else if(bookmarkList["bookmark"]){
+      this.data.push(bookmarkList["bookmark"])
+    }else{
+      this.data=[]
     }
-      bookmarkList["bookmark"] ? this.data.push(bookmarkList["bookmark"]) : [];
-
-      console.log(this.data.length)
-
  }
     );
 
@@ -150,7 +151,7 @@ export class BookmarkListComponent implements OnInit {
   }
 
   handleRenameBookmark(componentInstance: any, id: number) {
-
+componentInstance.isLoading=true;
     this.bookmarkService
       .renameBookmark(componentInstance.form.get("name").value, id)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
@@ -162,7 +163,6 @@ export class BookmarkListComponent implements OnInit {
       this.refresh();
     };
   }
-
 
   refresh() {
     this.router.navigate([], {

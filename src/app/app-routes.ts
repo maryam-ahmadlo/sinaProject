@@ -52,7 +52,8 @@ export const appRoutes: Routes = [
               ),
               resolve:{
                 user:UserManagementListResolver
-              }
+              },
+              runGuardsAndResolvers: "paramsOrQueryParamsChange",
           },
           {
             path: "private-cartable-admin",

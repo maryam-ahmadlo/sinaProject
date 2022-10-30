@@ -32,18 +32,14 @@ export class NotificationDropdownComponent {
 
   ngOnInit(): void {
     this.httpClient
-      .get("/url/groupMessages/okmAdmin/inbox", {
+      .get("/url/messages/okmAdmin/grouping/inbox", {
         headers: new HttpHeaders({
           accept: "application/json",
           Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
         }),
       })
       .subscribe((msg)=>{
-        console.log(msg);
-        
         this.listOfMessages = msg;
-        console.log(this.listOfMessages);
-        
       });
 
      

@@ -139,40 +139,29 @@ export class SlidebarComponent implements OnInit {
     });
   }
   handleGroupMsg(componentInstance: any) {
+    let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
+    let obj = JSON.parse(jsonStr);
+    componentInstance.form["value"].messageReceivers.forEach((user: any) => {
+      obj["messageReceivers"].push({ receiver: `${user}` });
+    });
 
-    let json;
-   // console.log( receiver:Array(componentInstance.form['value'].messageReceivers).pop());
-    
-    json = {
-      sender: "okmAdmin",
-      messageText: componentInstance.form["value"].messageText,
-  
-      messageReceivers: [
-        // for(let user of componentInstance.form['value'].messageReceivers){
-        {
-        //receiver: user
-        }
-        
-        // {
-        // receiver: componentInstance.form['value'].messageReceivers.pop()
-        // },
-        
-        
-      ],
+    jsonStr = JSON.stringify(obj);
 
-  };
-    console.log(json);
-    
-    // this.httpclient
-    //   .post<any>("/url/messages/send/grouping", json)
-    //   .pipe(finalize(() => (componentInstance.isLoading = false)))
-    //   .subscribe(() => handleRes());
+    this.httpclient
+      .post<any>("/url/messages/send/grouping", jsonStr, {
+        headers: new HttpHeaders({
+          accept: "*/*",
+          "Content-Type": "application/json",
+        }),
+      })
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
 
-    // const handleRes = () => {
-    //   this.nzMessage.success("عملیات با موفقیت انجام شد");
-    //   componentInstance.destroyModal();
-    //   this.refresh();
-    // };
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 
   createSendUrgentMsgModal() {
