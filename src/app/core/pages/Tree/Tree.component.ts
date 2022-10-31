@@ -129,7 +129,6 @@ export class TreeComponent implements OnInit {
         componentInstance.form.get("title").value,
       code: componentInstance.form.value.code,
     };
-    console.log(json);
     
     this.treeService
       .createCategory(json)

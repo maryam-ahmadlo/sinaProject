@@ -55,7 +55,7 @@
       <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
         <nz-form-item fxFlex="33">
           <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
-            >سطح</nz-form-label
+            >سطح1</nz-form-label
           >
           <nz-form-control>
             <nz-select
@@ -71,7 +71,44 @@
             </nz-select>
           </nz-form-control>
         </nz-form-item>
-
+        <nz-form-item fxFlex="33">
+          <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
+            >سطح2</nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              fxFlex="100"
+              id="categoryId"
+              nzSize="large"
+              formControlName="categoryId"
+              nzPlaceHolder="سطح 1 "
+            >
+              <nz-option nzValue="0" nzLabel="سطح 1"></nz-option>
+              <nz-option nzValue="1" nzLabel="سطح 2"></nz-option>
+              <nz-option nzValue="2" nzLabel="سطح 3"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item fxFlex="33">
+          <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
+            >سطح 3</nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              fxFlex="100"
+              id="categoryId"
+              nzSize="large"
+              formControlName="categoryId"
+              nzPlaceHolder="سطح 1 "
+            >
+              <nz-option nzValue="0" nzLabel="سطح 1"></nz-option>
+              <nz-option nzValue="1" nzLabel="سطح 2"></nz-option>
+              <nz-option nzValue="2" nzLabel="سطح 3"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
         <nz-form-item fxFlex="33">
           <nz-form-label nzRequired nzFor="documentType" style="display: flex">
             نوع سند</nz-form-label
@@ -84,9 +121,12 @@
               formControlName="documentType"
               nzPlaceHolder="نوع سند"
             >
-              <nz-option nzValue="circular" nzLabel="بخشنامه"></nz-option>
-              <nz-option nzValue="enteral" nzLabel="داخلی"></nz-option>
-              <nz-option nzValue="center bank" nzLabel="بانک مرکزی"></nz-option>
+              <nz-option
+                *ngFor="let key of keys; index as i"
+                [nzValue]="i + 1"
+                [nzLabel]="documentTypeEnum[key]"
+              >
+              </nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -149,13 +189,7 @@
       <div>
         <nz-form-item fxFlex="90">
           <nz-form-control>
-            <nz-tabset
-              id="related"
-              nzSize="large"
-              formControlName="related"
-              nzType="card"
-              style="margin: 1rem"
-            >
+            <nz-tabset nzSize="large" nzType="card" style="margin: 1rem">
               <nz-tab nzTitle="مرتبط">
                 <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
                   <div fxFlex="10">
@@ -322,8 +356,17 @@
       </nz-table>
     </nz-card>
     <div class="result">
-      <button nz-button nzType="primary" style="margin-left: 1%">تایید</button>
-      <button nz-button nzType="default" [routerLink]="['/','customer']">انصراف</button>
+      <button
+        nz-button
+        nzType="primary"
+        style="margin-left: 1%"
+        (click)="onSubmit()"
+      >
+        تایید
+      </button>
+      <button nz-button nzType="default" [routerLink]="['/', 'customer']">
+        انصراف
+      </button>
     </div>
   </form>
 </div>

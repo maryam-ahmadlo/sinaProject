@@ -27,19 +27,20 @@ import { NzTableModule } from "ng-zorro-antd/table";
 import { NzDividerModule } from "ng-zorro-antd/divider";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddFileModalComponent } from "@core/components/index";
-
+import { UploadFileService } from "../../services/uploadFile.service";
+import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
+import { DocumentTypeEnum } from "src/shared/common/src/lib/enums";
 export interface IUploadFileForm {
   title: FormControl<string>;
   subject: FormControl<string>;
   text: FormControl<string>;
   categoryId: FormControl<string>;
   code: FormControl<string>;
-  documentType: FormControl<string>;
+  documentType: FormControl<any>;
   versionNumber: FormControl<string>;
   branchName: FormControl<string>;
   ruleNumber: FormControl<string>;
-  related: FormControl<string>;
-  keywords: FormControl<string>;
+  keywords: FormControl<string[]>;
 }
 @Component({
   selector: "app-upload-file",
@@ -66,32 +67,51 @@ export interface IUploadFileForm {
     NzTabsModule,
     NzTableModule,
     NzModalModule,
+    NzMessageModule,
   ],
 })
 export class UploadFileComponent implements OnInit {
   public isWait = false;
   uploadFileForm: FormGroup<IUploadFileForm> = new FormGroup({
-    title: new FormControl(null , Validators.required),
-    subject: new FormControl(null , Validators.required),
-    text: new FormControl(null , Validators.required),
-    categoryId: new FormControl(null , Validators.required),
-    code: new FormControl(null , Validators.required),
-    documentType: new FormControl(null , Validators.required),
-    versionNumber: new FormControl(null , Validators.required),
-    branchName: new FormControl(null , Validators.required),
-    ruleNumber: new FormControl(null , Validators.required),
-    related: new FormControl(null , Validators.required),
-    keywords: new FormControl(null , Validators.required),
+    title: new FormControl(null, Validators.required),
+    subject: new FormControl(null, Validators.required),
+    text: new FormControl(null, Validators.required),
+    categoryId: new FormControl(null, Validators.required),
+    code: new FormControl(null, Validators.required),
+    documentType: new FormControl(Validators.required),
+    versionNumber: new FormControl(null, Validators.required),
+    branchName: new FormControl(null, Validators.required),
+    ruleNumber: new FormControl(null, Validators.required),
+    keywords: new FormControl(null, Validators.required),
   });
 
-  constructor(private router: Router, private modalService: NzModalService,private activatedRoute:ActivatedRoute) {
-    console.log(this.activatedRoute.snapshot.params['id']);
-    
-    this.uploadFileForm.get('categoryId').patchValue(this.activatedRoute.snapshot.params['id']);
-    
+  documentTypeEnum = DocumentTypeEnum;
+  keys = [];
+
+  constructor(
+    private router: Router,
+    private modalService: NzModalService,
+    private activatedRoute: ActivatedRoute,
+    private uploadFile: UploadFileService,
+    private nzMessage: NzMessageService
+  ) {
+    console.log(this.uploadFileForm.get("documentType").value);
+
+    this.keys = Object.keys(this.documentTypeEnum);
+
+    this.uploadFileForm
+      .get("categoryId")
+      .patchValue(this.activatedRoute.snapshot.params["id"]);
   }
 
   ngOnInit(): void {}
+
+  onSubmit = () => {
+    this.uploadFile.createRules().subscribe(() => handleRes());
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+    };
+  };
 
   createAddFileModalComponent() {
     this.modalService.create({
