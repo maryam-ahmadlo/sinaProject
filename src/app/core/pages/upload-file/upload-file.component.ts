@@ -1,15 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component,OnInit } from "@angular/core";
 import { FlexModule } from "@angular/flex-layout";
 import { NzTimePickerModule } from "ng-zorro-antd/time-picker";
 import { NzInputModule } from "ng-zorro-antd/input";
-import * as moment from "jalali-moment";
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  UntypedFormControl,
-  UntypedFormGroup,
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
@@ -29,7 +26,13 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddFileModalComponent } from "@core/components/index";
 import { UploadFileService } from "../../services/uploadFile.service";
 import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadModule } from "ng-zorro-antd/upload";
 import { DocumentTypeEnum } from "src/shared/common/src/lib/enums";
+import { VersionNumberEnum } from "src/shared/common/src/lib/enums";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 export interface IUploadFileForm {
   title: FormControl<string>;
   subject: FormControl<string>;
@@ -37,7 +40,7 @@ export interface IUploadFileForm {
   categoryId: FormControl<string>;
   code: FormControl<string>;
   documentType: FormControl<any>;
-  versionNumber: FormControl<string>;
+  versionNumber: FormControl<any>;
   branchName: FormControl<string>;
   ruleNumber: FormControl<string>;
   keywords: FormControl<string[]>;
@@ -68,6 +71,7 @@ export interface IUploadFileForm {
     NzTableModule,
     NzModalModule,
     NzMessageModule,
+    NzUploadModule,
   ],
 })
 export class UploadFileComponent implements OnInit {
@@ -79,7 +83,7 @@ export class UploadFileComponent implements OnInit {
     categoryId: new FormControl(null, Validators.required),
     code: new FormControl(null, Validators.required),
     documentType: new FormControl(Validators.required),
-    versionNumber: new FormControl(null, Validators.required),
+    versionNumber: new FormControl(Validators.required),
     branchName: new FormControl(null, Validators.required),
     ruleNumber: new FormControl(null, Validators.required),
     keywords: new FormControl(null, Validators.required),
@@ -88,16 +92,21 @@ export class UploadFileComponent implements OnInit {
   documentTypeEnum = DocumentTypeEnum;
   keys = [];
 
+  versionNumberEnum = VersionNumberEnum;
+  keysV = [];
+
   constructor(
     private router: Router,
     private modalService: NzModalService,
     private activatedRoute: ActivatedRoute,
     private uploadFile: UploadFileService,
-    private nzMessage: NzMessageService
+    private nzMessage: NzMessageService,
+    private http: HttpClient
   ) {
     console.log(this.uploadFileForm.get("documentType").value);
 
     this.keys = Object.keys(this.documentTypeEnum);
+    this.keysV = Object.keys(this.versionNumberEnum);
 
     this.uploadFileForm
       .get("categoryId")
@@ -107,10 +116,24 @@ export class UploadFileComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit = () => {
-    this.uploadFile.createRules().subscribe(() => handleRes());
+    let json = {
+      nodeRuleDto: {},
+      attachments: {},
+    };
+    this.uploadFile.createRules(json).subscribe(() => handleRes());
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
     };
+  };
+
+  previewFile = (file: NzUploadFile): Observable<string> => {
+    console.log('Your upload file:', file);
+    return this.http
+      .post<{ attachments: string }>(`http://localhost:8085/api/rules/create`, {
+        method: 'POST',
+        body: file
+      })
+      .pipe(map(res => res.attachments));
   };
 
   createAddFileModalComponent() {

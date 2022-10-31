@@ -143,10 +143,12 @@
               formControlName="versionNumber"
               nzPlaceHolder="شماره نسخه"
             >
-              <nz-option nzValue="1" nzLabel="اولین"></nz-option>
-              <nz-option nzValue="2" nzLabel="دومین"></nz-option>
-              <nz-option nzValue="3" nzLabel="سومین"></nz-option>
-              <nz-option nzValue="4" nzLabel="چهارمین"></nz-option>
+              <nz-option
+                *ngFor="let keyV of keysV; index as i"
+                [nzValue]="i + 1"
+                [nzLabel]="versionNumberEnum[keyV]"
+              >
+              </nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -185,6 +187,20 @@
         </nz-form-item>
       </div>
     </nz-card>
+
+    <nz-card nzTitle="بارگذاری فایل">
+      <nz-upload
+        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        nzListType="picture"
+        [nzPreviewFile]="previewFile"
+      >
+        <button nz-button>
+          <span nz-icon nzType="upload"></span>
+          بارگذاری فایل
+        </button>
+      </nz-upload></nz-card
+    >
+
     <nz-card nzTitle="افزودن روابط مرتبط">
       <div>
         <nz-form-item fxFlex="90">
@@ -289,6 +305,7 @@
         </nz-form-item>
       </div>
     </nz-card>
+
     <nz-card nzTitle="افزودن کلمات کلیدی">
       <div>
         <nz-form-item fxFlex="90">
