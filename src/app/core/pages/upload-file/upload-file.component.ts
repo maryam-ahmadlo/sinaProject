@@ -1,4 +1,4 @@
-import { Component,OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FlexModule } from "@angular/flex-layout";
 import { NzTimePickerModule } from "ng-zorro-antd/time-picker";
 import { NzInputModule } from "ng-zorro-antd/input";
@@ -26,13 +26,13 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddFileModalComponent } from "@core/components/index";
 import { UploadFileService } from "../../services/uploadFile.service";
 import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
-import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadFile } from "ng-zorro-antd/upload";
 import { NzUploadModule } from "ng-zorro-antd/upload";
 import { DocumentTypeEnum } from "src/shared/common/src/lib/enums";
 import { VersionNumberEnum } from "src/shared/common/src/lib/enums";
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 export interface IUploadFileForm {
   title: FormControl<string>;
   subject: FormControl<string>;
@@ -127,13 +127,13 @@ export class UploadFileComponent implements OnInit {
   };
 
   previewFile = (file: NzUploadFile): Observable<string> => {
-    console.log('Your upload file:', file);
+    console.log("Your upload file:", file);
     return this.http
       .post<{ attachments: string }>(`http://localhost:8085/api/rules/create`, {
-        method: 'POST',
-        body: file
+        method: "POST",
+        body: file,
       })
-      .pipe(map(res => res.attachments));
+      .pipe(map((res) => res.attachments));
   };
 
   createAddFileModalComponent() {
