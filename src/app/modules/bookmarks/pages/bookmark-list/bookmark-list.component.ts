@@ -47,28 +47,20 @@ export class BookmarkListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-    this.activatedRoute.data.subscribe(({ bookmarkList }) =>
-     {
-    if(bookmarkList["bookmark"] && bookmarkList["bookmark"].length >1){
-      this.data= bookmarkList["bookmark"];
-
-    }else if(bookmarkList["bookmark"]){
-      this.data.push(bookmarkList["bookmark"])
-    }else{
-      this.data=[]
-    }
- }
-
-    );
+    this.activatedRoute.data.subscribe(({ bookmarkList }) => {
+      if (bookmarkList["bookmark"] && bookmarkList["bookmark"].length > 1) {
+        this.data = bookmarkList["bookmark"];
+      } else if (bookmarkList["bookmark"]) {
+        this.data.push(bookmarkList["bookmark"]);
+      } else {
+        this.data = [];
+      }
+    });
 
     this.data.forEach((v) => {
       Number(v.id);
     });
   }
-
- 
-  
 
   createShowBookMarkModal(item: IBookmark) {
     this.modalService.create({
@@ -124,8 +116,6 @@ export class BookmarkListComponent implements OnInit {
     };
   }
 
-
-
   createRenameBookmarkModal(item: IBookmark) {
     console.log(item);
 
@@ -153,7 +143,7 @@ export class BookmarkListComponent implements OnInit {
   }
 
   handleRenameBookmark(componentInstance: any, id: number) {
-componentInstance.isLoading=true;
+    componentInstance.isLoading = true;
     this.bookmarkService
       .renameBookmark(componentInstance.form.get("name").value, id)
       .pipe(finalize(() => (componentInstance.isLoading = false)))

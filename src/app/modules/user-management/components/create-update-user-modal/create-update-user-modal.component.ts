@@ -25,10 +25,7 @@ export class CreateUpdateUserModalComponent implements OnInit {
   constructor(private modal: NzModalRef) {}
 
   ngOnInit(): void {
-  
     this.form.patchValue(this.item);
-  
-    
   }
   destroyModal(): void {
     this.modal.destroy();

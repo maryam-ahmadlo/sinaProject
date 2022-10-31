@@ -21,7 +21,7 @@ export const appRoutes: Routes = [
     resolve: {
       tree: TreeResolver,
     },
-    // canActivate: [LoggedInGuard],
+    //canActivate: [LoggedInGuard],
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
     children: [
       {
@@ -32,9 +32,9 @@ export const appRoutes: Routes = [
       },
       {
         path: "admin",
-        // canActivate: [RoleGuard],
+        //canActivate: [RoleGuard],
         data: {
-          allowedRoles: ["*"],
+          allowedRoles: ["ROLE_ADMIN"],
         },
         children: [
           {
@@ -50,10 +50,10 @@ export const appRoutes: Routes = [
               import("./modules/user-management/user-management-routes").then(
                 (m) => m.userManagementRoutes
               ),
-              resolve:{
-                user:UserManagementListResolver
-              },
-              runGuardsAndResolvers: "paramsOrQueryParamsChange",
+            resolve: {
+              user: UserManagementListResolver,
+            },
+            runGuardsAndResolvers: "paramsOrQueryParamsChange",
           },
           {
             path: "private-cartable-admin",
@@ -64,7 +64,7 @@ export const appRoutes: Routes = [
       {
         path: "customer",
         data: {
-          allowedRoles: ["*"],
+          allowedRoles: ["ROLE_ADMIN", "ROLE_USER"],
         },
         children: [
           { path: "", redirectTo: "dashboard", pathMatch: "full" },

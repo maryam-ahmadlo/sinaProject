@@ -7,10 +7,12 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { CreateAddRoleUserModalComponent } from "../../components";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { IUser } from "src/shared/common/src/lib/interfaces";
 import { CreateUpdateUserModalComponent } from "../../components/create-update-user-modal/create-update-user-modal.component";
 import { UserManagementService } from "../../services/user-management.service";
+import { finalize } from "rxjs";
+import { NzMessageService } from "ng-zorro-antd/message";
 
 @Component({
   selector: "app-create-user-management-modal",
@@ -32,16 +34,17 @@ export class UserManagementListComponent implements OnInit {
 
   listOfCurrentPageData: any = [];
   listOfUsers: IUser[] = [];
- 
+
   constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
-    private activatedRoue: ActivatedRoute,
-    private userManagementService:UserManagementService
+    private userManagementService: UserManagementService,
+    private nzMessage: NzMessageService
   ) {
-    this.activatedRoue.data.subscribe(({ user }) => {
+    this.activatedRoute.data.subscribe(({ user }) => {
       this.listOfUsers = user;
     });
-
   }
 
   ngOnInit(): void {}
@@ -68,25 +71,27 @@ export class UserManagementListComponent implements OnInit {
     });
   }
   handleUserRole(componentInstance: any) {
+    this.userManagementService
+      .assignRole(
+        componentInstance.form.get("users").value,
+        componentInstance.form.get("roles").value
+      )
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
 
-    //console.log(componentInstance.form.value);
-    this.userManagementService.assignRole(componentInstance.form.get('users').value, componentInstance.form.get('roles').value).subscribe(
-      (r)=>{
-        console.log(r);
-        
-      }
-    )
-    
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 
-
-
-  createUpdateUserModal(item:IUser){
+  createUpdateUserModal(item: IUser) {
     this.modalService.create({
       nzTitle: " ویرایش اطلاعات کاربر",
       nzContent: CreateUpdateUserModalComponent,
       nzComponentParams: {
-        item
+        item,
       },
       nzFooter: [
         {
@@ -98,10 +103,29 @@ export class UserManagementListComponent implements OnInit {
           label: "تایید",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleUserRole(componentInstance),
+            this.handleUpdateUser(componentInstance, item),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
+    });
+  }
+  handleUpdateUser(componentInstance: any, item: IUser) {
+  
+    // this.userManagementService
+    //   .renameUser({ ...item, ...componentInstance.form.value })
+    //   .pipe(finalize(() => (componentInstance.isLoading = false)))
+    //   .subscribe(() => handleRes());
+
+    // const handleRes = () => {
+    //   this.nzMessage.success("عملیات با موفقیت انجام شد");
+    //   componentInstance.destroyModal();
+    //   this.refresh();
+    // };
+  }
+  refresh() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { refresh: new Date().getTime() },
     });
   }
 }
