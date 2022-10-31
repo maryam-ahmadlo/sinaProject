@@ -111,12 +111,6 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     ["align_left", "align_center", "align_right", "align_justify"],
   ];
 
-  // form = new FormGroup({
-  //   editorContent: new FormControl(
-  //     { value: "", disabled: false },
-  //     Validators.required()
-  //   ),
-  // });
 
   get doc(): AbstractControl {
     return this.form.get("message");

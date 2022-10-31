@@ -4,11 +4,7 @@ import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
-import {
-  FlexLayoutModule,
-  FlexModule,
-  MediaObserver,
-} from "@angular/flex-layout";
+import { FlexLayoutModule, MediaObserver } from "@angular/flex-layout";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import {
@@ -31,7 +27,7 @@ import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-g
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { NzBadgeModule } from "ng-zorro-antd/badge";
 import { finalize } from "rxjs";
-import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
+import { NzMessageService } from "ng-zorro-antd/message";
 @Component({
   standalone: true,
   selector: "app-slidebar",
@@ -139,6 +135,7 @@ export class SlidebarComponent implements OnInit {
     });
   }
   handleGroupMsg(componentInstance: any) {
+
     let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
     let obj = JSON.parse(jsonStr);
     componentInstance.form["value"].messageReceivers.forEach((user: any) => {
@@ -154,6 +151,7 @@ export class SlidebarComponent implements OnInit {
           "Content-Type": "application/json",
         }),
       })
+
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 

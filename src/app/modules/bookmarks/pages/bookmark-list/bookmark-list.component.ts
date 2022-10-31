@@ -47,6 +47,7 @@ export class BookmarkListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.activatedRoute.data.subscribe(({ bookmarkList }) =>
      {
     if(bookmarkList["bookmark"] && bookmarkList["bookmark"].length >1){
@@ -58,6 +59,7 @@ export class BookmarkListComponent implements OnInit {
       this.data=[]
     }
  }
+
     );
 
     this.data.forEach((v) => {
