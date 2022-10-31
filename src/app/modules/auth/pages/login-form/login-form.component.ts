@@ -22,7 +22,12 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
 import { StateService } from "src/app/core/services";
 import { ILoginResponse } from "../../interfaces";
-
+import { HttpHeaders } from "@angular/common/http";
+import { IUser } from "src/shared/common/src/lib/interfaces";
+export interface ILoginForm {
+  username: FormControl<string>;
+  password: FormControl<string>;
+}
 @Component({
   standalone: true,
   imports: [
@@ -45,13 +50,11 @@ import { ILoginResponse } from "../../interfaces";
 })
 export class LoginFormComponent implements OnInit {
   passwordVisible: boolean = false;
+  user: IUser;
   isLoading: boolean;
 
-  form: FormGroup<{
-    loginId: FormControl<string>;
-    password: FormControl<string>;
-  }> = new FormGroup({
-    loginId: new FormControl<string>(null, [
+  form: FormGroup<ILoginForm> = new FormGroup({
+    username: new FormControl<string>(null, [
       // Validators.pattern('^09.{9}$'),
       Validators.required,
     ]),
@@ -70,10 +73,11 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     this.authService
-      .login()
+      .login(this.form.value.username, this.form.value.password)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe(
         () => {
+          
           this.handleSubmitRes();
         },
 
@@ -82,6 +86,21 @@ export class LoginFormComponent implements OnInit {
   }
 
   handleSubmitRes() {
+    // localStorage.setItem('user', user);
+    this.authService
+    .grtUserInfo(this.form.value.username)
+    .subscribe((info) => {
+      this.user = info;
+      //localStorage.setItem('user', this.user);
+      this.stateService.setState("signedIn", true);
+      this.stateService.setState("me", this.user);
+      this.router.navigate(["/"]);
+    });
+    
+    // this.authService.getUserRole(this.form.get('loginId').value).subscribe(()=>{
+    //   this.stateService.setState("signedIn", true);
+    //   this.router.navigate(["/"]);
+    // });
     // console.log('res',res);
 
     // const { token, refreshToken, tokenExpirationInstant, user } = res;
@@ -95,9 +114,7 @@ export class LoginFormComponent implements OnInit {
     //     },
     //   });
     // } else {
-    this.stateService.setState("signedIn", true);
-    //  this.stateService.setState('me', user);
-    this.router.navigate(["/"]);
+   
     // }
   }
 }

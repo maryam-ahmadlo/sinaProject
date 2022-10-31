@@ -1,1 +1,1 @@
-export type PrefixRoute = 'ROLE_ADMIN' | 'ROLE_USER';
+export type PrefixRoute = 'ADMIN' | 'CUSTOMER';

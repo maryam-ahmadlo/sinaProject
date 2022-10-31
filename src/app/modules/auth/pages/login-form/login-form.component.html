@@ -7,11 +7,11 @@
   <div class="container" fxLayout="row" fxLayoutAlign="center center">
     <nz-card>
       <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
-        <img
+        <!-- <img
           class="logo"
           alt="logo"
           src=""
-        />
+        /> -->
         <h3>ورود به سامانه سینا</h3>
         <form
           nz-form
@@ -20,15 +20,15 @@
           (ngSubmit)="onSubmit()"
         >
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="loginId">تلفن همراه</nz-form-label>
+            <nz-form-label nzRequired nzFor="username">تلفن همراه</nz-form-label>
             <nz-form-control
               nzExtra="با **********09 شروع شود."
             >
               <input
                 nz-input
-                name="loginId"
-                id="loginId"
-                formControlName="loginId"
+                name="username"
+                id="username"
+                formControlName="username"
            
               />
             </nz-form-control>

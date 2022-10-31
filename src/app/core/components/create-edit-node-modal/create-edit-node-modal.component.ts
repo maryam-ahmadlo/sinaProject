@@ -35,7 +35,7 @@ export class CreateEditNodeModalComponent implements OnInit {
 
   constructor(private modal: NzModalRef) {}
   ngOnInit(): void {
-   this.form.get('level').setValue(this.node.path);
+   this.form.get('level').setValue((this.node.level+1).toString());
    this.form.get('title').setValue(this.node.label);
    this.form.get('code').setValue(this.node.id);
   }

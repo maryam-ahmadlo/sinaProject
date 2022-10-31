@@ -7,8 +7,6 @@ import {
 } from '@angular/router';
 import { StateService } from '../services';
 import { of } from 'rxjs';
-import { parseJwt } from 'src/shared/utils/parse-jwt';
-
 
 @Injectable({
   providedIn: 'root',
@@ -17,17 +15,17 @@ export class RoleGuard implements CanActivate {
   constructor(private stateService: StateService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const allowedRoles: string[] = route.data['allowedRoles'] || [];
+    //const allowedRoles: string[] = route.data['allowedRoles'] || [];
+    const allowedRoles: string[]=['ROLE_ADMIN', 'ROLE_USER'];
     if (
-      parseJwt().roles.length !== 0 &&
-      allowedRoles.some((ar) => ar === '*')
+      allowedRoles.some((ar) => ar === 'ROLE_ADMIN')
     ) {
       return true;
     } else {
       for (let role of allowedRoles) {
-        if (parseJwt().roles.indexOf(role) > -1) {
+       
           return true;
-        }
+        
       }
     }
 
