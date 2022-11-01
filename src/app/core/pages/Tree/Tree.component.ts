@@ -112,24 +112,21 @@ export class TreeComponent implements OnInit {
           label: "ثبت",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleAddTreeNode(componentInstance),
+            this.handleAddTreeNode(componentInstance, node),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
 
-  handleAddTreeNode(componentInstance: any) {
+  handleAddTreeNode(componentInstance: any, node: IFlatNode) {
     componentInstance.isLoading = true;
 
-    let json = {
-      path:
-        componentInstance.form.get("level").value +
-        "/" +
-        componentInstance.form.get("title").value,
-      code: componentInstance.form.value.code,
-    };
-    
+    let json = `{
+    "path":"${node.path.concat('/').concat(componentInstance.form.value.title)}",
+    "code":"${componentInstance.form.value.code}",
+    }`;
+
     this.treeService
       .createCategory(json)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
@@ -197,32 +194,34 @@ export class TreeComponent implements OnInit {
           label: "ثبت",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleRenameTreeNode(componentInstance),
+            this.handleRenameTreeNode(componentInstance,node),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
 
-  handleRenameTreeNode(componentInstance: any) {
+  handleRenameTreeNode(componentInstance: any, node:IFlatNode) {
     componentInstance.isLoading = true;
+    node.path.split('/').splice(0,2);
+    
+    console.log(node.path);
+    
+    let json={
+      "path":componentInstance.form.value.title,
+      "code":componentInstance.form.value.code
+    }
+ 
+    // this.treeService
+    //   .renameCategory(node.id,json)
+    //   .pipe(finalize(() => (componentInstance.isLoading = false)))
+    //   .subscribe(() => handleRes());
 
-    let name =
-      componentInstance.form.get("level").value +
-      "/" +
-      componentInstance.form.get("title").value;
-    let code = componentInstance.form.value.code;
-
-    this.treeService
-      .renameCategory(code, name)
-      .pipe(finalize(() => (componentInstance.isLoading = false)))
-      .subscribe(() => handleRes());
-
-    const handleRes = () => {
-      this.nzMessage.success("عملیات با موفقیت انجام شد");
-      componentInstance.destroyModal();
-      this.refresh();
-    };
+    // const handleRes = () => {
+    //   this.nzMessage.success("عملیات با موفقیت انجام شد");
+    //   componentInstance.destroyModal();
+    //   this.refresh();
+    // };
   }
 
   refresh() {
@@ -313,6 +312,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
             level: node.level + 1,
             expandable: v.hasChildren,
           };
+
           treeData.push(json);
         });
         node.loading = false;

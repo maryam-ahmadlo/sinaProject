@@ -6,7 +6,10 @@ import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzButtonModule } from "ng-zorro-antd/button";
-import { CreateAddRoleUserModalComponent } from "../../components";
+import {
+  CreateAddRoleUserModalComponent,
+  CreateDeleteUserModalComponent,
+} from "../../components";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IUser } from "src/shared/common/src/lib/interfaces";
 import { CreateUpdateUserModalComponent } from "../../components/create-update-user-modal/create-update-user-modal.component";
@@ -71,6 +74,8 @@ export class UserManagementListComponent implements OnInit {
     });
   }
   handleUserRole(componentInstance: any) {
+    componentInstance.isLoading = true;
+
     this.userManagementService
       .assignRole(
         componentInstance.form.get("users").value,
@@ -110,18 +115,58 @@ export class UserManagementListComponent implements OnInit {
     });
   }
   handleUpdateUser(componentInstance: any, item: IUser) {
-  
-    // this.userManagementService
-    //   .renameUser({ ...item, ...componentInstance.form.value })
-    //   .pipe(finalize(() => (componentInstance.isLoading = false)))
-    //   .subscribe(() => handleRes());
+    componentInstance.isLoading = true;
+    let data: IUser = { ...item, ...componentInstance.form.value };
+    this.userManagementService
+      .renameUser(data)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
 
-    // const handleRes = () => {
-    //   this.nzMessage.success("عملیات با موفقیت انجام شد");
-    //   componentInstance.destroyModal();
-    //   this.refresh();
-    // };
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
+
+  createDeleteUserModal(item: IUser) {
+    this.modalService.create({
+      nzTitle: "حذف کاربر",
+      nzContent: CreateDeleteUserModalComponent,
+      nzComponentParams: {
+        item,
+      },
+      nzFooter: [
+        {
+          label: "انصراف",
+          type: "default",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "تایید",
+          type: "primary",
+          onClick: (componentInstance) =>
+            this.handleDeleteUser(componentInstance, item.id),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+
+  handleDeleteUser(componentInstance, id: string) {
+    componentInstance.isLoading = true;
+    this.userManagementService
+      .deleteUser(id)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
+
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
+  }
+
   refresh() {
     this.router.navigate([], {
       relativeTo: this.activatedRoute,

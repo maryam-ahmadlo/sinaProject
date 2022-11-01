@@ -55,11 +55,32 @@ export class UserManagementService {
     );
   }
 
-  renameUser(body:IUser){
-    return this.httpClient.put('/auth/updateUser',body,{ headers: new HttpHeaders({
-      accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-    })});
+  renameUser(body: IUser) {
+    return this.httpClient.put(
+      "/api/auth/updateUser",
+      `user=${body.id}&
+    &email=${body.email}&name=${body.name}&active=${body.active}
+    `,
+      {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+      }
+    );
+  }
+
+  deleteUser(id:string){
+
+    return this.httpClient.delete('/api//auth/deleteUser',{
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+      params:{
+        user:id
+      }
+    })
   }
 }
