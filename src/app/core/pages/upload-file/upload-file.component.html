@@ -64,10 +64,10 @@
               nzSize="large"
               formControlName="categoryId"
               nzPlaceHolder="سطح 1 "
+              (ngModelChange)="getChildren($event)"
             >
-              <nz-option nzValue="0" nzLabel="سطح 1"></nz-option>
-              <nz-option nzValue="1" nzLabel="سطح 2"></nz-option>
-              <nz-option nzValue="2" nzLabel="سطح 3"></nz-option>
+            <nz-option *ngFor="let node of treeData" [nzValue]="node.id" [nzLabel]="node.label" ></nz-option>
+
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -81,11 +81,12 @@
               id="categoryId"
               nzSize="large"
               formControlName="categoryId"
-              nzPlaceHolder="سطح 1 "
+              nzPlaceHolder="سطح 2 "
+              (ngModelChange)="getSecondChildren($event)"
+              
             >
-              <nz-option nzValue="0" nzLabel="سطح 1"></nz-option>
-              <nz-option nzValue="1" nzLabel="سطح 2"></nz-option>
-              <nz-option nzValue="2" nzLabel="سطح 3"></nz-option>
+            <nz-option *ngFor="let node of secondLevel" [nzValue]="node.id" [nzLabel]="node.label"></nz-option>
+
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -99,11 +100,10 @@
               id="categoryId"
               nzSize="large"
               formControlName="categoryId"
-              nzPlaceHolder="سطح 1 "
+              nzPlaceHolder="سطح 3 "
             >
-              <nz-option nzValue="0" nzLabel="سطح 1"></nz-option>
-              <nz-option nzValue="1" nzLabel="سطح 2"></nz-option>
-              <nz-option nzValue="2" nzLabel="سطح 3"></nz-option>
+            <nz-option *ngFor="let node of thirdLevel" [nzValue]="node.id" [nzLabel]="node.label"></nz-option>
+
             </nz-select>
           </nz-form-control>
         </nz-form-item>

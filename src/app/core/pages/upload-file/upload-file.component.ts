@@ -33,7 +33,9 @@ import { VersionNumberEnum } from "src/shared/common/src/lib/enums";
 import { HttpClient } from "@angular/common/http";
 import { Observable, finalize } from "rxjs";
 import { map } from "rxjs/operators";
-import { log } from "console";
+import { TreeService } from "../../services/tree.service";
+import { IFlatNode, ITreeNode } from "src/shared/common/src/lib/interfaces";
+
 export interface IUploadFileForm {
   title: FormControl<string>;
   subject: FormControl<string>;
@@ -93,14 +95,32 @@ export class UploadFileComponent implements OnInit {
   versionNumberEnum = VersionNumberEnum;
   keysV = [];
 
+  treeData: IFlatNode[] = [];
+  secondLevel:IFlatNode[]=[];
+  thirdLevel:IFlatNode[]=[];
+  level=0;
+
   constructor(
     private modalService: NzModalService,
     private activatedRoute: ActivatedRoute,
     private uploadFileService: UploadFileService,
     private nzMessage: NzMessageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private treeService:TreeService
   ) {
-    console.log(this.uploadFileForm.get("documentType").value);
+   this.treeService.getRoot().subscribe((root)=>{
+    Array.prototype.forEach.call(root['folder'], (v: any) => {
+    let json = {
+      path: v.path,
+      id: v.uuid,
+      label: v.path.split("/")[2],
+      level: this.level,
+      expandable: v.hasChildren,
+    };
+    this.treeData.push(json);
+  })
+ 
+   });
 
     this.keys = Object.keys(this.documentTypeEnum);
     this.keysV = Object.keys(this.versionNumberEnum);
@@ -110,24 +130,49 @@ export class UploadFileComponent implements OnInit {
       .patchValue(this.activatedRoute.snapshot.params["id"]);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+     
+  }
 
+  getChildren(id){
+  
+    this.treeService.getChildren(id).subscribe((second)=>{
+      Array.prototype.forEach.call(second['folder'], (v: any) => {
+        let json = {
+          path: v.path,
+          id: v.uuid,
+          label: v.path.split("/")[this.level + 3],
+          level: this.level+1,
+          expandable: v.hasChildren,
+        };
+        this.secondLevel.push(json);
+      })
+      this.level++;
+    })
+  
+  }
+  getSecondChildren(id){
+    this.treeService.getChildren(id).subscribe((third)=>{
+    Array.prototype.forEach.call(third['folder'], (v: any) => {
+      let json = {
+        path: v.path,
+        id: v.uuid,
+        label: v.path.split("/")[this.level + 3],
+        level: this.level+1,
+        expandable: v.hasChildren,
+      };
+      this.thirdLevel.push(json);
+    })
+    this.level++;
+  })
+  }
   onSubmit = () => {
     let json = {
-      nodeRuleDto: {
-        title: "",
-        subject: "",
-        text: "",
-        categoryId: "",
-        documentType: "",
-        versionNumber: "",
-        branchName: "",
-        ruleNumber: "",
-        keywords: "",
-      },
+      nodeRuleDto: {...this.uploadFileForm.value },
       attachments: { content: "" },
     };
-    this.uploadFileService.createRules(json).subscribe(() => handleRes());
+    //this.uploadFileService.createRules(json).subscribe(() => handleRes());
     console.log(json);
 
     const handleRes = () => {

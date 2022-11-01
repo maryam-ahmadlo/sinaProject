@@ -21,8 +21,8 @@ export const appRoutes: Routes = [
     resolve: {
       tree: TreeResolver,
     },
-    //canActivate: [LoggedInGuard],
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
+    //canActivate: [LoggedInGuard],
     children: [
       {
         path: "",
@@ -50,10 +50,6 @@ export const appRoutes: Routes = [
               import("./modules/user-management/user-management-routes").then(
                 (m) => m.userManagementRoutes
               ),
-            resolve: {
-              user: UserManagementListResolver,
-            },
-            runGuardsAndResolvers: "paramsOrQueryParamsChange",
           },
           {
             path: "private-cartable-admin",
