@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import {  Observable } from 'rxjs';
-import { StateService } from '../../../../core/services';
-
-
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { NzCardModule } from "ng-zorro-antd/card";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { NzTableModule } from "ng-zorro-antd/table";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzLayoutModule } from "ng-zorro-antd/layout";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { Observable } from "rxjs";
+import { StateService } from "../../../../core/services";
+import { SearchLayoutComponent } from "src/app/modules/search/pages";
+import { InstantNotificationComponent } from "src/app/modules/instant-notification/instant-notification.component";
 
 @Component({
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.less'],
+  templateUrl: "./admin-dashboard.component.html",
+  styleUrls: ["./admin-dashboard.component.less"],
   standalone: true,
   imports: [
     CommonModule,
@@ -27,11 +27,11 @@ import { StateService } from '../../../../core/services';
     NzTableModule,
     NzButtonModule,
     RouterModule,
- 
+    InstantNotificationComponent,
+    SearchLayoutComponent,
   ],
 })
 export class AdminDashboardComponent implements OnInit {
-
   me$: Observable<any> = this.stateService.select((state) => state.me);
 
   constructor(
@@ -42,22 +42,18 @@ export class AdminDashboardComponent implements OnInit {
 
   cards: Object[] = [
     {
-      title: 'تعداد درخواست طرح',
+      title: "تعداد درخواست طرح",
       data: 250,
     },
     {
-      title: 'تعداد درخواست‌های در حال کارشناسی',
+      title: "تعداد درخواست‌های در حال کارشناسی",
       data: 150,
     },
     {
-      title: 'تعداد درخواست‌های کارشناسی شده',
+      title: "تعداد درخواست‌های کارشناسی شده",
       data: 700,
     },
   ];
 
-  ngOnInit(): void {
-
-  }
-
-
+  ngOnInit(): void {}
 }

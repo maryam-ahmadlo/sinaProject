@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { SearchLayoutComponent } from 'src/app/modules/search/pages';
+import { InstantNotificationComponent } from "src/app/modules/instant-notification/instant-notification.component";
 
 
 
@@ -11,10 +12,11 @@ import { SearchLayoutComponent } from 'src/app/modules/search/pages';
   styleUrls: ['./customer-dashboard.component.less'],
   standalone: true,
   imports: [
-    CommonModule,
+   CommonModule,
    SearchLayoutComponent,
    RouterModule,
-   NzPageHeaderModule
+   NzPageHeaderModule,
+   InstantNotificationComponent,
   ],
 })
 export class CustomerDashboardComponent implements OnInit {
