@@ -1,22 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { SearchLayoutComponent } from 'src/app/modules/search/pages';
+import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { Router, RouterModule } from "@angular/router";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { InstantNotificationComponent } from "src/app/modules/instant-notification/instant-notification.component";
 
-
-
 @Component({
-  templateUrl: './customer-dashboard.component.html',
-  styleUrls: ['./customer-dashboard.component.less'],
+  templateUrl: "./customer-dashboard.component.html",
+  styleUrls: ["./customer-dashboard.component.less"],
   standalone: true,
   imports: [
-   CommonModule,
-   SearchLayoutComponent,
-   RouterModule,
-   NzPageHeaderModule,
-   InstantNotificationComponent,
+    CommonModule,
+    SearchLayoutComponent,
+    RouterModule,
+    NzPageHeaderModule,
+    InstantNotificationComponent,
   ],
 })
 export class CustomerDashboardComponent implements OnInit {
@@ -25,6 +23,4 @@ export class CustomerDashboardComponent implements OnInit {
   ngOnInit(): void {
     // this.router.navigate(['search'])
   }
-
-  
 }
