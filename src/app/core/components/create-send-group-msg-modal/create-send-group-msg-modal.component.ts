@@ -16,7 +16,7 @@ import { NzSelectModule } from "ng-zorro-antd/select";
 import { UserManagementService } from "src/app/modules/user-management/services/user-management.service";
 import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
 import { IUser } from "src/shared/common/src/lib/interfaces";
-import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
+// import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
 
 @Component({
   selector: "app-create-send-group-msg-modal",
@@ -30,7 +30,7 @@ import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
     NzTreeSelectModule,
     FormsModule,
     NzSelectModule,
-    NgxEditorModule,
+    // NgxEditorModule,
   ],
   templateUrl: "./create-send-group-msg-modal.component.html",
   styleUrls: ["./create-send-group-msg-modal.component.less"],
@@ -96,20 +96,20 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editor = new Editor();
+    // this.editor = new Editor();
   }
 
-  editor: Editor;
-  toolbar: Toolbar = [
-    ["bold", "italic"],
-    ["underline", "strike"],
-    ["code", "blockquote"],
-    ["ordered_list", "bullet_list"],
-    [{ heading: ["h1", "h2", "h3", "h4", "h5", "h6"] }],
-    ["link", "image"],
-    ["text_color", "background_color"],
-    ["align_left", "align_center", "align_right", "align_justify"],
-  ];
+  // editor: Editor;
+  // toolbar: Toolbar = [
+  //   ["bold", "italic"],
+  //   ["underline", "strike"],
+  //   ["code", "blockquote"],
+  //   ["ordered_list", "bullet_list"],
+  //   [{ heading: ["h1", "h2", "h3", "h4", "h5", "h6"] }],
+  //   ["link", "image"],
+  //   ["text_color", "background_color"],
+  //   ["align_left", "align_center", "align_right", "align_justify"],
+  // ];
 
 
   get doc(): AbstractControl {
@@ -117,6 +117,6 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.editor.destroy();
+    // this.editor.destroy();
   }
 }

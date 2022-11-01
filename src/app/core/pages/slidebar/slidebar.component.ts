@@ -137,6 +137,7 @@ export class SlidebarComponent implements OnInit {
       ],
     });
   }
+
   handleGroupMsg(componentInstance: any) {
     let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
     let obj = JSON.parse(jsonStr);
@@ -176,14 +177,36 @@ export class SlidebarComponent implements OnInit {
           label: "ارسال",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleUrgentMsg(componentInstance),
+            this.handleInstantMsg(componentInstance),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
 
-  handleUrgentMsg(componentInstance: any) {}
+  handleInstantMsg(componentInstance: any) {
+    let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
+    let obj = JSON.parse(jsonStr);
+    componentInstance.form["value"].messageReceivers.forEach((user: any) => {
+      obj["messageReceivers"].push({ receiver: `${user}` });
+    });
+
+    jsonStr = JSON.stringify(obj);
+
+    this.sliderService
+      .instantMessage(jsonStr)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
+
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.router.navigate([], {
+        relativeTo: this.activatedRoute,
+        queryParams: { refresh: new Date().getTime() },
+      });
+    };
+  }
 
   UserManagement() {
     this.router.navigate(["/", "admin", "user-management"]);

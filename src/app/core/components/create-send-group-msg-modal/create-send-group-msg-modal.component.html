@@ -2,11 +2,17 @@
   <nz-form-item>
     <nz-form-label nzRequired nzFor="messageText">متن پیام </nz-form-label>
     <nz-form-control>
-      <div class="editor">
+      <textarea
+        nz-input
+        formControlName="messageText"
+        placeholder="پیام خود را وارد کنید"
+        nzAutosize
+      ></textarea>
+      <!-- <div class="editor">
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
         </ngx-editor-menu>
         <ngx-editor [editor]="editor" formControlName="messageText"> </ngx-editor>
-      </div>
+      </div> -->
     </nz-form-control>
   </nz-form-item>
 
