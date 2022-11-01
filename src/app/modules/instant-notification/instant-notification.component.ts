@@ -24,7 +24,7 @@ export class InstantNotificationComponent implements OnInit {
           Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
         }),
         params: {
-          date: new Date().getTime(),
+          date: new Date().toJSON(),
         },
       })
       .subscribe((msg) => {
