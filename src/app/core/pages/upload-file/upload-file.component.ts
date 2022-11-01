@@ -31,14 +31,14 @@ import { NzUploadModule } from "ng-zorro-antd/upload";
 import { DocumentTypeEnum } from "src/shared/common/src/lib/enums";
 import { VersionNumberEnum } from "src/shared/common/src/lib/enums";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, finalize } from "rxjs";
 import { map } from "rxjs/operators";
+import { log } from "console";
 export interface IUploadFileForm {
   title: FormControl<string>;
   subject: FormControl<string>;
   text: FormControl<string>;
   categoryId: FormControl<string>;
-  code: FormControl<string>;
   documentType: FormControl<any>;
   versionNumber: FormControl<any>;
   branchName: FormControl<string>;
@@ -75,13 +75,11 @@ export interface IUploadFileForm {
   ],
 })
 export class UploadFileComponent implements OnInit {
-  public isWait = false;
   uploadFileForm: FormGroup<IUploadFileForm> = new FormGroup({
     title: new FormControl(null, Validators.required),
     subject: new FormControl(null, Validators.required),
     text: new FormControl(null, Validators.required),
     categoryId: new FormControl(null, Validators.required),
-    code: new FormControl(null, Validators.required),
     documentType: new FormControl(Validators.required),
     versionNumber: new FormControl(Validators.required),
     branchName: new FormControl(null, Validators.required),
@@ -96,10 +94,9 @@ export class UploadFileComponent implements OnInit {
   keysV = [];
 
   constructor(
-    private router: Router,
     private modalService: NzModalService,
     private activatedRoute: ActivatedRoute,
-    private uploadFile: UploadFileService,
+    private uploadFileService: UploadFileService,
     private nzMessage: NzMessageService,
     private http: HttpClient
   ) {
@@ -117,10 +114,22 @@ export class UploadFileComponent implements OnInit {
 
   onSubmit = () => {
     let json = {
-      nodeRuleDto: {},
-      attachments: {},
+      nodeRuleDto: {
+        title: "",
+        subject: "",
+        text: "",
+        categoryId: "",
+        documentType: "",
+        versionNumber: "",
+        branchName: "",
+        ruleNumber: "",
+        keywords: "",
+      },
+      attachments: { content: "" },
     };
-    this.uploadFile.createRules(json).subscribe(() => handleRes());
+    this.uploadFileService.createRules(json).subscribe(() => handleRes());
+    console.log(json);
+
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
     };
@@ -129,7 +138,7 @@ export class UploadFileComponent implements OnInit {
   previewFile = (file: NzUploadFile): Observable<string> => {
     console.log("Your upload file:", file);
     return this.http
-      .post<{ attachments: string }>(`http://localhost:8085/api/rules/create`, {
+      .post<{ attachments: string }>(`/url/rules/create`, {
         method: "POST",
         body: file,
       })
