@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { parseJwt } from 'src/shared/utils/parse-jwt';
+// import { parseJwt } from 'src/shared/utils/parse-jwt';
 import { StateService } from '../services';
 
 
@@ -19,8 +19,12 @@ export class PrefixRouteGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
+    let roles:any=[];
+    this.stateService.select((state) => state.me).subscribe((r)=>{
+      roles=r;
+    })
     this.router.navigate([
-      (parseJwt().roles.length !== 0 ? '/admin' : '/customer') + '/dashboard',
+      (roles.role==='ROLE_ADMIN'? '/admin' : '/customer') + '/dashboard',
     ]);
     return true;
   }

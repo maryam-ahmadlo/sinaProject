@@ -1,4 +1,4 @@
-<nz-page-header nzTitle=" لیست کاربران"  nzBackIcon >
+<nz-page-header nzTitle=" لیست کاربران" nzBackIcon>
   <nz-page-header-extra>
     <button nz-button nzType="primary" (click)="createAddRoleModal()">
       <i nz-icon nzType="plus"></i>
@@ -7,11 +7,10 @@
   </nz-page-header-extra>
   <nz-page-header-content>
     <nz-table
-    class="table-responsive"
+      class="table-responsive"
       #rowSelectionTable
       nzShowSizeChanger
       [nzData]="listOfUsers"
-
     >
       <thead>
         <tr>
@@ -27,9 +26,14 @@
         <tr *ngFor="let data of rowSelectionTable.data; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ data.name }}</td>
-          <td>{{data.email}}</td>
-          <td *ngFor="let data of data.roles">{{ data.id==='ROLE_ADMIN'?'ادمین':'کاربر' }}</td>
-          <td>{{data.active===true?'فعال':'غیر فعال'}}</td>
+          <td>{{ data.email }}</td>
+          <td *ngIf="data.roles">
+            <span *ngFor="let data of data.roles">{{
+              data.id === "ROLE_ADMIN" ? "ادمین" : "کاربر"
+            }}</span>
+          </td>
+
+          <td>{{ data.active === true ? "فعال" : "غیر فعال" }}</td>
           <td>
             <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link">
               <i nz-icon nzType="down"></i>
@@ -38,7 +42,9 @@
 
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <li nz-menu-item (click)="createUpdateUserModal(data)">به روز رسانی</li>
+                <li nz-menu-item (click)="createUpdateUserModal(data)">
+                  به روز رسانی
+                </li>
                 <li nz-menu-item>حذف</li>
               </ul>
             </nz-dropdown-menu>

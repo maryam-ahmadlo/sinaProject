@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { PrefixRoute } from 'src/shared/common/src/lib/types';
-
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { distinctUntilChanged, map } from "rxjs/operators";
+import { IUser } from "src/shared/common/src/lib/interfaces";
+import { PrefixRoute } from "src/shared/common/src/lib/types";
 
 export interface AppState {
   signedIn: boolean;
-  me:  undefined;
+  me: IUser;
   prefixRoute: PrefixRoute | undefined;
 }
 
@@ -17,15 +17,15 @@ export const initialState: AppState = {
 };
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class StateService {
   private state: AppState = initialState;
   private readonly stateSubject = new BehaviorSubject<AppState>(initialState);
 
   constructor() {
-    if (typeof window !== 'undefined') {
-      Object.defineProperty(window, 'appState', {
+    if (typeof window !== "undefined") {
+      Object.defineProperty(window, "appState", {
         get: () => this.stateSubject.value,
       });
     }

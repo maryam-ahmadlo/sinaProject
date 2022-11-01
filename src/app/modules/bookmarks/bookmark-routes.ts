@@ -7,6 +7,7 @@ export const BookmarkRoutes: Routes = [
     loadComponent: () => import("./pages").then((m) => m.BookmarkListComponent),
     resolve:{
       bookmarkList:BookmarkResolver
-    }
+    },
+    runGuardsAndResolvers: "paramsOrQueryParamsChange",
   },
 ];

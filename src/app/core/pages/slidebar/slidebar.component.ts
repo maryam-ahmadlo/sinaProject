@@ -15,7 +15,7 @@ import {
   RouterModule,
 } from "@angular/router";
 
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 import { NzDrawerModule } from "ng-zorro-antd/drawer";
 import { LayoutSiderMenuComponent } from "../layout-slider-menu/layout-slider-menu.component";
@@ -28,6 +28,8 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { NzBadgeModule } from "ng-zorro-antd/badge";
 import { finalize } from "rxjs";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { SharedModule } from "src/shared/shared.module";
+import { SliderService } from "../../services/slider.service";
 @Component({
   standalone: true,
   selector: "app-slidebar",
@@ -51,6 +53,7 @@ import { NzMessageService } from "ng-zorro-antd/message";
     NzPageHeaderModule,
     NzBadgeModule,
     NotificationDropdownComponent,
+    SharedModule,
   ],
   templateUrl: "./slidebar.component.html",
   styleUrls: ["./slidebar.component.less"],
@@ -63,7 +66,7 @@ export class SlidebarComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public mediaObserver: MediaObserver,
-    private httpclient: HttpClient,
+    private sliderService: SliderService,
     private stateService: StateService,
     private modalService: NzModalService,
     private nzMessage: NzMessageService
@@ -99,7 +102,7 @@ export class SlidebarComponent implements OnInit {
   }
 
   logout() {
-    this.httpclient.post("/api/logout", {}).subscribe(() => {
+    this.sliderService.logout().subscribe(() => {
       this.stateService.setState("signedIn", false);
       this.stateService.setState("me", null);
       localStorage.clear();
@@ -135,24 +138,26 @@ export class SlidebarComponent implements OnInit {
     });
   }
   handleGroupMsg(componentInstance: any) {
-    let json = {
-      sender: "okmAdmin",
-      messageText: componentInstance.form["value"].messageText,
-      messageReceivers: [
-        {
-          receiver: componentInstance.form["value"].messageReceivers,
-        },
-      ],
-    };
-    this.httpclient
-      .post<any>("/url/messages/send/grouping", json)
+    let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
+    let obj = JSON.parse(jsonStr);
+    componentInstance.form["value"].messageReceivers.forEach((user: any) => {
+      obj["messageReceivers"].push({ receiver: `${user}` });
+    });
+
+    jsonStr = JSON.stringify(obj);
+
+    this.sliderService
+      .groupMessage(jsonStr)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
       componentInstance.destroyModal();
-      this.refresh();
+      this.router.navigate([], {
+        relativeTo: this.activatedRoute,
+        queryParams: { refresh: new Date().getTime() },
+      });
     };
   }
 

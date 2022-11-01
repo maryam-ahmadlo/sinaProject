@@ -48,9 +48,18 @@ export class UserManagementService {
       {
         headers: new HttpHeaders({
           accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
           Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
         }),
       }
     );
+  }
+
+  renameUser(body:IUser){
+    return this.httpClient.put('/auth/updateUser',body,{ headers: new HttpHeaders({
+      accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+    })});
   }
 }
