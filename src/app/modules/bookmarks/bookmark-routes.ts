@@ -3,10 +3,10 @@ import { BookmarkResolver } from "./resolvers/bookmark.resolver";
 
 export const BookmarkRoutes: Routes = [
   {
-    path: '',
+    path: "",
     loadComponent: () => import("./pages").then((m) => m.BookmarkListComponent),
-    resolve:{
-      bookmarkList:BookmarkResolver
+    resolve: {
+      bookmark: BookmarkResolver,
     },
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
   },

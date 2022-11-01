@@ -44,23 +44,23 @@ export class BookmarkListComponent implements OnInit {
     private bookmarkService: BookmarkService,
     private message: NzMessageService,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ bookmarkList }) => {
-      if (bookmarkList["bookmark"] && bookmarkList["bookmark"].length > 1) {
-        this.data = bookmarkList["bookmark"];
-      } else if (bookmarkList["bookmark"]) {
-        this.data.push(bookmarkList["bookmark"]);
+  ) {
+    this.activatedRoute.data.subscribe(({ bookmark }) => {
+      if (bookmark['bookmark'] && bookmark['bookmark'].length > 1) {
+        this.data = bookmark['bookmark'];
+      } else if (bookmark['bookmark']) {
+        this.data.push(bookmark['bookmark']);
       } else {
         this.data = [];
       }
     });
 
-    this.data.forEach((v) => {
-      Number(v.id);
-    });
+    // this.data.forEach((v) => {
+    //   Number(v.id);
+    // });
   }
+
+  ngOnInit(): void {}
 
   createShowBookMarkModal(item: IBookmark) {
     this.modalService.create({
@@ -149,11 +149,11 @@ export class BookmarkListComponent implements OnInit {
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
-    const handleRes = () => {
-      this.message.success("عملیات با موفقیت انجام شد");
-      componentInstance.destroyModal();
-      this.refresh();
-    };
+      const handleRes = () => {
+        this.message.success("عملیات با موفقیت انجام شد");
+        componentInstance.destroyModal();
+        this.refresh();
+      };
   }
 
   refresh() {

@@ -81,4 +81,11 @@ getChildren(node:string){
       params: { docId: param },
     });
   }
+
+  getCode(node:IFlatNode){
+    return this.httpClient.get(`/url/categories/${node.id}`,{headers:new HttpHeaders({
+      accept: "*/*",
+      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+    })})
+  }
 }
