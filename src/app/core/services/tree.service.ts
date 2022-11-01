@@ -17,29 +17,42 @@ export class TreeService {
     });
   }
 
-
-  createCategory(body: { path: string; code: string }) {
+getChildren(node:string){
+  return this.httpClient
+  .get<ITreeNode>("/api/folder/getChildren", {
+    headers: new HttpHeaders({
+      accept: "application/json",
+      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+    }),
+    params: { fldId: `${node}` },
+  })
+};
+  createCategory(body) {
     return this.httpClient.post<any>("/url/categories/create", body, {
       headers: new HttpHeaders({
-        accept: "application/json",
+        accept: "*/*" ,
+        "Content-Type": "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });
   }
 
   deleteCategory(id: string) {
-    return this.httpClient.delete(`api/categories/${id}/delete`, {
+    return this.httpClient.delete(`url/categories/${id}/delete`, {
       headers: new HttpHeaders({
-        accept: "application/json",
+        accept: "*/*",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });
   }
-  renameCategory(uuid: string, name: string) {
-    return this.httpClient.post<any>(`/api/categories/${uuid}`, {
-      params: {
-        rename: { newName: name },
-      },
+  renameCategory(uuid: string, body) {
+    return this.httpClient.put<any>(`/url/categories/${uuid}/update`,body, {
+      headers: new HttpHeaders({
+        accept: "*/*" ,
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      })
+    
     });
   }
 
