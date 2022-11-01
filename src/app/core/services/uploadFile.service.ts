@@ -11,6 +11,7 @@ export class UploadFileService {
     return this.httpClient.post<any>("/url/rules/create", body, {
       headers: new HttpHeaders({
         accept: "application/json",
+        "Content-type": "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });
