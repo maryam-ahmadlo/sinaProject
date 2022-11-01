@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, JsonPipe } from "@angular/common";
 import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
@@ -30,6 +30,7 @@ import { finalize } from "rxjs";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { SharedModule } from "src/shared/shared.module";
 import { SliderService } from "../../services/slider.service";
+import * as moment from "jalali-moment";
 @Component({
   standalone: true,
   selector: "app-slidebar",
@@ -54,6 +55,7 @@ import { SliderService } from "../../services/slider.service";
     NzBadgeModule,
     NotificationDropdownComponent,
     SharedModule,
+    
   ],
   templateUrl: "./slidebar.component.html",
   styleUrls: ["./slidebar.component.less"],
@@ -87,7 +89,15 @@ export class SlidebarComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    let date=new Date();
+   console.log(date.toJSON());
+   
+    
+    console.log(moment().startOf('jDay').format());
+    
+  }
 
   onCollapse() {
     this.isCollapsed = !this.isCollapsed;
