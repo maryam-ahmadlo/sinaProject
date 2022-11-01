@@ -17,7 +17,16 @@ export class TreeService {
     });
   }
 
-
+getChildren(node:string){
+  return this.httpClient
+  .get<ITreeNode>("/api/folder/getChildren", {
+    headers: new HttpHeaders({
+      accept: "application/json",
+      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+    }),
+    params: { fldId: `${node}` },
+  })
+};
   createCategory(body) {
     return this.httpClient.post<any>("/url/categories/create", body, {
       headers: new HttpHeaders({
