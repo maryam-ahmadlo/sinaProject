@@ -54,7 +54,6 @@ export class CreateAddRoleUserModalComponent implements OnInit {
   ) {
     this.userManagementService.getBranches().subscribe((r) => {
       for (let i = 0; i < r.length; i++) {
-        
         let json = {
           title: r[i].name,
           value: r[i].id,
@@ -82,13 +81,12 @@ export class CreateAddRoleUserModalComponent implements OnInit {
   onChange($event: IBranch[]): void {
     $event.forEach((r) => {
       r.roles.forEach((user) => {
-      user.users.forEach((user)=>{
-        this.listOfUsers.push(user);
-      });
+        user.users.forEach((user) => {
+          this.listOfUsers.push(user);
+        });
       });
     });
-    console.log('listOfUsers',this.listOfUsers);
-    
+    console.log("listOfUsers", this.listOfUsers);
   }
 
   ngOnInit(): void {}

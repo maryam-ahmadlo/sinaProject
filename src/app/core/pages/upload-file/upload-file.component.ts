@@ -95,10 +95,11 @@ export class UploadFileComponent implements OnInit {
   versionNumberEnum = VersionNumberEnum;
   keysV = [];
 
+  fileName = "";
   treeData: IFlatNode[] = [];
-  secondLevel:IFlatNode[]=[];
-  thirdLevel:IFlatNode[]=[];
-  level=0;
+  secondLevel: IFlatNode[] = [];
+  thirdLevel: IFlatNode[] = [];
+  level = 0;
 
   constructor(
     private modalService: NzModalService,
@@ -106,21 +107,20 @@ export class UploadFileComponent implements OnInit {
     private uploadFileService: UploadFileService,
     private nzMessage: NzMessageService,
     private http: HttpClient,
-    private treeService:TreeService
+    private treeService: TreeService
   ) {
-   this.treeService.getRoot().subscribe((root)=>{
-    Array.prototype.forEach.call(root['folder'], (v: any) => {
-    let json = {
-      path: v.path,
-      id: v.uuid,
-      label: v.path.split("/")[2],
-      level: this.level,
-      expandable: v.hasChildren,
-    };
-    this.treeData.push(json);
-  })
- 
-   });
+    this.treeService.getRoot().subscribe((root) => {
+      Array.prototype.forEach.call(root["folder"], (v: any) => {
+        let json = {
+          path: v.path,
+          id: v.uuid,
+          label: v.path.split("/")[2],
+          level: this.level,
+          expandable: v.hasChildren,
+        };
+        this.treeData.push(json);
+      });
+    });
 
     this.keys = Object.keys(this.documentTypeEnum);
     this.keysV = Object.keys(this.versionNumberEnum);
@@ -130,49 +130,44 @@ export class UploadFileComponent implements OnInit {
       .patchValue(this.activatedRoute.snapshot.params["id"]);
   }
 
-  ngOnInit(): void {
-    
-     
-  }
+  ngOnInit(): void {}
 
-  getChildren(id){
-  
-    this.treeService.getChildren(id).subscribe((second)=>{
-      Array.prototype.forEach.call(second['folder'], (v: any) => {
+  getChildren(id) {
+    this.treeService.getChildren(id).subscribe((second) => {
+      Array.prototype.forEach.call(second["folder"], (v: any) => {
         let json = {
           path: v.path,
           id: v.uuid,
           label: v.path.split("/")[this.level + 3],
-          level: this.level+1,
+          level: this.level + 1,
           expandable: v.hasChildren,
         };
         this.secondLevel.push(json);
-      })
+      });
       this.level++;
-    })
-  
+    });
   }
-  getSecondChildren(id){
-    this.treeService.getChildren(id).subscribe((third)=>{
-    Array.prototype.forEach.call(third['folder'], (v: any) => {
-      let json = {
-        path: v.path,
-        id: v.uuid,
-        label: v.path.split("/")[this.level + 3],
-        level: this.level+1,
-        expandable: v.hasChildren,
-      };
-      this.thirdLevel.push(json);
-    })
-    this.level++;
-  })
+  getSecondChildren(id) {
+    this.treeService.getChildren(id).subscribe((third) => {
+      Array.prototype.forEach.call(third["folder"], (v: any) => {
+        let json = {
+          path: v.path,
+          id: v.uuid,
+          label: v.path.split("/")[this.level + 3],
+          level: this.level + 1,
+          expandable: v.hasChildren,
+        };
+        this.thirdLevel.push(json);
+      });
+      this.level++;
+    });
   }
   onSubmit = () => {
     let json = {
-      nodeRuleDto: {...this.uploadFileForm.value },
-      attachments: { content: "" },
+      nodeRuleDto: { ...this.uploadFileForm.value },
+      attachments: [ {dataHandler: {content: this.fileName}}]  ,
     };
-    //this.uploadFileService.createRules(json).subscribe(() => handleRes());
+    this.uploadFileService.createRules(json).subscribe(() => handleRes());
     console.log(json);
 
     const handleRes = () => {
@@ -180,15 +175,17 @@ export class UploadFileComponent implements OnInit {
     };
   };
 
-  previewFile = (file: NzUploadFile): Observable<string> => {
-    console.log("Your upload file:", file);
-    return this.http
-      .post<{ attachments: string }>(`/url/rules/create`, {
-        method: "POST",
-        body: file,
-      })
-      .pipe(map((res) => res.attachments));
-  };
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append("content", file);
+      // const upload$ = this.http.post("/url/rules/create", formData);
+      // upload$.subscribe();
+    }
+    console.log(file);
+  }
 
   createAddFileModalComponent() {
     this.modalService.create({

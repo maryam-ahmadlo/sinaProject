@@ -9,7 +9,7 @@ import { NzInputModule } from "ng-zorro-antd/input";
 @Component({
   selector: "app-create-update-user-modal",
   standalone: true,
-  imports: [CommonModule,NzFormModule,ReactiveFormsModule,NzInputModule],
+  imports: [CommonModule, NzFormModule, ReactiveFormsModule, NzInputModule],
   templateUrl: "./create-update-user-modal.component.html",
   styleUrls: ["./create-update-user-modal.component.css"],
 })
@@ -17,7 +17,7 @@ export class CreateUpdateUserModalComponent implements OnInit {
   isLoading: boolean;
   @Input() item: IUser;
 
-  form: FormGroup<{ name: FormControl<string>; email: FormControl<string>; }> =
+  form: FormGroup<{ name: FormControl<string>; email: FormControl<string> }> =
     new FormGroup({
       name: new FormControl(null),
       email: new FormControl(null),
