@@ -66,8 +66,11 @@
               nzPlaceHolder="سطح 1 "
               (ngModelChange)="getChildren($event)"
             >
-            <nz-option *ngFor="let node of treeData" [nzValue]="node.id" [nzLabel]="node.label" ></nz-option>
-
+              <nz-option
+                *ngFor="let node of treeData"
+                [nzValue]="node.id"
+                [nzLabel]="node.label"
+              ></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -83,10 +86,12 @@
               formControlName="categoryId"
               nzPlaceHolder="سطح 2 "
               (ngModelChange)="getSecondChildren($event)"
-              
             >
-            <nz-option *ngFor="let node of secondLevel" [nzValue]="node.id" [nzLabel]="node.label"></nz-option>
-
+              <nz-option
+                *ngFor="let node of secondLevel"
+                [nzValue]="node.id"
+                [nzLabel]="node.label"
+              ></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -102,8 +107,11 @@
               formControlName="categoryId"
               nzPlaceHolder="سطح 3 "
             >
-            <nz-option *ngFor="let node of thirdLevel" [nzValue]="node.id" [nzLabel]="node.label"></nz-option>
-
+              <nz-option
+                *ngFor="let node of thirdLevel"
+                [nzValue]="node.id"
+                [nzLabel]="node.label"
+              ></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -189,17 +197,14 @@
     </nz-card>
 
     <nz-card nzTitle="بارگذاری فایل">
-      <nz-upload
-        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        nzListType="picture"
-        [nzPreviewFile]="previewFile"
-      >
-        <button nz-button>
-          <span nz-icon nzType="upload"></span>
-          بارگذاری فایل
-        </button>
-      </nz-upload></nz-card
-    >
+      <input
+        id="content"
+        type="file"
+        class="file-input"
+        (change)="onFileSelected($event)"
+        #fileUpload
+      />
+    </nz-card>
 
     <nz-card nzTitle="افزودن روابط مرتبط">
       <div>
