@@ -1,15 +1,7 @@
-export interface IGroupMessage{
-    
-        id: string,
-        senderId: string,
-        message: string,
-        messageReceivers: [
-          {
-            id: string,
-            receiverId: string,
-            message: string,
-            seen: boolean
-          }
-        ]
-      
+export interface IGroupMessage {
+  messageType: string;
+  sender: string;
+  receiver: string;
+  messageText: string;
+  seenDate: string;
 }

@@ -62,7 +62,7 @@ import * as moment from "jalali-moment";
 export class SlidebarComponent implements OnInit {
   isCollapsed: boolean = true;
   isMobile: boolean = this.mediaObserver.isActive(["lt-lg"]);
-
+  messageCount:number=0;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -90,12 +90,12 @@ export class SlidebarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
-    // .subscribe((msg)=>{
-    //  msg.forEach((m)=>{
-    //   // if(m.)
-    //  })
-    // });
+    this.sliderService.getGroupMessage()
+    .subscribe((msg)=>{
+     msg.forEach((m)=>{
+      if(m.seenDate===null){this.messageCount++;}
+     })
+    });
 
 
   }

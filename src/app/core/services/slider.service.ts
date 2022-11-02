@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { IGroupMessage } from "src/shared/common/src/lib/interfaces";
 
 @Injectable({
   providedIn: "root",
@@ -28,9 +29,9 @@ export class SliderService {
       }),
     });
   }
-  getMessageCount(){
+  getGroupMessage(){
     return this.httpClient
-    .get("/url/messages/okmAdmin/grouping/inbox", {
+    .get<IGroupMessage[]>("/url/messages/okmAdmin/grouping/inbox", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",

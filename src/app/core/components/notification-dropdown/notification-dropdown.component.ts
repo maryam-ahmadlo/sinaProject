@@ -8,6 +8,11 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { NotificationModalComponent } from "../notification-modal/notification-modal.component";
+import { IGroupMessage } from "src/shared/common/src/lib/interfaces";
+import { SliderService } from "../../services/slider.service";
+import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { NzTagModule } from 'ng-zorro-antd/tag';
+
 @Component({
   selector: "app-notification-dropdown",
   templateUrl: "./notification-dropdown.component.html",
@@ -21,23 +26,19 @@ import { NotificationModalComponent } from "../notification-modal/notification-m
     NzPageHeaderModule,
     NzButtonModule,
     NzModalModule,
+    NzTypographyModule,
+    NzTagModule
   ],
 })
 export class NotificationDropdownComponent {
   data: any = [];
-  listOfMessages:any=[];
+  listOfMessages:IGroupMessage[]=[];
   isLoading: boolean;
 
-  constructor(private httpClient: HttpClient,private modalService: NzModalService) {}
+  constructor(private sliderService: SliderService,private modalService: NzModalService) {}
 
   ngOnInit(): void {
-    this.httpClient
-      .get("/url/messages/okmAdmin/grouping/inbox", {
-        headers: new HttpHeaders({
-          accept: "application/json",
-          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-        }),
-      })
+    this.sliderService.getGroupMessage()
       .subscribe((msg)=>{
         this.listOfMessages = msg;
       });
@@ -45,7 +46,7 @@ export class NotificationDropdownComponent {
      
   }
 
-createNotificationModal(item:any){
+createNotificationModal(item:IGroupMessage){
   this.modalService.create({
     nzTitle: "مشاهده پیام",
     nzContent: NotificationModalComponent,

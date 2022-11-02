@@ -11,6 +11,7 @@
         <tr>
           <th>ردیف</th>
           <th>نام</th>
+          <th>وضعیت</th>
           <th>عملیات</th>
         </tr>
       </thead>
@@ -18,8 +19,23 @@
         <tr *ngFor="let data of rowSelectionTable.data; let i = index">
           <td>{{ i + 1 }}</td>
       
-          <td>{{ data.messageText }}</td>
+          <td nz-typography [nzEllipsis]="true">{{ data.messageText }}</td>
+          <td>
 
+            <nz-tag nzColor="#cd201f" *ngIf="data.seenDate===null;else read">
+             
+              <span >خوانده نشده</span>
+            </nz-tag>
+
+            <ng-template #read> 
+              <nz-tag nzColor="#55acee">
+              <span>خوانده شده</span>
+            </nz-tag>
+          </ng-template>
+           
+           
+        
+          </td>
           <td>
             <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link">
               <i nz-icon nzType="down"></i>
