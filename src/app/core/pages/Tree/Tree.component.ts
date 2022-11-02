@@ -68,6 +68,7 @@ export class TreeComponent implements OnInit {
     private nzMessage: NzMessageService,
     private router: Router
   ) {
+  
     this.activatedRoute.data.subscribe(({ tree }) => {
       Array.prototype.forEach.call(tree.folder, (v: any) => {
         let json = {
@@ -121,10 +122,20 @@ export class TreeComponent implements OnInit {
 
   handleAddTreeNode(componentInstance: any, node: IFlatNode) {
     componentInstance.isLoading = true;
+ 
+    let array:Array<string> =node.path.split('/');
+    array.splice(0,2);
+    let path : string='';
 
+    array.forEach((i)=>{
+      path += i+'/' ;
+    })
+
+  
+    
     let json = `{
-    "path":"${node.path.concat('/').concat(componentInstance.form.value.title)}",
-    "code":"${componentInstance.form.value.code}",
+    "path":"${path}${componentInstance.form.value.title}",
+    "code":"${componentInstance.form.value.code}"
     }`;
 
     this.treeService
@@ -177,13 +188,18 @@ export class TreeComponent implements OnInit {
   }
 
   createEditNodeModal(node: IFlatNode) {
-    console.log(node);
+   
 
-    this.modalService.create({
+    this.treeService.getCode(node).subscribe((r)=>{
+     let data=r;
+
+     this.modalService.create({
       nzTitle: "ویرایش درختواره ",
       nzContent: CreateEditNodeModalComponent,
       nzComponentParams: {
         node,
+        data
+
       },
       nzFooter: [
         {
@@ -199,29 +215,34 @@ export class TreeComponent implements OnInit {
         },
       ],
     });
+  
+    });
+
+   
+    
+   
   }
 
   handleRenameTreeNode(componentInstance: any, node:IFlatNode) {
     componentInstance.isLoading = true;
-    node.path.split('/').splice(0,2);
     
-    console.log(node.path);
-    
-    let json={
-      "path":componentInstance.form.value.title,
-      "code":componentInstance.form.value.code
-    }
- 
-    // this.treeService
-    //   .renameCategory(node.id,json)
-    //   .pipe(finalize(() => (componentInstance.isLoading = false)))
-    //   .subscribe(() => handleRes());
+    let json = `{
+    "path":"${componentInstance.form.value.title}",
+    "code":"${componentInstance.form.value.code}"
+    }`;
 
-    // const handleRes = () => {
-    //   this.nzMessage.success("عملیات با موفقیت انجام شد");
-    //   componentInstance.destroyModal();
-    //   this.refresh();
-    // };
+  
+  
+    this.treeService
+      .renameCategory(node.id,json)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
+
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
   }
 
   refresh() {
@@ -294,7 +315,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
     }
     node.loading = true;
 
-    let treeData: IFlatNode[] = [];
+    let treeData: IFlatNode[] =[];
     this.httpClient
       .get<ITreeNode>("/api/folder/getChildren", {
         headers: new HttpHeaders({
@@ -304,7 +325,12 @@ class DynamicDatasource implements DataSource<IFlatNode> {
         params: { fldId: `${node.id}` },
       })
       .subscribe((children) => {
-        children.folder.forEach((v: any) => {
+        console.log('children',children);
+        
+      
+        if(children.folder.length>1){
+        Array.prototype.forEach.call(children.folder, (v: any) => {
+    
           let json = {
             path: v.path,
             id: v.uuid,
@@ -314,7 +340,22 @@ class DynamicDatasource implements DataSource<IFlatNode> {
           };
 
           treeData.push(json);
-        });
+        })
+      }
+        else{
+         
+          let json = {
+            path: children['folder']['path'],
+            id: children['folder']['uuid'],
+            label: children['folder']['path'].split("/")[node.level + 3],
+            level: node.level + 1,
+            expandable: children['folder']['hasChildren'],
+          };
+
+          treeData.push(json);
+        }
+        
+        
         node.loading = false;
         const flattenedData = this.flattenedData.getValue();
         const index = flattenedData.indexOf(node);

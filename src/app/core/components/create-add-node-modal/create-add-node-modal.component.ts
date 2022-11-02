@@ -39,7 +39,8 @@ export class CreateAddNodeModalComponent implements OnInit {
   constructor(private modal: NzModalRef) {}
   ngOnInit(): void {
 
-    this.form.get('level').setValue((this.node.level+1).toString());
+
+    this.form.get('level').setValue((this.node.level+2).toString());
   
   }
 
