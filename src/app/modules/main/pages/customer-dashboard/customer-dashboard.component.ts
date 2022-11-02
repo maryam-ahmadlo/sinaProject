@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
-import { InstantNotificationComponent } from "src/app/modules/instant-notification/instant-notification.component";
+import { InstantNotificationComponent } from "src/app/modules/main/components/instant-notification/instant-notification.component";
 
 @Component({
   templateUrl: "./customer-dashboard.component.html",
