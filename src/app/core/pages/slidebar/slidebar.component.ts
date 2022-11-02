@@ -88,7 +88,17 @@ export class SlidebarComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    
+    // .subscribe((msg)=>{
+    //  msg.forEach((m)=>{
+    //   // if(m.)
+    //  })
+    // });
+
+
+  }
 
   onCollapse() {
     this.isCollapsed = !this.isCollapsed;

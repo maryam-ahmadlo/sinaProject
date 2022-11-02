@@ -47,6 +47,15 @@ export interface IUploadFileForm {
   ruleNumber: FormControl<string>;
   keywords: FormControl<string[]>;
 }
+
+export interface IFileName {
+  lastModified: FormControl<any>;
+  lastModifiedDate: FormControl<any>;
+  name: FormControl<string>;
+  size: FormControl<number>;
+  type: FormControl<any>;
+  webkitRelativePath: FormControl<any>;
+}
 @Component({
   selector: "app-upload-file",
   templateUrl: "./upload-file.component.html",
@@ -95,7 +104,14 @@ export class UploadFileComponent implements OnInit {
   versionNumberEnum = VersionNumberEnum;
   keysV = [];
 
-  fileName = {};
+  fileName: FormGroup<IFileName> = new FormGroup({
+    lastModified: new FormControl(null),
+    lastModifiedDate: new FormControl(null),
+    name: new FormControl(null),
+    size: new FormControl(null),
+    type: new FormControl(null),
+    webkitRelativePath: new FormControl(null),
+  });
   treeData: IFlatNode[] = [];
   secondLevel: IFlatNode[] = [];
   thirdLevel: IFlatNode[] = [];
@@ -163,31 +179,40 @@ export class UploadFileComponent implements OnInit {
     });
   }
   onSubmit = () => {
-    console.log(this.fileName);
+    // const formData = new FormData();
+    // for (let key in this.fileName) {
+    //   formData.append(key, this.fileName[key]);
+    // }
+
+    // console.log(this.fileName);
 
     let json = {
-      "nodeRuleDto": { ...this.uploadFileForm.value },
-      "attachments": [{ "dataHandler": { "content": this.fileName } }],
+      nodeRuleDto: { ...this.uploadFileForm.value },
+      attachments: [{ dataHandler: { content: { ...this.fileName.value } } }],
     };
-    console.log('json', json);
-    
+    console.log("json", json);
+
     this.uploadFileService.createRules(json).subscribe(() => handleRes());
-    
+
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
     };
   };
 
   onFileSelected(event) {
-    const file: File = event.target.files[0];
+    const file: File = event.target.files[0];    
     if (file) {
-      this.fileName = file;
-      const formData = new FormData();
-      formData.append("content", file);
-      // const upload$ = this.http.post("/url/rules/create", formData);
-      // upload$.subscribe();
+
+
+
+      this.fileName.patchValue({['name']: file.name});
+      this.fileName.patchValue({['size']: file.size});
+      // this.fileName.patchValue({['lastModifiedDate']: file.lastModifiedDate});
+      this.fileName.patchValue({['type']: file.type});
+      this.fileName.patchValue({['lastModified']: file.lastModified});
+      this.fileName.patchValue({['webkitRelativePath']: file.webkitRelativePath});
+      console.log(this.fileName.value);
     }
-    console.log(file);
   }
 
   createAddFileModalComponent() {
