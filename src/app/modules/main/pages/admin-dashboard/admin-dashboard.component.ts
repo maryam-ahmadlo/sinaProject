@@ -11,7 +11,7 @@ import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { Observable } from "rxjs";
 import { StateService } from "../../../../core/services";
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
-import { InstantNotificationComponent } from "src/app/modules/instant-notification/instant-notification.component";
+import { InstantNotificationComponent } from "src/app/modules/main/components/instant-notification/instant-notification.component";
 
 @Component({
   templateUrl: "./admin-dashboard.component.html",

@@ -55,7 +55,6 @@ import * as moment from "jalali-moment";
     NzBadgeModule,
     NotificationDropdownComponent,
     SharedModule,
-    
   ],
   templateUrl: "./slidebar.component.html",
   styleUrls: ["./slidebar.component.less"],
@@ -89,15 +88,7 @@ export class SlidebarComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-    let date=new Date();
-   console.log(date.toJSON());
-   
-    
-    console.log(moment().startOf('jDay').format());
-    
-  }
+  ngOnInit(): void {}
 
   onCollapse() {
     this.isCollapsed = !this.isCollapsed;

@@ -1,0 +1,33 @@
+<!-- 
+  <marquee direction="right" >
+    <span *ngFor="let data of listOfMessages">
+  {{ data.messageText }}
+</span>
+</marquee> -->
+<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+  <button nz-button [nzType]="'primary'" (click)="createBasicNotification()">
+    پیام فوری
+  </button>
+
+  <nz-tag
+    nzMode="closeable"
+    *ngFor="let data of listOfMessages"
+    nzColor="processing"
+    >{{ data.messageText }}</nz-tag
+  >
+</div>
+<!-- <marquee
+  direction="down"
+  width="250"
+  height="200"
+  behavior="alternate"
+  style="border:solid">
+  <marquee behavior="alternate"> This text will bounce </marquee>
+</marquee> -->
+
+<!-- <ng-marquee  speed="drowsy" duration="30s" [stopOnHover]="true" >
+    <mark *ngFor="let data of listOfMessages">
+
+      <span> {{ data.messageText }} </span>
+    </mark>
+</ng-marquee> -->
