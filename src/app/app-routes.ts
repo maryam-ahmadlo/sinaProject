@@ -26,7 +26,7 @@ export const appRoutes: Routes = [
     children: [
       {
         path: "",
-        canActivate: [PrefixRouteGuard],
+        // canActivate: [PrefixRouteGuard],
         loadComponent: () => of(),
         pathMatch: "full",
       },

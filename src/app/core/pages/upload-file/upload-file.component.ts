@@ -95,7 +95,7 @@ export class UploadFileComponent implements OnInit {
   versionNumberEnum = VersionNumberEnum;
   keysV = [];
 
-  fileName = "";
+  fileName = {};
   treeData: IFlatNode[] = [];
   secondLevel: IFlatNode[] = [];
   thirdLevel: IFlatNode[] = [];
@@ -163,13 +163,16 @@ export class UploadFileComponent implements OnInit {
     });
   }
   onSubmit = () => {
-    let json = {
-      nodeRuleDto: { ...this.uploadFileForm.value },
-      attachments: [ {dataHandler: {content: this.fileName}}]  ,
-    };
-    this.uploadFileService.createRules(json).subscribe(() => handleRes());
-    console.log(json);
+    console.log(this.fileName);
 
+    let json = {
+      "nodeRuleDto": { ...this.uploadFileForm.value },
+      "attachments": [{ "dataHandler": { "content": this.fileName } }],
+    };
+    console.log('json', json);
+    
+    this.uploadFileService.createRules(json).subscribe(() => handleRes());
+    
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
     };
@@ -178,7 +181,7 @@ export class UploadFileComponent implements OnInit {
   onFileSelected(event) {
     const file: File = event.target.files[0];
     if (file) {
-      this.fileName = file.name;
+      this.fileName = file;
       const formData = new FormData();
       formData.append("content", file);
       // const upload$ = this.http.post("/url/rules/create", formData);
