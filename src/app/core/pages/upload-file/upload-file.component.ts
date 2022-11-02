@@ -163,13 +163,16 @@ export class UploadFileComponent implements OnInit {
     });
   }
   onSubmit = () => {
-    let json = {
-      nodeRuleDto: { ...this.uploadFileForm.value },
-      attachments: [ {dataHandler: {content: this.fileName}}]  ,
-    };
-    this.uploadFileService.createRules(json).subscribe(() => handleRes());
-    console.log(json);
     console.log(this.fileName);
+
+    let json = {
+      "nodeRuleDto": { ...this.uploadFileForm.value },
+      "attachments": [{ "dataHandler": { "content": this.fileName } }],
+    };
+    console.log('json', json);
+    
+    this.uploadFileService.createRules(json).subscribe(() => handleRes());
+    
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
     };
