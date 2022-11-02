@@ -63,9 +63,11 @@ export class PrivateCartableAdminComponent implements OnInit {
         {
           label: "ارسال",
           type: "primary",
-          onClick: (componentInstance) => componentInstance.handleOk(),
+          onClick: (componentInstance) => this.handleOk(componentInstance),
+          loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
+  handleOk(componentInstance: any) {}
 }
