@@ -35,32 +35,45 @@ export class NotificationDropdownComponent {
   listOfMessages:IGroupMessage[]=[];
   isLoading: boolean;
 
-  constructor(private sliderService: SliderService,private modalService: NzModalService) {}
+  constructor(private sliderService: SliderService,private modalService: NzModalService,private httpClient:HttpClient) {}
 
   ngOnInit(): void {
     this.sliderService.getGroupMessage()
       .subscribe((msg)=>{
+    console.log(msg);
+    
         this.listOfMessages = msg;
+        
       });
 
      
   }
 
 createNotificationModal(item:IGroupMessage){
-  this.modalService.create({
-    nzTitle: "مشاهده پیام",
-    nzContent: NotificationModalComponent,
-    nzComponentParams: {
-      item,
-    },
-    nzFooter: [
-      {
-        label: "بستن",
-        type: "default",
-        onClick: (componentInstance) => componentInstance.destroyModal(),
+  this.httpClient.get<IGroupMessage>(`/url/messages/${item.id}`,{headers:new HttpHeaders({
+    accept: "*/*",
+    Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+  })}).subscribe((msg)=>{
+
+    item=msg;
+    this.modalService.create({
+      nzTitle: "مشاهده پیام",
+      nzContent: NotificationModalComponent,
+      nzComponentParams: {
+        item,
       },
-    ],
+      nzFooter: [
+        {
+          label: "بستن",
+          type: "default",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+      ],
+    });
+
+
   });
+  
 }
 
 
