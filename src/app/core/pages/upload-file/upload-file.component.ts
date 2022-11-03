@@ -210,7 +210,7 @@ export class UploadFileComponent implements OnInit {
       // this.fileName.patchValue({['lastModifiedDate']: file.lastModifiedDate});
       this.fileName.patchValue({['type']: file.type});
       this.fileName.patchValue({['lastModified']: file.lastModified});
-      this.fileName.patchValue({['webkitRelativePath']: file.webkitRelativePath});
+      this.fileName.patchValue({['webkitRelativePath']:" file.webkitRelativePath"});
       console.log(this.fileName.value);
     }
   }

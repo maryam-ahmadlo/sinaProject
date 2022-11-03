@@ -70,6 +70,18 @@ export class TreeComponent implements OnInit {
   ) {
   
     this.activatedRoute.data.subscribe(({ tree }) => {
+
+    //   if (bookmark['bookmark'] && bookmark['bookmark'].length > 1) {
+    //     this.data = bookmark['bookmark'];
+    //   } else if (bookmark['bookmark']) {
+    //     this.data.push(bookmark['bookmark']);
+    //   } else {
+    //     this.data = [];
+    //   }
+    // });
+
+
+    if(tree.length>1){
       Array.prototype.forEach.call(tree.folder, (v: any) => {
         let json = {
           path: v.path,
@@ -80,7 +92,18 @@ export class TreeComponent implements OnInit {
         };
         this.treeData.push(json);
       });
+    }else if(tree.folder){
+      let json = {
+        path: tree.folder.path,
+        id: tree.folder.uuid,
+        label: tree.folder.path.split("/")[2],
+        level: 0,
+        expandable: tree.folder.hasChildren,
+      };
+      this.treeData.push(json);
+    }
     });
+  
   }
   ngOnInit(): void {}
 
