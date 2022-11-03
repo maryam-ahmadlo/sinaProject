@@ -126,17 +126,18 @@ export class UploadFileComponent implements OnInit {
     private treeService: TreeService
   ) {
     this.treeService.getRoot().subscribe((root) => {
-      if(root["folder"].length>1){
-      Array.prototype.forEach.call(root["folder"], (v: any) => {
-        let json = {
-          path: v.path,
-          id: v.uuid,
-          label: v.path.split("/")[2],
-          level: this.level,
-          expandable: v.hasChildren,
-        };
-        this.treeData.push(json);
-      });}else if(root["folder"]){
+      if (root["folder"].length > 1) {
+        Array.prototype.forEach.call(root["folder"], (v: any) => {
+          let json = {
+            path: v.path,
+            id: v.uuid,
+            label: v.path.split("/")[2],
+            level: this.level,
+            expandable: v.hasChildren,
+          };
+          this.treeData.push(json);
+        });
+      } else if (root["folder"]) {
         let json = {
           path: root["folder"].path,
           id: root["folder"].uuid,
@@ -160,55 +161,52 @@ export class UploadFileComponent implements OnInit {
 
   getChildren(id) {
     this.treeService.getChildren(id).subscribe((second) => {
-      if(second["folder"].length>1){
-      Array.prototype.forEach.call(second["folder"], (v: any) => {
+      if (second["folder"].length > 1) {
+        Array.prototype.forEach.call(second["folder"], (v: any) => {
+          let json = {
+            path: v.path,
+            id: v.uuid,
+            label: v.path.split("/")[this.level + 3],
+            level: this.level + 1,
+            expandable: v.hasChildren,
+          };
+          this.secondLevel.push(json);
+        });
+      } else if (second["folder"]) {
         let json = {
-          path: v.path,
-          id: v.uuid,
-          label: v.path.split("/")[this.level + 3],
+          path: second.folder["path"],
+          id: second.folder["uuid"],
+          label: second.folder["path"].split("/")[this.level + 3],
           level: this.level + 1,
-          expandable: v.hasChildren,
+          expandable: second.folder["hasChildren"],
         };
         this.secondLevel.push(json);
-      });
-    }
-    else if(second["folder"]) {
-      let json = {
-        path: second.folder['path'],
-        id: second.folder['uuid'],
-        label: second.folder['path'].split("/")[this.level + 3],
-        level: this.level + 1,
-        expandable: second.folder['hasChildren'],
-      };
-      this.secondLevel.push(json);
-  
-    }
+      }
       this.level++;
     });
   }
   getSecondChildren(id) {
     this.treeService.getChildren(id).subscribe((third) => {
-      if(third["folder"].length>1){
-      Array.prototype.forEach.call(third["folder"], (v: any) => {
+      if (third["folder"].length > 1) {
+        Array.prototype.forEach.call(third["folder"], (v: any) => {
+          let json = {
+            path: v.path,
+            id: v.uuid,
+            label: v.path.split("/")[this.level + 3],
+            level: this.level + 1,
+            expandable: v.hasChildren,
+          };
+          this.thirdLevel.push(json);
+        });
+      } else if (third["folder"]) {
         let json = {
-          path: v.path,
-          id: v.uuid,
-          label: v.path.split("/")[this.level + 3],
+          path: third.folder["path"],
+          id: third.folder["uuid"],
+          label: third.folder["path"].split("/")[this.level + 3],
           level: this.level + 1,
-          expandable: v.hasChildren,
+          expandable: third.folder["hasChildren"],
         };
         this.thirdLevel.push(json);
-      });}
-      else if(third["folder"]){
-        let json = {
-          path: third.folder['path'],
-          id: third.folder['uuid'],
-          label: third.folder['path'].split("/")[this.level + 3],
-          level: this.level + 1,
-          expandable: third.folder['hasChildren'],
-        };
-        this.thirdLevel.push(json);
-
       }
       this.level++;
     });
@@ -235,17 +233,16 @@ export class UploadFileComponent implements OnInit {
   };
 
   onFileSelected(event) {
-    const file: File = event.target.files[0];    
+    const file: File = event.target.files[0];
     if (file) {
-
-
-
-      this.fileName.patchValue({['name']: file.name});
-      this.fileName.patchValue({['size']: file.size});
+      this.fileName.patchValue({ ["name"]: file.name });
+      this.fileName.patchValue({ ["size"]: file.size });
       // this.fileName.patchValue({['lastModifiedDate']: file.lastModifiedDate});
-      this.fileName.patchValue({['type']: file.type});
-      this.fileName.patchValue({['lastModified']: file.lastModified});
-      this.fileName.patchValue({['webkitRelativePath']:" file.webkitRelativePath"});
+      this.fileName.patchValue({ ["type"]: file.type });
+      this.fileName.patchValue({ ["lastModified"]: file.lastModified });
+      this.fileName.patchValue({
+        ["webkitRelativePath"]: " file.webkitRelativePath",
+      });
       console.log(this.fileName.value);
     }
   }

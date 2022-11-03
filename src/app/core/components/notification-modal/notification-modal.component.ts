@@ -37,17 +37,10 @@ import { IGroupMessage } from 'src/shared/common/src/lib/interfaces';
 export class NotificationModalComponent  {
 
   isLoading: boolean;
-  @Input() item: any;
-  message:IGroupMessage;
+  @Input() item: IGroupMessage;
+
   constructor(private modal: NzModalRef, private httpClient:HttpClient) {}
-  ngOnInit(): void {
-   this.httpClient.get<IGroupMessage>(`/url/messages/${this.item.id}`,{headers:new HttpHeaders({
-    accept: "*/*",
-    Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-  })}).subscribe((msg)=>{
-    this.message=msg;
-  })
-   
+  ngOnInit(): void {   
   }
 
   destroyModal(): void {
