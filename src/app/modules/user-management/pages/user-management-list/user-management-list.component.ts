@@ -46,7 +46,14 @@ export class UserManagementListComponent implements OnInit {
     private nzMessage: NzMessageService
   ) {
     this.activatedRoute.data.subscribe(({ user }) => {
+      this.listOfUsers=[];
+      if(user.length>1){
       this.listOfUsers = user;
+      }else if(user){
+        this.listOfUsers.push(user);
+      }else{
+        this.listOfUsers=[];
+      }
     });
   }
 
@@ -153,7 +160,7 @@ export class UserManagementListComponent implements OnInit {
     });
   }
 
-  handleDeleteUser(componentInstance, id: string) {
+  handleDeleteUser(componentInstance, id: string) { 
     componentInstance.isLoading = true;
     this.userManagementService
       .deleteUser(id)

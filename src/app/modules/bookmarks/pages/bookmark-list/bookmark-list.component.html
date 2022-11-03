@@ -1,13 +1,7 @@
 <nz-page-header nzBackIcon>
   <nz-page-header-title>لیست بوک مارک ها</nz-page-header-title>
   <nz-page-header-content>
-    <nz-table
-      class="table-responsive"
-      #table
-      nzShowSizeChanger
-      [nzData]="data"
-      
-    >
+    <nz-table class="table-responsive" #table nzShowSizeChanger [nzData]="data">
       <thead>
         <tr>
           <th>ردیف</th>
@@ -18,7 +12,7 @@
       <tbody>
         <tr *ngFor="let item of table.data; let i = index">
           <td>{{ i + 1 }}</td>
-      
+
           <td>{{ item.name }}</td>
 
           <td>
@@ -29,10 +23,15 @@
 
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <li nz-menu-item (click)="createShowBookMarkModal(item)">مشاهده</li>
-                <li nz-menu-item (click)="createRenameBookmarkModal(item)">تغییر نام</li>
-                <li nz-menu-item (click)="createDeleteBookmarkModal(item)" >حذف</li>
-                
+                <li nz-menu-item (click)="createShowBookMarkModal(item)">
+                  مشاهده
+                </li>
+                <li nz-menu-item (click)="createRenameBookmarkModal(item)">
+                  تغییر نام
+                </li>
+                <li nz-menu-item (click)="createDeleteBookmarkModal(item)">
+                  حذف
+                </li>
               </ul>
             </nz-dropdown-menu>
           </td>

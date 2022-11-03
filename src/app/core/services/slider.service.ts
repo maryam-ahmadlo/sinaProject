@@ -29,13 +29,15 @@ export class SliderService {
       }),
     });
   }
-  getGroupMessage(){
-    return this.httpClient
-    .get<IGroupMessage[]>("/url/messages/okmAdmin/grouping/inbox", {
-      headers: new HttpHeaders({
-        accept: "application/json",
-        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      }),
-    })
+  getGroupMessage() {
+    return this.httpClient.get<IGroupMessage[]>(
+      "/url/messages/user2/grouping/inbox",
+      {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+      }
+    );
   }
 }

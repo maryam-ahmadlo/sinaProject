@@ -6,9 +6,9 @@ export const userManagementRoutes: Routes = [
     path: "",
     loadComponent: () =>
       import("./pages").then((m) => m.UserManagementListComponent),
-      resolve:{
-        user: UserManagementListResolver
-      },
-      runGuardsAndResolvers: "paramsOrQueryParamsChange",
+    resolve: {
+      user: UserManagementListResolver,
+    },
+    runGuardsAndResolvers: "paramsOrQueryParamsChange",
   },
 ];
