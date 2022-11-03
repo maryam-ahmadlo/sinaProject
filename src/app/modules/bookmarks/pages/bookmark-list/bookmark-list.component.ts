@@ -46,16 +46,17 @@ export class BookmarkListComponent implements OnInit {
     private router: Router
   ) {
     this.activatedRoute.data.subscribe(({ bookmark }) => {
+      this.data=[];
       if (bookmark['bookmark'] && bookmark['bookmark'].length > 1) {
         this.data = bookmark['bookmark'];
       } else if (bookmark['bookmark']) {
         this.data.push(bookmark['bookmark']);
+      }else{
+        this.data=[];
       }
     });
 
-    // this.data.forEach((v) => {
-    //   Number(v.id);
-    // });
+    
   }
 
   ngOnInit(): void {}
@@ -115,8 +116,6 @@ export class BookmarkListComponent implements OnInit {
   }
 
   createRenameBookmarkModal(item: IBookmark) {
-    console.log(item);
-
     this.modalService.create({
       nzTitle: "تغییر نام bookmark",
       nzContent: CreateBookmarkRenameModalComponent,

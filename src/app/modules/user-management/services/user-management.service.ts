@@ -73,7 +73,7 @@ export class UserManagementService {
 
   deleteUser(id:string){
 
-    return this.httpClient.delete('/api//auth/deleteUser',{
+    return this.httpClient.delete('/api/auth/deleteUser',{
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
