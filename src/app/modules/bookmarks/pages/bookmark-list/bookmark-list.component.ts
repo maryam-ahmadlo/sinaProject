@@ -50,8 +50,6 @@ export class BookmarkListComponent implements OnInit {
         this.data = bookmark['bookmark'];
       } else if (bookmark['bookmark']) {
         this.data.push(bookmark['bookmark']);
-      } else {
-        this.data = [];
       }
     });
 
