@@ -5,7 +5,6 @@
       #rowSelectionTable
       nzShowSizeChanger
       [nzData]="listOfMessages"
-      
     >
       <thead>
         <tr>
@@ -18,23 +17,18 @@
       <tbody>
         <tr *ngFor="let data of rowSelectionTable.data; let i = index">
           <td>{{ i + 1 }}</td>
-      
+
           <td nz-typography [nzEllipsis]="true">{{ data.messageText }}</td>
           <td>
-
-            <nz-tag nzColor="#cd201f" *ngIf="data.seenDate===null;else read">
-             
-              <span >خوانده نشده</span>
+            <nz-tag nzColor="#cd201f" *ngIf="data.seenDate === null; else read">
+              <span>خوانده نشده</span>
             </nz-tag>
 
-            <ng-template #read> 
+            <ng-template #read>
               <nz-tag nzColor="#55acee">
-              <span>خوانده شده</span>
-            </nz-tag>
-          </ng-template>
-           
-           
-        
+                <span>خوانده شده</span>
+              </nz-tag>
+            </ng-template>
           </td>
           <td>
             <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link">
@@ -44,9 +38,10 @@
 
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <li nz-menu-item (click)="createNotificationModal(data)">مشاهده</li>
+                <li nz-menu-item (click)="createNotificationModal(data)">
+                  مشاهده
+                </li>
                 <!-- <li nz-menu-item>حذف</li> -->
-              
               </ul>
             </nz-dropdown-menu>
           </td>

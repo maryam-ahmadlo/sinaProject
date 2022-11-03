@@ -1,5 +1,4 @@
 <div class="tree-container">
-
   <form nz-form [formGroup]="form" (ngSubmit)="onSearchSubmit()">
     <div
       fxLayout.gt-sm="row"
@@ -26,9 +25,8 @@
           </div>
         </nz-form-control>
       </nz-form-item>
-
-      </div>
-      </form>
+    </div>
+  </form>
   <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource">
     <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
       <a
@@ -37,8 +35,8 @@
         nzTrigger="click"
         [routerLink]="['/', 'customer', 'rules', 'detail', node.id]"
       >
-        {{ node.label }}
         <span nz-icon nzType="setting" nzTheme="outline"></span>
+        {{ node.label }}
       </a>
 
       <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -50,8 +48,8 @@
               nzSize="small"
               (click)="createEditNodeModal(node)"
             >
-              ویرایش
               <span nz-icon nzType="edit" nzTheme="outline"></span>
+              ویرایش
             </button>
           </li>
           <li nz-menu-item>
@@ -61,8 +59,8 @@
               nzSize="small"
               (click)="createAddNodeModal(node)"
             >
-              اضافه
               <span nz-icon nzType="plus" nzTheme="outline"></span>
+              اضافه
             </button>
           </li>
           <li nz-menu-item>
@@ -72,8 +70,8 @@
               nzSize="small"
               (click)="createDeleteNodeModal(node)"
             >
-              حذف
               <span nz-icon nzType="minus" nzTheme="outline"></span>
+              حذف
             </button>
           </li>
 
@@ -83,10 +81,10 @@
               nzType="text"
               nzSize="small"
               [routerLink]="['/', 'customer', 'uploadFile', node.id]"
-              *ngIf="node.level===2"
+              *ngIf="node.level === 2"
             >
-              بارگذاری فایل
               <span nz-icon nzType="file-add" nzTheme="outline"></span>
+              بارگذاری فایل
             </button>
           </li>
         </ul>
@@ -105,11 +103,9 @@
         [nzDropdownMenu]="menu"
         nzTrigger="click"
         [routerLink]="['/', 'customer', 'rules', 'detail', node.id]"
-     
       >
-        {{ node.label }}
-
         <span nz-icon nzType="setting" nzTheme="outline"></span>
+        {{ node.label }}
       </a>
 
       <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -121,8 +117,8 @@
               nzSize="small"
               (click)="createEditNodeModal(node)"
             >
-              ویرایش
               <span nz-icon nzType="edit" nzTheme="outline"></span>
+              ویرایش
             </button>
           </li>
           <li nz-menu-item>
@@ -132,8 +128,8 @@
               nzSize="small"
               (click)="createAddNodeModal(node)"
             >
-              اضافه
               <span nz-icon nzType="plus" nzTheme="outline"></span>
+              اضافه
             </button>
           </li>
           <li nz-menu-item>
@@ -143,8 +139,8 @@
               nzSize="small"
               (click)="createDeleteNodeModal(node)"
             >
-              حذف
               <span nz-icon nzType="minus" nzTheme="outline"></span>
+              حذف
             </button>
           </li>
 
@@ -154,10 +150,10 @@
               nzType="text"
               nzSize="small"
               [routerLink]="['/', 'customer', 'uploadFile', node.id]"
-              *ngIf="node.level===2"
+              *ngIf="node.level === 2"
             >
-              بارگذاری فایل
               <span nz-icon nzType="file-add" nzTheme="outline"></span>
+              بارگذاری فایل
             </button>
           </li>
         </ul>

@@ -80,15 +80,7 @@ export class TreeComponent implements OnInit {
     private router: Router
   ) {
     this.activatedRoute.data.subscribe(({ tree }) => {
-      //   if (bookmark['bookmark'] && bookmark['bookmark'].length > 1) {
-      //     this.data = bookmark['bookmark'];
-      //   } else if (bookmark['bookmark']) {
-      //     this.data.push(bookmark['bookmark']);
-      //   } else {
-      //     this.data = [];
-      //   }
-      // });
-
+      this.treeData.splice(0, this.treeData.length);
       if (tree.length > 1) {
         Array.prototype.forEach.call(tree.folder, (v: any) => {
           let json = {
@@ -111,12 +103,12 @@ export class TreeComponent implements OnInit {
         this.treeData.push(json);
       }
     });
+
   }
   ngOnInit(): void {}
 
   onSearchSubmit() {}
 
-  
   treeControl = new FlatTreeControl<IFlatNode>(
     (node) => node.level,
     (node) => node.expandable
@@ -273,6 +265,11 @@ export class TreeComponent implements OnInit {
         refresh: new Date().getTime(),
       },
     });
+    this.dataSource = new DynamicDatasource(
+      this.treeControl,
+      this.treeData,
+      this.httpClient
+    );
   }
 }
 
@@ -346,8 +343,6 @@ class DynamicDatasource implements DataSource<IFlatNode> {
         params: { fldId: `${node.id}` },
       })
       .subscribe((children) => {
-        console.log("children", children);
-
         if (children.folder.length > 1) {
           Array.prototype.forEach.call(children.folder, (v: any) => {
             let json = {
@@ -362,11 +357,11 @@ class DynamicDatasource implements DataSource<IFlatNode> {
           });
         } else {
           let json = {
-            path: children["folder"]["path"],
-            id: children["folder"]["uuid"],
-            label: children["folder"]["path"].split("/")[node.level + 3],
+            path: children.folder["path"],
+            id: children.folder["uuid"],
+            label: children.folder["path"].split("/")[node.level + 3],
             level: node.level + 1,
-            expandable: children["folder"]["hasChildren"],
+            expandable: children.folder["hasChildren"],
           };
 
           treeData.push(json);
