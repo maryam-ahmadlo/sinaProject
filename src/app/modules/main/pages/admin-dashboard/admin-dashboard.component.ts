@@ -3,8 +3,6 @@ import { CommonModule } from "@angular/common";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
-import { NzTypographyModule } from "ng-zorro-antd/typography";
-import { NzTableModule } from "ng-zorro-antd/table";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
@@ -23,8 +21,6 @@ import { InstantNotificationComponent } from "src/app/modules/main/components/in
     NzCardModule,
     NzLayoutModule,
     NzPageHeaderModule,
-    NzTypographyModule,
-    NzTableModule,
     NzButtonModule,
     RouterModule,
     InstantNotificationComponent,

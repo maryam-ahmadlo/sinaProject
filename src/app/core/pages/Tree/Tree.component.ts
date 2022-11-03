@@ -34,6 +34,13 @@ import {
   tap,
 } from "rxjs";
 import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
+import { NzFormModule } from "ng-zorro-antd/form";
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
 
 @Component({
   selector: "app-tree",
@@ -53,11 +60,15 @@ import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
     NzDropDownModule,
     RouterModule,
     NzMessageModule,
+    NzFormModule,
+    ReactiveFormsModule,
   ],
 })
 export class TreeComponent implements OnInit {
   treeData: IFlatNode[] = [];
-
+  form: FormGroup<{ searchNode: FormControl<string> }> = new FormGroup({
+    searchNode: new FormControl(null, Validators.required),
+  });
   Tree: ITreeNode[];
 
   constructor(
@@ -68,22 +79,44 @@ export class TreeComponent implements OnInit {
     private nzMessage: NzMessageService,
     private router: Router
   ) {
-  
     this.activatedRoute.data.subscribe(({ tree }) => {
-      Array.prototype.forEach.call(tree.folder, (v: any) => {
+      //   if (bookmark['bookmark'] && bookmark['bookmark'].length > 1) {
+      //     this.data = bookmark['bookmark'];
+      //   } else if (bookmark['bookmark']) {
+      //     this.data.push(bookmark['bookmark']);
+      //   } else {
+      //     this.data = [];
+      //   }
+      // });
+
+      if (tree.length > 1) {
+        Array.prototype.forEach.call(tree.folder, (v: any) => {
+          let json = {
+            path: v.path,
+            id: v.uuid,
+            label: v.path.split("/")[2],
+            level: 0,
+            expandable: v.hasChildren,
+          };
+          this.treeData.push(json);
+        });
+      } else if (tree.folder) {
         let json = {
-          path: v.path,
-          id: v.uuid,
-          label: v.path.split("/")[2],
+          path: tree.folder.path,
+          id: tree.folder.uuid,
+          label: tree.folder.path.split("/")[2],
           level: 0,
-          expandable: v.hasChildren,
+          expandable: tree.folder.hasChildren,
         };
         this.treeData.push(json);
-      });
+      }
     });
   }
   ngOnInit(): void {}
 
+  onSearchSubmit() {}
+
+  
   treeControl = new FlatTreeControl<IFlatNode>(
     (node) => node.level,
     (node) => node.expandable
@@ -122,17 +155,15 @@ export class TreeComponent implements OnInit {
 
   handleAddTreeNode(componentInstance: any, node: IFlatNode) {
     componentInstance.isLoading = true;
- 
-    let array:Array<string> =node.path.split('/');
-    array.splice(0,2);
-    let path : string='';
 
-    array.forEach((i)=>{
-      path += i+'/' ;
-    })
+    let array: Array<string> = node.path.split("/");
+    array.splice(0, 2);
+    let path: string = "";
 
-  
-    
+    array.forEach((i) => {
+      path += i + "/";
+    });
+
     let json = `{
     "path":"${path}${componentInstance.form.value.title}",
     "code":"${componentInstance.form.value.code}"
@@ -188,53 +219,43 @@ export class TreeComponent implements OnInit {
   }
 
   createEditNodeModal(node: IFlatNode) {
-   
+    this.treeService.getCode(node).subscribe((r) => {
+      let data = r;
 
-    this.treeService.getCode(node).subscribe((r)=>{
-     let data=r;
-
-     this.modalService.create({
-      nzTitle: "ویرایش درختواره ",
-      nzContent: CreateEditNodeModalComponent,
-      nzComponentParams: {
-        node,
-        data
-
-      },
-      nzFooter: [
-        {
-          label: "بستن",
-          onClick: (componentInstance) => componentInstance.destroyModal(),
+      this.modalService.create({
+        nzTitle: "ویرایش درختواره ",
+        nzContent: CreateEditNodeModalComponent,
+        nzComponentParams: {
+          node,
+          data,
         },
-        {
-          label: "ثبت",
-          type: "primary",
-          onClick: (componentInstance) =>
-            this.handleRenameTreeNode(componentInstance,node),
-          loading: (componentInstance) => componentInstance.isLoading,
-        },
-      ],
+        nzFooter: [
+          {
+            label: "بستن",
+            onClick: (componentInstance) => componentInstance.destroyModal(),
+          },
+          {
+            label: "ثبت",
+            type: "primary",
+            onClick: (componentInstance) =>
+              this.handleRenameTreeNode(componentInstance, node),
+            loading: (componentInstance) => componentInstance.isLoading,
+          },
+        ],
+      });
     });
-  
-    });
-
-   
-    
-   
   }
 
-  handleRenameTreeNode(componentInstance: any, node:IFlatNode) {
+  handleRenameTreeNode(componentInstance: any, node: IFlatNode) {
     componentInstance.isLoading = true;
-    
+
     let json = `{
     "path":"${componentInstance.form.value.title}",
     "code":"${componentInstance.form.value.code}"
     }`;
 
-  
-  
     this.treeService
-      .renameCategory(node.id,json)
+      .renameCategory(node.id, json)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
@@ -315,7 +336,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
     }
     node.loading = true;
 
-    let treeData: IFlatNode[] =[];
+    let treeData: IFlatNode[] = [];
     this.httpClient
       .get<ITreeNode>("/api/folder/getChildren", {
         headers: new HttpHeaders({
@@ -325,37 +346,32 @@ class DynamicDatasource implements DataSource<IFlatNode> {
         params: { fldId: `${node.id}` },
       })
       .subscribe((children) => {
-        console.log('children',children);
-        
-      
-        if(children.folder.length>1){
-        Array.prototype.forEach.call(children.folder, (v: any) => {
-    
-          let json = {
-            path: v.path,
-            id: v.uuid,
-            label: v.path.split("/")[node.level + 3],
-            level: node.level + 1,
-            expandable: v.hasChildren,
-          };
+        console.log("children", children);
 
-          treeData.push(json);
-        })
-      }
-        else{
-         
+        if (children.folder.length > 1) {
+          Array.prototype.forEach.call(children.folder, (v: any) => {
+            let json = {
+              path: v.path,
+              id: v.uuid,
+              label: v.path.split("/")[node.level + 3],
+              level: node.level + 1,
+              expandable: v.hasChildren,
+            };
+
+            treeData.push(json);
+          });
+        } else {
           let json = {
-            path: children['folder']['path'],
-            id: children['folder']['uuid'],
-            label: children['folder']['path'].split("/")[node.level + 3],
+            path: children["folder"]["path"],
+            id: children["folder"]["uuid"],
+            label: children["folder"]["path"].split("/")[node.level + 3],
             level: node.level + 1,
-            expandable: children['folder']['hasChildren'],
+            expandable: children["folder"]["hasChildren"],
           };
 
           treeData.push(json);
         }
-        
-        
+
         node.loading = false;
         const flattenedData = this.flattenedData.getValue();
         const index = flattenedData.indexOf(node);
