@@ -86,7 +86,7 @@ export class TreeComponent implements OnInit {
           let json = {
             path: v.path,
             id: v.uuid,
-            label: v.path.split("/")[2],
+            label: v['path'].split("/")[2],
             level: 0,
             expandable: v.hasChildren,
           };
@@ -96,7 +96,7 @@ export class TreeComponent implements OnInit {
         let json = {
           path: tree.folder.path,
           id: tree.folder.uuid,
-          label: tree.folder.path.split("/")[2],
+          label: tree['folder'].path.split("/")[2],
           level: 0,
           expandable: tree.folder.hasChildren,
         };
@@ -148,7 +148,7 @@ export class TreeComponent implements OnInit {
   handleAddTreeNode(componentInstance: any, node: IFlatNode) {
     componentInstance.isLoading = true;
 
-    let array: Array<string> = node.path.split("/");
+    let array: Array<string> = node['path'].split("/");
     array.splice(0, 2);
     let path: string = "";
 
@@ -348,7 +348,7 @@ class DynamicDatasource implements DataSource<IFlatNode> {
             let json = {
               path: v.path,
               id: v.uuid,
-              label: v.path.split("/")[node.level + 3],
+              label: v['path'].split("/")[node.level + 3],
               level: node.level + 1,
               expandable: v.hasChildren,
             };
