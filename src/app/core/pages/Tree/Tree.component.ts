@@ -81,7 +81,7 @@ export class TreeComponent implements OnInit {
   ) {
     this.activatedRoute.data.subscribe(({ tree }) => {
       this.treeData.splice(0, this.treeData.length);
-      if (tree.length > 1) {
+      if (tree.folder.length > 1) {
         Array.prototype.forEach.call(tree.folder, (v: any) => {
           let json = {
             path: v.path,
