@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { of } from "rxjs";
 import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
 import { PrivateCartableAdminComponent } from "./core/pages/private-cartable admin/private-cartable-admin.component";
+import { NotificationResolver } from "./core/resolver/notification.resolver";
 import { TreeResolver } from "./core/resolver/tree.resolver";
 import { UserManagementListResolver } from "./modules/user-management/resolvers/user-management-list.resolver";
 
@@ -127,6 +128,10 @@ export const appRoutes: Routes = [
               import("./core/components/notification-dropdown").then(
                 (m) => m.NotificationDropdownComponent
               ),
+              resolve:{
+                groupMessage:NotificationResolver
+              },
+              runGuardsAndResolvers: "paramsOrQueryParamsChange",
           },
         ],
       },

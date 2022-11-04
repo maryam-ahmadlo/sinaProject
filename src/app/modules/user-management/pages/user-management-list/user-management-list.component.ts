@@ -16,6 +16,7 @@ import { CreateUpdateUserModalComponent } from "../../components/create-update-u
 import { UserManagementService } from "../../services/user-management.service";
 import { finalize } from "rxjs";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 @Component({
   selector: "app-create-user-management-modal",
@@ -28,6 +29,7 @@ import { NzMessageService } from "ng-zorro-antd/message";
     NzPageHeaderModule,
     NzButtonModule,
     NzModalModule,
+    NzCardModule
   ],
   templateUrl: "./user-management-list.component.html",
   styleUrls: ["./user-management-list.component.less"],

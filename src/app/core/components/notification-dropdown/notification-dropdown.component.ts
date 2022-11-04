@@ -12,6 +12,8 @@ import { IGroupMessage } from "src/shared/common/src/lib/interfaces";
 import { SliderService } from "../../services/slider.service";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { NzTagModule } from "ng-zorro-antd/tag";
+import { ActivatedRoute, Router } from "@angular/router";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 @Component({
   selector: "app-notification-dropdown",
@@ -28,6 +30,7 @@ import { NzTagModule } from "ng-zorro-antd/tag";
     NzModalModule,
     NzTypographyModule,
     NzTagModule,
+    NzCardModule,
   ],
 })
 export class NotificationDropdownComponent {
@@ -36,16 +39,32 @@ export class NotificationDropdownComponent {
   isLoading: boolean;
 
   constructor(
-    private sliderService: SliderService,
     private modalService: NzModalService,
-    private httpClient: HttpClient
-  ) {}
+    private httpClient: HttpClient,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.data.subscribe(({ groupMessage }) => {
+  
+      this.listOfMessages.splice(0, this.listOfMessages.length);
 
-  ngOnInit(): void {
-    this.sliderService.getGroupMessage().subscribe((msg) => {
-      this.listOfMessages = msg;
+      
+      if (groupMessage.length > 1) {
+        Array.prototype.forEach.call(groupMessage, (v: any) => {
+          this.listOfMessages.push(v);
+        });
+      } else if (groupMessage) {
+        this.listOfMessages = groupMessage;
+      } else {
+        this.listOfMessages = [];
+      }
+      console.log(this.listOfMessages);
+      
     });
+  
   }
+
+  ngOnInit(): void {}
 
   createNotificationModal(item: IGroupMessage) {
     this.httpClient
@@ -67,10 +86,24 @@ export class NotificationDropdownComponent {
             {
               label: "بستن",
               type: "default",
-              onClick: (componentInstance) => componentInstance.destroyModal(),
+              onClick: (componentInstance) => {
+                componentInstance.destroyModal();
+              },
             },
           ],
         });
+        this.modalService.afterAllClose.subscribe((result) => {
+          console.log(result);
+          
+          this.refresh();
+        });
       });
+  }
+
+  refresh() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { refresh: new Date().getTime() },
+    });
   }
 }
