@@ -53,6 +53,20 @@ export const appRoutes: Routes = [
               ),
           },
           {
+            path: "uploadFile",
+            loadComponent: () =>
+              import("./core/pages/upload-file/upload-file.component").then(
+                (m) => m.UploadFileComponent
+              ),
+          },
+          {
+            path: "uploadFile/:id",
+            loadComponent: () =>
+              import("./core/pages/upload-file/upload-file.component").then(
+                (m) => m.UploadFileComponent
+              ),
+          },
+          {
             path: "private-cartable-admin",
             component: PrivateCartableAdminComponent,
           },

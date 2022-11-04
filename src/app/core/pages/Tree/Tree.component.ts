@@ -101,6 +101,8 @@ export class TreeComponent implements OnInit {
           expandable: tree.folder.hasChildren,
         };
         this.treeData.push(json);
+      }else{
+        this.treeData=[];
       }
     });
 
