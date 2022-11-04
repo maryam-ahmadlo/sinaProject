@@ -31,7 +31,7 @@ export class SliderService {
   }
   getGroupMessage() {
     return this.httpClient.get<IGroupMessage[]>(
-      "/url/messages/user2/grouping/inbox",
+      "/url/messages/okmAdmin/grouping/inbox",
       {
         headers: new HttpHeaders({
           accept: "application/json",

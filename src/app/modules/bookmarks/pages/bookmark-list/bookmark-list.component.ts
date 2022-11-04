@@ -16,6 +16,7 @@ import { finalize } from "rxjs";
 import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
 import { CreateBookmarkRenameModalComponent } from "../../components/create-bookmark-rename-modal/create-bookmark-rename-modal.component";
 import { ThisReceiver } from "@angular/compiler";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 @Component({
   selector: "app-bookmark-list",
@@ -29,6 +30,7 @@ import { ThisReceiver } from "@angular/compiler";
     NzButtonModule,
     NzModalModule,
     NzMessageModule,
+    NzCardModule
   ],
   templateUrl: "./bookmark-list.component.html",
   styleUrls: ["./bookmark-list.component.less"],

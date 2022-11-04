@@ -14,36 +14,34 @@
       </h3>
     </div>
     <div fxLayout="row" fxLayoutGap="16px" fxLayout.lt-sm="column">
-      <div class="more">
+   
         <button nz-button nzType="text">
           متن بخشنامه
           <small><a href="#"> اطلاعات بیشتر </a></small>
         </button>
-      </div>
-      <div class="pdf">
+  >
+    
         <button nz-button nzType="text" (click)="downloadPDF()">
           دانلود PDF
           <span nz-icon nzType="file-pdf" nzTheme="outline"></span>
         </button>
-      </div>
-      <div class="bookmark">
+    
         <button nz-button nzType="text" (click)="addBookmark()">
           bookmark
           <span nz-icon nzType="star" nzTheme="outline"></span>
         </button>
-      </div>
-      <div class="warn">
+   
         <button nz-button nzType="text" (click)="changeToExpire()">
           تغییر به منسوخ شده
           <span nz-icon nzType="warning" nzTheme="outline"></span>
         </button>
-      </div>
-      <div class="send">
+     
+     
         <button nz-button nzType="text" (click)="observeGroupModalComponent()">
           تغییر وضعیت دریافت کنندگان
           <span nz-icon nzType="send" nzTheme="outline"></span>
         </button>
-      </div>
+      
     </div>
   </section>
 

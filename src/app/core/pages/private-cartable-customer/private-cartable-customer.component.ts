@@ -7,6 +7,8 @@ import { NzTableModule } from "ng-zorro-antd/table";
 import { NzDividerModule } from "ng-zorro-antd/divider";
 import { AddDocumentModalComponent } from "@core/components/add-document-modal/add-document-modal.component";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
 
 @Component({
   selector: "app-private-cartable",
@@ -21,6 +23,8 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
     NzButtonModule,
     NzTableModule,
     NzDividerModule,
+    NzPageHeaderModule,
+    NzTabsModule
   ],
 })
 export class PrivateCartablecustomerComponent implements OnInit {

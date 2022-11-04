@@ -1,83 +1,127 @@
-<div class="advanced-container">
-  <nz-card nzTitle="مشاهده اطلاعات سند های آماده ابلاغ">
-    <h6>مسیر ثبت شده در درختواره</h6>
-    <nz-breadcrumb nzSeparator=">">
-      <nz-breadcrumb-item>...</nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <a>...</a>
-      </nz-breadcrumb-item>
-      <nz-breadcrumb-item>...</nz-breadcrumb-item>
-    </nz-breadcrumb>
-    <div
-      fxLayout="row"
-      fxLayoutGap="10px"
-      fxLayout.lt-md="column"
-      style="margin: 1rem"
-    >
-      <div fxFlex="10">
-        <button nz-button nzType="primary" style="margin-left: 1%">
-          مشاهده
-        </button>
-      </div>
-      <div fxFlex="15">
-        <button nz-button nzType="default" style="margin-left: 1%">
-          رد کردن درخواست
-        </button>
-      </div>
-      <div fxFlex="15">
-        <button
-          nz-button
-          nzType="primary"
-          style="margin-left: 1%"
-          (click)="addDocumentModal()"
-        >
-          افزودن مستندات تکمیلی
-        </button>
-      </div>
-    </div>
-    <nz-table #basicTable class="table-responsive">
-      <thead>
-        <tr>
-          <th>ردیف</th>
-          <th>انتخاب</th>
-          <th>عنوان</th>
-          <th>موضوع</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of basicTable.data">
-          <td>{{ data.name }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.address }}</td>
-          <td>
-            <a>Action 一 {{ data.name }}</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a>Delete</a>
-          </td>
-        </tr>
-      </tbody>
-    </nz-table>
-    <div
-      fxLayout="row"
-      fxLayoutGap="10px"
-      fxLayout.lt-md="column"
-      style="margin: 1rem"
-    >
-      <div fxFlex="20">
-        <button
-          nz-button
-          nzType="primary"
-          style="margin-left: 1%"
-          (click)="observeGroupModalComponent()"
-        >
-          ابلاغ
-        </button>
-      </div>
-      <div fxFlex="20">
-        <button nz-button nzType="default" style="margin-left: 1%">
-          انصراف
-        </button>
-      </div>
-    </div>
-  </nz-card>
-</div>
+<nz-page-header nzBackIcon>
+  <nz-page-header-title>کارتابل شخصی ادمین</nz-page-header-title>
+  <nz-page-header-content>
+    <nz-card>
+      <nz-tabset nzType="card">
+        <nz-tab nzTitle=" سند های پیش نویس">
+          <div fxLayout="column" fxLayoutGap="20px">
+          <div fxLayout="column">
+            <h6>مسیر ثبت شده در درختواره</h6>
+            <nz-breadcrumb nzSeparator=">">
+              <nz-breadcrumb-item>...</nz-breadcrumb-item>
+              <nz-breadcrumb-item>
+                <a>...</a>
+              </nz-breadcrumb-item>
+              <nz-breadcrumb-item>...</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+          <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+            <button nz-button nzType="primary">مشاهده</button>
+
+            <button nz-button nzType="default">رد کردن درخواست</button>
+
+            <button nz-button nzType="primary" (click)="addDocumentModal()">
+              افزودن مستندات تکمیلی
+            </button>
+          </div>
+          <nz-table #basicTable class="table-responsive">
+            <thead>
+              <tr>
+                <th>ردیف</th>
+                <th>انتخاب</th>
+                <th>عنوان</th>
+                <th>موضوع</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td>{{ data.name }}</td>
+                <td>{{ data.age }}</td>
+                <td>{{ data.address }}</td>
+                <td>
+                  <a>Action 一 {{ data.name }}</a>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <a>Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+            <button
+              nz-button
+              nzType="primary"
+              (click)="observeGroupModalComponent()"
+            >
+              ابلاغ
+            </button>
+
+            <button nz-button nzType="default">انصراف</button>
+          </div>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle=" سند های آماده ابلاغ ">
+          <div fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout="column">
+              <h6>مسیر ثبت شده در درختواره</h6>
+              <nz-breadcrumb nzSeparator=">">
+                <nz-breadcrumb-item>...</nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                  <a>...</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>...</nz-breadcrumb-item>
+              </nz-breadcrumb>
+            </div>
+         
+          <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+            <button nz-button nzType="primary">مشاهده</button>
+
+            <button nz-button nzType="default">رد کردن درخواست</button>
+
+            <button nz-button nzType="primary" (click)="addDocumentModal()">
+              افزودن مستندات تکمیلی
+            </button>
+
+            <button nz-button nzType="primary" (click)="addBookmark()">
+              افزودن به بوک مارک
+            </button>
+          </div>
+          <nz-table #basicTable class="table-responsive">
+            <thead>
+              <tr>
+                <th>ردیف</th>
+                <th>انتخاب</th>
+                <th>عنوان</th>
+                <th>موضوع</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td>{{ data.name }}</td>
+                <td>{{ data.age }}</td>
+                <td>{{ data.address }}</td>
+                <td>
+                  <a>Action 一 {{ data.name }}</a>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <a>Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+            <button
+              nz-button
+              nzType="primary"
+              (click)="observeGroupModalComponent()"
+            >
+              ابلاغ
+            </button>
+
+            <button nz-button nzType="default">انصراف</button>
+          </div>
+        </div>
+        </nz-tab>
+      </nz-tabset>
+    </nz-card>
+  </nz-page-header-content>
+</nz-page-header>
