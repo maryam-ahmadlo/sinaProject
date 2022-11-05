@@ -14,34 +14,30 @@
       </h3>
     </div>
     <div fxLayout="row" fxLayoutGap="16px" fxLayout.lt-sm="column">
-   
-        <button nz-button nzType="text">
-          متن بخشنامه
-          <small><a href="#"> اطلاعات بیشتر </a></small>
-        </button>
-  >
-    
-        <button nz-button nzType="text" (click)="downloadPDF()">
-          دانلود PDF
-          <span nz-icon nzType="file-pdf" nzTheme="outline"></span>
-        </button>
-    
-        <button nz-button nzType="text" (click)="addBookmark()">
-          bookmark
-          <span nz-icon nzType="star" nzTheme="outline"></span>
-        </button>
-   
-        <button nz-button nzType="text" (click)="changeToExpire()">
-          تغییر به منسوخ شده
-          <span nz-icon nzType="warning" nzTheme="outline"></span>
-        </button>
-     
-     
-        <button nz-button nzType="text" (click)="observeGroupModalComponent()">
-          تغییر وضعیت دریافت کنندگان
-          <span nz-icon nzType="send" nzTheme="outline"></span>
-        </button>
+      <button nz-button nzType="text">
+        متن بخشنامه
+        <small><a href="#"> اطلاعات بیشتر </a></small>
+      </button>
       
+      <button nz-button nzType="text" (click)="downloadPDF()" class="bdirection">
+        دانلود PDF
+        <span nz-icon nzType="file-pdf" nzTheme="outline" style="margin-left: 0.5rem;"></span>
+      </button>
+
+      <button nz-button nzType="text" (click)="addBookmark()" class="bdirection">
+        bookmark
+        <span nz-icon nzType="star" nzTheme="outline" style="margin-left: 0.5rem;"></span>
+      </button>
+
+      <button nz-button nzType="text" (click)="changeToExpire()" class="bdirection">
+        تغییر به منسوخ شده
+        <span nz-icon nzType="warning" nzTheme="outline" style="margin-left: 0.5rem;"></span>
+      </button>
+
+      <button nz-button nzType="text" (click)="observeGroupModalComponent()" class="bdirection">
+        تغییر وضعیت دریافت کنندگان
+        <span nz-icon nzType="send" nzTheme="outline" style="margin-left: 0.5rem;"></span>
+      </button>
     </div>
   </section>
 
