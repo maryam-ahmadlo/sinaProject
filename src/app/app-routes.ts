@@ -22,7 +22,7 @@ export const appRoutes: Routes = [
       tree: TreeResolver,
     },
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
-    canActivate: [LoggedInGuard],
+    // canActivate: [LoggedInGuard],
     children: [
       {
         path: "",
