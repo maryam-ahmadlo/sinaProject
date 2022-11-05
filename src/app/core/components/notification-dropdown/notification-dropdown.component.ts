@@ -14,13 +14,14 @@ import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NzCardModule } from "ng-zorro-antd/card";
-
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 @Component({
   selector: "app-notification-dropdown",
   templateUrl: "./notification-dropdown.component.html",
   styleUrls: ["./notification-dropdown.component.less"],
   standalone: true,
   imports: [
+    NzTabsModule,
     CommonModule,
     NzTableModule,
     NzDropDownModule,
