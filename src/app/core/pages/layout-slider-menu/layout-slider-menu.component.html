@@ -1,11 +1,18 @@
 <nz-page-header class="bg-header bg-size">
   <nz-page-header-content class="logo">
-    <a routerLink="/customer">
+  <div fxLayout="row" fxLayoutAlign="center center" routerLink="/customer">
       <img src=".../../../../../../assets/images/Logo.png" />
-    </a>
+  </div>
   </nz-page-header-content>
 </nz-page-header>
 
 <ng-container>
+  <div fxLayout="column" fxLayoutAlign="center center" style="padding: 20px 0">
+    <button nz-button nzType="primary" (click)="PrivateCartable()">
+      <span nz-icon nzType="bank" nzTheme="outline"></span>
+      {{ buttonValue }}
+    </button>
+  </div>
+
   <app-tree></app-tree>
 </ng-container>

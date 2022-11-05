@@ -5,6 +5,7 @@ import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { InstantNotificationComponent } from "src/app/modules/main/components/instant-notification/instant-notification.component";
 import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzIconModule } from "ng-zorro-antd/icon";
 
 @Component({
   templateUrl: "./customer-dashboard.component.html",
@@ -15,6 +16,7 @@ import { NzButtonModule } from "ng-zorro-antd/button";
     SearchLayoutComponent,
     RouterModule,
     NzButtonModule,
+    NzIconModule,
     NzPageHeaderModule,
     InstantNotificationComponent,
   ],

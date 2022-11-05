@@ -41,6 +41,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import { StateService } from "../../services";
 
 @Component({
   selector: "app-tree",
@@ -77,8 +78,14 @@ export class TreeComponent implements OnInit {
     private modalService: NzModalService,
     private treeService: TreeService,
     private nzMessage: NzMessageService,
-    private router: Router
+    private router: Router,
+    private stateService:StateService
   ) {
+
+    // this.stateService.select((state) => state.me).subscribe((m)=>{
+    //   console.log('mmmmm',m);
+      
+    // })
     this.activatedRoute.data.subscribe(({ tree }) => {
       this.treeData.splice(0, this.treeData.length);
       if (tree.folder.length > 1) {

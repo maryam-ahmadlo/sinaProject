@@ -31,6 +31,7 @@ import { NzMessageService } from "ng-zorro-antd/message";
 import { SharedModule } from "src/shared/shared.module";
 import { SliderService } from "../../services/slider.service";
 import * as moment from "jalali-moment";
+import { IUser } from "src/shared/common/src/lib/interfaces";
 @Component({
   standalone: true,
   selector: "app-slidebar",
@@ -62,7 +63,8 @@ import * as moment from "jalali-moment";
 export class SlidebarComponent implements OnInit {
   isCollapsed: boolean = true;
   isMobile: boolean = this.mediaObserver.isActive(["lt-lg"]);
-  messageCount:number=0;
+  messageCount: number = 0;
+  roleAdmin: boolean = false;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -72,6 +74,17 @@ export class SlidebarComponent implements OnInit {
     private modalService: NzModalService,
     private nzMessage: NzMessageService
   ) {
+    this.stateService
+      .select((state) => state.me)
+      .subscribe((m) => {
+        m.roles.filter((user) => {
+          if (user.id === "ROLE_ADMIN") {
+            this.roleAdmin = true;
+          } else {
+            this.roleAdmin = false;
+          }
+        });
+      });
     mediaObserver
       .asObservable()
       .subscribe(() => (this.isMobile = mediaObserver.isActive(["lt-lg"])));
@@ -89,15 +102,13 @@ export class SlidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.sliderService.getGroupMessage()
-    .subscribe((msg)=>{
-     msg.forEach((m)=>{
-      if(m.seenDate===null){this.messageCount++;}
-     })
+    this.sliderService.getGroupMessage().subscribe((msg) => {
+      msg.forEach((m) => {
+        if (m.seenDate === null) {
+          this.messageCount++;
+        }
+      });
     });
-
-
   }
 
   onCollapse() {
@@ -127,9 +138,9 @@ export class SlidebarComponent implements OnInit {
     this.router.navigate(["/", "customer", "bookmarks"]);
   }
 
-  createSendGroupMsgModal() {
+  createSendMsgModal() {
     this.modalService.create({
-      nzTitle: "ارسال پیام گروهی ",
+      nzTitle: "ارسال پیام  ",
       nzContent: CreateSendGroupMsgModalComponent,
       nzComponentParams: {},
       nzFooter: [
@@ -141,94 +152,72 @@ export class SlidebarComponent implements OnInit {
         {
           label: "ارسال",
           type: "primary",
-          onClick: (componentInstance) =>
-            this.handleGroupMsg(componentInstance),
+          onClick: (componentInstance) => this.handleMsg(componentInstance),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
 
-  handleGroupMsg(componentInstance: any) {
-    let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
-    let obj = JSON.parse(jsonStr);
-    componentInstance.form["value"].messageReceivers.forEach((user: any) => {
-      obj["messageReceivers"].push({ receiver: `${user}` });
-    });
-
-    jsonStr = JSON.stringify(obj);
-
-    this.sliderService
-      .groupMessage(jsonStr)
-      .pipe(finalize(() => (componentInstance.isLoading = false)))
-      .subscribe(() => handleRes());
-
-    const handleRes = () => {
-      this.nzMessage.success("عملیات با موفقیت انجام شد");
-      componentInstance.destroyModal();
-      this.router.navigate([], {
-        relativeTo: this.activatedRoute,
-        queryParams: { refresh: new Date().getTime() },
+  handleMsg(componentInstance: any) {
+    // console.log(componentInstance.Form.value);
+    if (componentInstance.form.value.type === "group") {
+      let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
+      let obj = JSON.parse(jsonStr);
+      componentInstance.form["value"].messageReceivers.forEach((user: any) => {
+        obj["messageReceivers"].push({ receiver: `${user}` });
       });
-    };
-  }
 
-  createSendUrgentMsgModal() {
-    this.modalService.create({
-      nzTitle: "ارسال پیام فوری ",
-      nzContent: CreateSendGroupMsgModalComponent,
-      nzComponentParams: {},
-      nzFooter: [
-        {
-          label: "انصراف",
-          type: "default",
-          onClick: (componentInstance) => componentInstance.destroyModal(),
-        },
-        {
-          label: "ارسال",
-          type: "primary",
-          onClick: (componentInstance) =>
-            this.handleInstantMsg(componentInstance),
-          loading: (componentInstance) => componentInstance.isLoading,
-        },
-      ],
-    });
-  }
+      jsonStr = JSON.stringify(obj);
 
-  handleInstantMsg(componentInstance: any) {
-    let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
-    let obj = JSON.parse(jsonStr);
-    componentInstance.form["value"].messageReceivers.forEach((user: any) => {
-      obj["messageReceivers"].push({ receiver: `${user}` });
-    });
+      this.sliderService
+        .groupMessage(jsonStr)
+        .pipe(finalize(() => (componentInstance.isLoading = false)))
+        .subscribe(() => handleRes());
 
-    jsonStr = JSON.stringify(obj);
-
-    this.sliderService
-      .instantMessage(jsonStr)
-      .pipe(finalize(() => (componentInstance.isLoading = false)))
-      .subscribe(() => handleRes());
-
-    const handleRes = () => {
-      this.nzMessage.success("عملیات با موفقیت انجام شد");
-      componentInstance.destroyModal();
-      this.router.navigate([], {
-        relativeTo: this.activatedRoute,
-        queryParams: { refresh: new Date().getTime() },
+      const handleRes = () => {
+        this.nzMessage.success("عملیات با موفقیت انجام شد");
+        componentInstance.destroyModal();
+        this.router.navigate([], {
+          relativeTo: this.activatedRoute,
+          queryParams: { refresh: new Date().getTime() },
+        });
+      };
+    } else {
+      let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
+      let obj = JSON.parse(jsonStr);
+      componentInstance.form["value"].messageReceivers.forEach((user: any) => {
+        obj["messageReceivers"].push({ receiver: `${user}` });
       });
-    };
+
+      jsonStr = JSON.stringify(obj);
+
+      this.sliderService
+        .instantMessage(jsonStr)
+        .pipe(finalize(() => (componentInstance.isLoading = false)))
+        .subscribe(() => handleRes());
+
+      const handleRes = () => {
+        this.nzMessage.success("عملیات با موفقیت انجام شد");
+        componentInstance.destroyModal();
+        this.router.navigate([], {
+          relativeTo: this.activatedRoute,
+          queryParams: { refresh: new Date().getTime() },
+        });
+      };
+    }
   }
+
+  
 
   UserManagement() {
     this.router.navigate(["/", "admin", "user-management"]);
   }
-  PrivateCartable() {
-    this.router.navigate(["/", "customer", "private-cartable"]);
-  }
-  PrivateCartableAdmin() {
-    this.router.navigate(["/", "admin", "private-cartable-admin"]);
-  }
-  // UploadFile() {
-  //   this.router.navigate(["/", "customer", "uploadFile"]);
+  // PrivateCartable() {
+  //   this.router.navigate(["/", "customer", "private-cartable"]);
   // }
+  // PrivateCartableAdmin() {
+  //   this.router.navigate(["/", "admin", "private-cartable-admin"]);
+  // }
+  
 }

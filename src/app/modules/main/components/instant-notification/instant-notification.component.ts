@@ -11,7 +11,7 @@ import { IUrgentMessage } from "src/shared/common/src/lib/interfaces/urgentMessa
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { NgMarqueeModule } from "ng-marquee";
+import { NzBadgeModule } from "ng-zorro-antd/badge";
 
 @Component({
   selector: "app-instant-notification",
@@ -20,16 +20,15 @@ import { NgMarqueeModule } from "ng-marquee";
     CommonModule,
     NzNotificationModule,
     NzButtonModule,
-    NzTagModule,
     FlexLayoutModule,
-    NgMarqueeModule,
+    NzBadgeModule,
   ],
   templateUrl: "./instant-notification.component.html",
   styleUrls: ["./instant-notification.component.css"],
 })
 export class InstantNotificationComponent implements OnInit {
   listOfMessages: IUrgentMessage[] = [];
-
+  messageCount: number = 0;
   constructor(
     private httpClient: HttpClient,
     private notification: NzNotificationService
@@ -50,15 +49,29 @@ export class InstantNotificationComponent implements OnInit {
       })
       .subscribe((msg) => {
         this.listOfMessages = msg;
+        msg.forEach((m) => {
+          if (m.seenDate === null) {
+            this.messageCount++;
+          }
+        });
         console.log(this.listOfMessages);
       });
   }
 
   createBasicNotification(): void {
     this.listOfMessages.forEach((notif) => {
-      this.notification.blank("پیام فوری ", `${notif.messageText}`, {
-        nzDuration: 0,
-      });
+      this.httpClient
+        .get<IUrgentMessage>(`/url/messages/${notif.id}`, {
+          headers: new HttpHeaders({
+            accept: "*/*",
+            Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+          }),
+        })
+        .subscribe((msg) => {
+          this.notification.blank("پیام فوری ", `${notif.messageText}`, {
+            nzDuration: 0,
+          });
+        });
     });
   }
 }

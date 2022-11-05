@@ -1,16 +1,24 @@
-<div class="example1" *ngFor="let data of listOfMessages">
+<!-- <div class="example1" *ngFor="let data of listOfMessages">
   <h6>{{ data.messageText }}</h6>
-</div>
+</div> -->
 
-<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
-  <button nz-button [nzType]="'primary'" (click)="createBasicNotification()">
-    پیام فوری
-  </button>
+<!-- <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center"> -->
 
-  <nz-tag
-    nzMode="closeable"
-    *ngFor="let data of listOfMessages"
-    nzColor="processing"
-    >{{ data.messageText }}</nz-tag
+
+
+  <button
+  nz-button
+  nzType="primary"
+  style="position: relative"
+  (click)="createBasicNotification()" 
+>
+  <nz-badge
+    [nzCount]="messageCount"
+    style="position: absolute; top: 7px; left: 8px"
   >
-</div>
+    <a class="head-example"></a>
+  </nz-badge>
+   پیام فوری  
+</button>
+
+<!-- </div> -->
