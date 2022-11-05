@@ -142,10 +142,10 @@ export const appRoutes: Routes = [
               import("./core/components/notification-dropdown").then(
                 (m) => m.NotificationDropdownComponent
               ),
-              resolve:{
-                groupMessage:NotificationResolver
-              },
-              runGuardsAndResolvers: "paramsOrQueryParamsChange",
+            resolve: {
+              groupMessage: NotificationResolver,
+            },
+            runGuardsAndResolvers: "paramsOrQueryParamsChange",
           },
         ],
       },
