@@ -38,20 +38,5 @@ export class AdminDashboardComponent implements OnInit {
     private stateService: StateService
   ) {}
 
-  cards: Object[] = [
-    {
-      title: "تعداد درخواست طرح",
-      data: 250,
-    },
-    {
-      title: "تعداد درخواست‌های در حال کارشناسی",
-      data: 150,
-    },
-    {
-      title: "تعداد درخواست‌های کارشناسی شده",
-      data: 700,
-    },
-  ];
-
   ngOnInit(): void {}
 }
