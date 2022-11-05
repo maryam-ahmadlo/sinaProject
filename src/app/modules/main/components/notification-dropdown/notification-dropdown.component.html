@@ -1,107 +1,100 @@
-<nz-page-header nzTitle=" لیست اعلانات" nzBackIcon>
+<nz-page-header nzBackIcon>
+  <nz-page-header-title>لیست اعلانات</nz-page-header-title>
   <nz-page-header-content>
-    <nz-card>
-    <nz-tabset nzType="card" >
-      
+    <nz-tabset nzType="card">
       <nz-tab nzTitle="پیام های گروهی">
-      
-          <nz-table
-            class="table-responsive"
-            #rowSelectionTable
-            nzShowSizeChanger
-            [nzData]="listOfMessages"
-          >
-            <thead>
-              <tr>
-                <th>ردیف</th>
-                <th>نام</th>
-                <th>وضعیت</th>
-                <th>عملیات</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let data of rowSelectionTable.data; let i = index">
-                <td>{{ i + 1 }}</td>
+        <nz-table
+          class="table-responsive"
+          #table
+          nzShowSizeChanger
+          #rowSelectionTable
+          [nzData]="listOfMessages"
+        >
+          <thead>
+            <tr>
+              <th>ردیف</th>
+              <th>متن پیام</th>
+              <th>وضعیت</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of table.data; let i = index">
+              <td>{{ i + 1 }}</td>
 
-                <td nz-typography [nzEllipsis]="true">
-                  {{ data.messageText }}
-                </td>
-                <td>
-                  <nz-tag
-                    nzColor="#cd201f"
-                    *ngIf="data.seenDate === null; else read"
-                  >
-                    <span>خوانده نشده</span>
+              <td>
+                {{ data.messageText }}
+              </td>
+
+              <td>
+                <nz-tag
+                  nzColor="#cd201f"
+                  *ngIf="data.seenDate === null; else read"
+                >
+                  <span>خوانده نشده</span>
+                </nz-tag>
+
+                <ng-template #read>
+                  <nz-tag nzColor="#55acee">
+                    <span>خوانده شده</span>
                   </nz-tag>
+                </ng-template>
+              </td>
 
-                  <ng-template #read>
-                    <nz-tag nzColor="#55acee">
-                      <span>خوانده شده</span>
-                    </nz-tag>
-                  </ng-template>
-                </td>
-                <td>
-                  <a
-                    nz-dropdown
-                    [nzDropdownMenu]="menu"
-                    nz-button
-                    nzType="link"
-                  >
-                    <i nz-icon nzType="down"></i>
-                    عملیات
-                  </a>
+              <td>
+                <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link">
+                  <i nz-icon nzType="down"></i>
+                  عملیات
+                </a>
 
-                  <nz-dropdown-menu #menu="nzDropdownMenu">
-                    <ul nz-menu nzSelectable>
-                      <li nz-menu-item (click)="createNotificationModal(data)">
-                        مشاهده
-                      </li>
-                      <!-- <li nz-menu-item>حذف</li> -->
-                    </ul>
-                  </nz-dropdown-menu>
-                </td>
-              </tr>
-            </tbody>
-          </nz-table>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                  <ul nz-menu nzSelectable>
+                    <li nz-menu-item (click)="createNotificationModal(data)">
+                      مشاهده
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
       </nz-tab>
 
       <nz-tab nzTitle="پیام های فوری">
-    
-          <nz-table
-            class="table-responsive"
-            #rowSelectionTable
-            nzShowSizeChanger
-            [nzData]="listOfMessages"
-          >
-            <thead>
-              <tr>
-                <th>ردیف</th>
-                <th>نام</th>
-                <th>عملیات</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let data of rowSelectionTable.data; let i = index">
-                <td>{{ i + 1 }}</td>
+        <nz-table
+          class="table-responsive"
+          #table
+          nzShowSizeChanger
+          #rowSelectionTable
+          [nzData]="listOfMessages"
+        >
+          <thead>
+            <tr>
+              <th>ردیف</th>
+              <th>نام</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of table.data; let i = index">
+              <td>{{ i + 1 }}</td>
 
-                <td nz-typography [nzEllipsis]="true">
-                  {{ data.messageText }}
-                </td>
-                <td>
-                  <button
-                    nz-button
-                    style="background-color: #cd201f; color: #fff"
-                  >
-                    حذف
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </nz-table>
-      
+              <td>
+                {{ data.messageText }}
+              </td>
+              <td>
+                <button
+                  nz-button
+                  style="background-color: #cd201f; color: #fff"
+                >
+                  حذف
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
       </nz-tab>
- 
     </nz-tabset>
-  </nz-card>
+    <!-- </nz-card> -->
   </nz-page-header-content>
 </nz-page-header>
