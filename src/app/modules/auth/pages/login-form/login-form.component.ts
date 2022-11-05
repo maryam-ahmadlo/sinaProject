@@ -81,7 +81,7 @@ export class LoginFormComponent implements OnInit {
           this.handleSubmitRes();
         },
 
-        () => this.msg.error("شماره تلفن همراه یا رمز عبور اشتباه است.")
+        () => this.msg.error("نام کاربری یا رمز عبور اشتباه است.")
       );
   }
 
