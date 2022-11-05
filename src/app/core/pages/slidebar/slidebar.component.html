@@ -48,44 +48,30 @@
         </button>
       </div>
 
-      <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="15px">
-        <div  *hasRole="['ROLE_ADMIN']">
-        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
-          <button
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
+        <div
+          *ngIf="roleAdmin"
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutGap="15px"
+        >
+          <!-- <button
             nz-button
             nzType="link"
             (click)="PrivateCartableAdmin()"
             class="text"
           >
-          <span
-          nz-icon
-          nzType="bank"
-          nzTheme="outline"
-        ></span>
+            <span nz-icon nzType="bank" nzTheme="outline"></span>
             کارتابل شخصی ادمین
-            
-      
-          </button>
+          </button> -->
           <button
             nz-button
             nzType="link"
-            (click)="createSendGroupMsgModal()"
+            (click)="createSendMsgModal()"
             class="text"
           >
-          <span nz-icon nzType="message" nzTheme="outline"></span>  
-          ارسال پیام گروهی
-            
-          </button>
-
-          <button
-            nz-button
-            nzType="link"
-            (click)="createSendUrgentMsgModal()"
-            class="text"
-          >
-          <span nz-icon nzType="message" nzTheme="outline"></span>
-          ارسال پیام فوری
-         
+            <span nz-icon nzType="message" nzTheme="outline"></span>
+            ارسال پیام
           </button>
 
           <button
@@ -94,25 +80,12 @@
             (click)="UserManagement()"
             class="text"
           >
-          <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>  
-          تعریف کاربران و دسترسی ها
-           
+            <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
+            تعریف کاربران و دسترسی ها
           </button>
-          </div>
         </div>
+
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="15px">
-          <div  *hasRole="['ROLE_USER']">
-          <button
-            nz-button
-            nzType="link"
-            (click)="PrivateCartable()"
-            class="text"
-          >
-          <span nz-icon nzType="bank" nzTheme="outline"></span>
-            کارتابل شخصی کاربر
-           
-          </button>
-         
           <button
             nz-button
             nzType="link"
@@ -128,14 +101,11 @@
             </nz-badge>
             <span nz-icon nzType="bell" nzTheme="outline"></span>
             پیام ها
-     
           </button>
           <button nz-button nzType="link" (click)="bookmark()" class="text">
             <span nz-icon nzType="star" nzTheme="outline"></span>
             بوک مارک ها
-       
           </button>
-          </div>
         </div>
         <!-- </div> -->
         <!-- <button
@@ -153,7 +123,7 @@
     </div>
 
     <nz-content>
-      <div class="container" >
+      <div class="container">
         <router-outlet></router-outlet>
       </div>
     </nz-content>

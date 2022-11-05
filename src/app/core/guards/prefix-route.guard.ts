@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
-} from '@angular/router';
+} from "@angular/router";
 // import { parseJwt } from 'src/shared/utils/parse-jwt';
-import { StateService } from '../services';
-
+import { StateService } from "../services";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class PrefixRouteGuard implements CanActivate {
   constructor(private stateService: StateService, private router: Router) {}
@@ -19,12 +18,16 @@ export class PrefixRouteGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    let roles:any=[];
-    this.stateService.select((state) => state.me).subscribe((r)=>{
-      roles=r;
-    })
+    let Roles: any = [];
+    this.stateService
+      .select((state) => state.me)
+      .subscribe((r) => {
+        Roles = r;
+      });
     this.router.navigate([
-      (roles.role==='ROLE_ADMIN'? '/admin' : '/customer') + '/dashboard',
+      (Roles.roles.some((m) => m.id === "ROLE_ADMIN")
+        ? "/admin"
+        : "/customer") + "/dashboard",
     ]);
     return true;
   }

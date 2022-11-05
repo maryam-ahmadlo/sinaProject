@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { TreeComponent } from '../Tree/Tree.component';
+import { StateService } from '../../services';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 
 
@@ -18,12 +20,39 @@ import { TreeComponent } from '../Tree/Tree.component';
         FlexLayoutModule,
         NzPageHeaderModule,
         RouterModule,
+        NzIconModule,
        NzButtonModule,
        TreeComponent
     ],
 })
 export class LayoutSiderMenuComponent implements OnInit {
-    constructor() {}
+    roleAdmin:boolean=false;
+    buttonValue:string='';
+
+    constructor( private router: Router, private stateService: StateService,) {
+        this.stateService.select((state) => state.me).subscribe((m)=>{
+   
+            if(m.roles.some((role)=> role.id==='ROLE_ADMIN')){
+              this.roleAdmin=true;
+              this.buttonValue='کارتابل شخصی ادمین ';
+              
+            }else{
+              this.roleAdmin=false;
+              this.buttonValue='کارتابل شخصی کاربر ';
+              
+            }
+      console.log(this.roleAdmin);
+      
+          });
+    }
 
     ngOnInit(): void {}
+
+    PrivateCartable() {
+        if(this.roleAdmin){
+        this.router.navigate(["/", "admin", "private-cartable-admin"]);
+        }else{
+            this.router.navigate(["/", "customer", "private-cartable"]);
+        }
+      }
 }

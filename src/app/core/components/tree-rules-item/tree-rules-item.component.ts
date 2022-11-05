@@ -9,6 +9,7 @@ import { TreeService } from "../../services/tree.service";
 import { ActivatedRoute } from "@angular/router";
 import { ObserveGroupModalComponent } from "@core/components/observe-group-modal/observe-group-modal.component";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 @Component({
   selector: "app-tree-rules-item",
@@ -20,6 +21,8 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
     NzTagModule,
     NzPageHeaderModule,
     NzButtonModule,
+    NzCardModule,
+    NzPageHeaderModule
   ],
   templateUrl: "./tree-rules-item.component.html",
   styleUrls: ["./tree-rules-item.component.less"],

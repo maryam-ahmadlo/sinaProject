@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 import { StateService } from "../../../../core/services";
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { InstantNotificationComponent } from "src/app/modules/main/components/instant-notification/instant-notification.component";
+import { NzIconModule } from "ng-zorro-antd/icon";
 
 @Component({
   templateUrl: "./admin-dashboard.component.html",
@@ -25,6 +26,7 @@ import { InstantNotificationComponent } from "src/app/modules/main/components/in
     RouterModule,
     InstantNotificationComponent,
     SearchLayoutComponent,
+    NzIconModule
   ],
 })
 export class AdminDashboardComponent implements OnInit {

@@ -16,6 +16,8 @@ import { NzSelectModule } from "ng-zorro-antd/select";
 import { UserManagementService } from "src/app/modules/user-management/services/user-management.service";
 import { IBranch } from "src/shared/common/src/lib/interfaces/branch";
 import { IUser } from "src/shared/common/src/lib/interfaces";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { NzTabPosition } from "ng-zorro-antd/tabs";
 // import { Editor, NgxEditorModule, Toolbar } from "ngx-editor";
 
 @Component({
@@ -28,9 +30,8 @@ import { IUser } from "src/shared/common/src/lib/interfaces";
     NzInputModule,
     ReactiveFormsModule,
     NzTreeSelectModule,
-    FormsModule,
     NzSelectModule,
-    // NgxEditorModule,
+    NzTabsModule,
   ],
   templateUrl: "./create-send-group-msg-modal.component.html",
   styleUrls: ["./create-send-group-msg-modal.component.less"],
@@ -44,6 +45,7 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     messageText: FormControl<string>;
     branches: FormControl<string[]>;
     messageReceivers: FormControl<string[]>;
+    type:FormControl<string>;
   }> = new FormGroup({
     messageText: new FormControl(
       { value: "", disabled: false },
@@ -51,7 +53,21 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     ),
     branches: new FormControl(null, [Validators.required]),
     messageReceivers: new FormControl(null, [Validators.required]),
+    type: new FormControl(null, Validators.required)
   });
+
+  // urgentForm: FormGroup<{
+  //   messageText: FormControl<string>;
+  //   branches: FormControl<string[]>;
+  //   messageReceivers: FormControl<string[]>;
+  // }> = new FormGroup({
+  //   messageText: new FormControl(
+  //     { value: "", disabled: false },
+  //     Validators.required
+  //   ),
+  //   branches: new FormControl(null, [Validators.required]),
+  //   messageReceivers: new FormControl(null, [Validators.required]),
+  // });
   nodes: any = [];
 
   constructor(
@@ -96,6 +112,7 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.form.get('type').setValue('group');
     // this.editor = new Editor();
   }
 
@@ -111,12 +128,15 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
   //   ["align_left", "align_center", "align_right", "align_justify"],
   // ];
 
-
-  get doc(): AbstractControl {
-    return this.form.get("message");
-  }
+  // get doc(): AbstractControl {
+  //   return this.form.get("message");
+  // }
 
   ngOnDestroy(): void {
     // this.editor.destroy();
+  }
+
+  formType(value:string){
+    this.form.get('type').setValue(value);
   }
 }

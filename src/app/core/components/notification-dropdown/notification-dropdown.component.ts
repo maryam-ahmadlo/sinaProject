@@ -93,8 +93,6 @@ export class NotificationDropdownComponent {
           ],
         });
         this.modalService.afterAllClose.subscribe((result) => {
-          console.log(result);
-          
           this.refresh();
         });
       });

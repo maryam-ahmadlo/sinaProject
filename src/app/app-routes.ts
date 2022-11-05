@@ -23,27 +23,37 @@ export const appRoutes: Routes = [
       tree: TreeResolver,
     },
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
-    //canActivate: [LoggedInGuard],
+    canActivate: [LoggedInGuard],
     children: [
       {
         path: "",
-        // canActivate: [PrefixRouteGuard],
+        canActivate: [PrefixRouteGuard],
         loadComponent: () => of(),
         pathMatch: "full",
       },
       {
         path: "admin",
-        //canActivate: [RoleGuard],
+        canActivate: [RoleGuard],
         data: {
           allowedRoles: ["ROLE_ADMIN"],
         },
         children: [
+          { path: "", redirectTo: "dashboard", pathMatch: "full" },
           {
             path: "dashboard",
             loadComponent: () =>
               import("./modules/main/pages").then(
-                (m) => m.AdminDashboardComponent
+                (m) => m.CustomerDashboardComponent
               ),
+            children: [
+              {
+                path: "",
+                loadChildren: () =>
+                  import("./modules/search/search-routes").then(
+                    (m) => m.SearchRoutes
+                  ),
+              },
+            ],
           },
           {
             path: "user-management",

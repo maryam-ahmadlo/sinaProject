@@ -1,3 +1,8 @@
+
+<nz-tabset nzTabPosition="right" >
+  <nz-tab [nzTitle]="'ارسال پیام گروهی'" (nzClick)="formType('group')">
+
+
 <form nz-form nzLayout="vertical" [formGroup]="form">
   <nz-form-item>
     <nz-form-label nzRequired nzFor="messageText">متن پیام </nz-form-label>
@@ -6,7 +11,7 @@
         nz-input
         formControlName="messageText"
         placeholder="پیام خود را وارد کنید"
-        nzAutosize
+        [nzAutosize]="{ minRows: 5, maxRows: 7 }"
       ></textarea>
       <!-- <div class="editor">
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
@@ -47,3 +52,61 @@
     </nz-form-control>
   </nz-form-item>
 </form>
+
+  </nz-tab>
+  <nz-tab [nzTitle]="'ارسال پیام فوری'" (nzClick)="formType('urgent')">
+
+    <form nz-form nzLayout="vertical" [formGroup]="form">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="messageText">متن پیام </nz-form-label>
+        <nz-form-control>
+          <textarea
+            nz-input
+            formControlName="messageText"
+            placeholder="پیام خود را وارد کنید"
+            [nzAutosize]="{ minRows: 5, maxRows: 7 }"
+          ></textarea>
+          <!-- <div class="editor">
+            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+            </ngx-editor-menu>
+            <ngx-editor [editor]="editor" formControlName="messageText"> </ngx-editor>
+          </div> -->
+        </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="branches">ارسال به </nz-form-label>
+        <nz-form-control>
+          <nz-tree-select
+            formControlName="branches"
+            (ngModelChange)="onChange($event)"
+            [nzNodes]="nodes"
+            nzShowSearch
+            nzCheckable
+            nzPlaceHolder="لیست شعب "
+          ></nz-tree-select>
+        </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="messageReceivers">کاربران </nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzMode="tags"
+            nzPlaceHolder="نام کاربران"
+            formControlName="messageReceivers"
+          >
+            <nz-option
+              *ngFor="let option of listOfUsers"
+              [nzLabel]="option.name"
+              [nzValue]="option.id"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    
+  </nz-tab>
+</nz-tabset>
+
+
