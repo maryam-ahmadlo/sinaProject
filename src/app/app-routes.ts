@@ -42,7 +42,7 @@ export const appRoutes: Routes = [
             path: "dashboard",
             loadComponent: () =>
               import("./modules/main/pages").then(
-                (m) => m.CustomerDashboardComponent
+                (m) => m.AdminDashboardComponent
               ),
             children: [
               {
@@ -59,20 +59,6 @@ export const appRoutes: Routes = [
             loadChildren: () =>
               import("./modules/user-management/user-management-routes").then(
                 (m) => m.userManagementRoutes
-              ),
-          },
-          {
-            path: "uploadFile",
-            loadComponent: () =>
-              import("./core/pages/upload-file/upload-file.component").then(
-                (m) => m.UploadFileComponent
-              ),
-          },
-          {
-            path: "uploadFile/:id",
-            loadComponent: () =>
-              import("./core/pages/upload-file/upload-file.component").then(
-                (m) => m.UploadFileComponent
               ),
           },
           {
