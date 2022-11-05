@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { NzCardModule } from "ng-zorro-antd/card";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzButtonModule } from "ng-zorro-antd/button";
-import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { Observable } from "rxjs";
 import { StateService } from "../../../../core/services";
@@ -19,14 +17,12 @@ import { NzIconModule } from "ng-zorro-antd/icon";
   imports: [
     CommonModule,
     FlexLayoutModule,
-    NzCardModule,
-    NzLayoutModule,
     NzPageHeaderModule,
     NzButtonModule,
     RouterModule,
     InstantNotificationComponent,
     SearchLayoutComponent,
-    NzIconModule
+    NzIconModule,
   ],
 })
 export class AdminDashboardComponent implements OnInit {
