@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from './guards';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ReciveModalComponent } from './components/recive-modal/recive-modal.component';
+
 
 @NgModule({
   imports: [
@@ -20,9 +20,7 @@ import { ReciveModalComponent } from './components/recive-modal/recive-modal.com
     NzMessageModule,
     FlexLayoutModule,
   ],
-  declarations: [
-    ReciveModalComponent
-  ],
+  declarations: [],
  
 })
 export class CoreModule {

@@ -15,12 +15,11 @@ import {
   RouterModule,
 } from "@angular/router";
 
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 import { NzDrawerModule } from "ng-zorro-antd/drawer";
 import { LayoutSiderMenuComponent } from "../layout-slider-menu/layout-slider-menu.component";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
-import { NotificationDropdownComponent } from "@core/components/notification-dropdown";
+
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { StateService } from "../../services";
 import { CreateSendGroupMsgModalComponent } from "@core/components/create-send-group-msg-modal/create-send-group-msg-modal.component";
@@ -30,8 +29,7 @@ import { finalize } from "rxjs";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { SharedModule } from "src/shared/shared.module";
 import { SliderService } from "../../services/slider.service";
-import * as moment from "jalali-moment";
-import { IUser } from "src/shared/common/src/lib/interfaces";
+
 @Component({
   standalone: true,
   selector: "app-slidebar",
@@ -54,7 +52,6 @@ import { IUser } from "src/shared/common/src/lib/interfaces";
     SearchLayoutComponent,
     NzPageHeaderModule,
     NzBadgeModule,
-    NotificationDropdownComponent,
     SharedModule,
   ],
   templateUrl: "./slidebar.component.html",
@@ -135,7 +132,18 @@ export class SlidebarComponent implements OnInit {
   cancel(): void {}
 
   bookmark() {
-    this.router.navigate(["/", "customer", "bookmarks"]);
+    if(this.roleAdmin){
+    this.router.navigate(["/", "admin", "bookmarks"]);
+    }else{
+      this.router.navigate(["/", "customer", "bookmarks"]);
+    }
+  }
+  messages(){
+    if(this.roleAdmin){
+      this.router.navigate(['/', 'admin', 'notifications']);
+      }else{
+        this.router.navigate(['/', 'customer', 'notifications']);
+      }
   }
 
   createSendMsgModal() {

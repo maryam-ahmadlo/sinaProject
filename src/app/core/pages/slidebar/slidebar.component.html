@@ -55,15 +55,6 @@
           fxLayout.lt-md="column"
           fxLayoutGap="15px"
         >
-          <!-- <button
-            nz-button
-            nzType="link"
-            (click)="PrivateCartableAdmin()"
-            class="text"
-          >
-            <span nz-icon nzType="bank" nzTheme="outline"></span>
-            کارتابل شخصی ادمین
-          </button> -->
           <button
             nz-button
             nzType="link"
@@ -89,9 +80,9 @@
           <button
             nz-button
             nzType="link"
-            [routerLink]="['/', 'customer', 'notifications']"
             style="position: relative"
             class="text"
+            (click)="messages()"
           >
             <nz-badge
               [nzCount]="messageCount"
@@ -104,7 +95,7 @@
           </button>
           <button nz-button nzType="link" (click)="bookmark()" class="text">
             <span nz-icon nzType="star" nzTheme="outline"></span>
-            بوک مارک ها
+            نشانک ها
           </button>
         </div>
         <!-- </div> -->

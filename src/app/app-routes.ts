@@ -4,7 +4,6 @@ import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
 import { PrivateCartableAdminComponent } from "./core/pages/private-cartable admin/private-cartable-admin.component";
 import { NotificationResolver } from "./core/resolver/notification.resolver";
 import { TreeResolver } from "./core/resolver/tree.resolver";
-import { UserManagementListResolver } from "./modules/user-management/resolvers/user-management-list.resolver";
 
 export const appRoutes: Routes = [
   {
@@ -80,6 +79,38 @@ export const appRoutes: Routes = [
             path: "private-cartable-admin",
             component: PrivateCartableAdminComponent,
           },
+          {
+            path: "bookmarks",
+            loadChildren: () =>
+              import("./modules/bookmarks/bookmark-routes").then(
+                (m) => m.BookmarkRoutes
+              ),
+          },
+          {
+            path: "notifications",
+            loadComponent: () =>
+              import(
+                "./modules/main/components/notification-dropdown/notification-dropdown.component"
+              ).then((m) => m.NotificationDropdownComponent),
+            resolve: {
+              groupMessage: NotificationResolver,
+            },
+            runGuardsAndResolvers: "paramsOrQueryParamsChange",
+          },
+          {
+            path: "uploadFile",
+            loadComponent: () =>
+              import("./core/pages/upload-file/upload-file.component").then(
+                (m) => m.UploadFileComponent
+              ),
+          },
+          {
+            path: "uploadFile/:id",
+            loadComponent: () =>
+              import("./core/pages/upload-file/upload-file.component").then(
+                (m) => m.UploadFileComponent
+              ),
+          },
         ],
       },
       {
@@ -149,9 +180,9 @@ export const appRoutes: Routes = [
           {
             path: "notifications",
             loadComponent: () =>
-              import("./core/components/notification-dropdown").then(
-                (m) => m.NotificationDropdownComponent
-              ),
+              import(
+                "./modules/main/components/notification-dropdown/notification-dropdown.component"
+              ).then((m) => m.NotificationDropdownComponent),
             resolve: {
               groupMessage: NotificationResolver,
             },

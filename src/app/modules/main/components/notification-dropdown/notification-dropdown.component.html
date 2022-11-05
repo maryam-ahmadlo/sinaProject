@@ -1,8 +1,10 @@
 <nz-page-header nzTitle=" لیست اعلانات" nzBackIcon>
   <nz-page-header-content>
     <nz-card>
-      <nz-tabset nzType="card">
-        <nz-tab nzTitle="پیام های گروهی">
+    <nz-tabset nzType="card" >
+      
+      <nz-tab nzTitle="پیام های گروهی">
+      
           <nz-table
             class="table-responsive"
             #rowSelectionTable
@@ -61,9 +63,10 @@
               </tr>
             </tbody>
           </nz-table>
-        </nz-tab>
+      </nz-tab>
 
-        <nz-tab nzTitle="پیام های فوری">
+      <nz-tab nzTitle="پیام های فوری">
+    
           <nz-table
             class="table-responsive"
             #rowSelectionTable
@@ -85,13 +88,20 @@
                   {{ data.messageText }}
                 </td>
                 <td>
-                  <button nz-button style="background-color: #cd201f;color: #fff">حذف</button>
+                  <button
+                    nz-button
+                    style="background-color: #cd201f; color: #fff"
+                  >
+                    حذف
+                  </button>
                 </td>
               </tr>
             </tbody>
           </nz-table>
-        </nz-tab>
-      </nz-tabset>
-    </nz-card>
+      
+      </nz-tab>
+ 
+    </nz-tabset>
+  </nz-card>
   </nz-page-header-content>
 </nz-page-header>

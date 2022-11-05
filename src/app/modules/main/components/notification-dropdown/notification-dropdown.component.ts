@@ -9,7 +9,6 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { NotificationModalComponent } from "../notification-modal/notification-modal.component";
 import { IGroupMessage } from "src/shared/common/src/lib/interfaces";
-import { SliderService } from "../../services/slider.service";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { ActivatedRoute, Router } from "@angular/router";

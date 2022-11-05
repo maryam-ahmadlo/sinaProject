@@ -1,6 +1,3 @@
-
-export * from './notification-dropdown/notification-dropdown.component';
-export * from './notification-modal/notification-modal.component';
 export * from './tree-rules-item/tree-rules-item.component';
 export * from './create-add-file-modal/create-add-file-modal.component';
 export * from './create-add-node-modal/create-add-node-modal.component';
