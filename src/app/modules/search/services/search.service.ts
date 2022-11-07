@@ -13,7 +13,7 @@ export class SearchService {
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
-      params: {content:Name},
+      params: {name:Name, content:'هوش'},
     });
   }
 }
