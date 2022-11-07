@@ -1,7 +1,6 @@
 import { Routes } from "@angular/router";
 import { of } from "rxjs";
 import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
-import { PrivateCartableAdminComponent } from "./core/pages/private-cartable admin/private-cartable-admin.component";
 import { NotificationResolver } from "./core/resolver/notification.resolver";
 import { TreeResolver } from "./core/resolver/tree.resolver";
 
@@ -22,7 +21,7 @@ export const appRoutes: Routes = [
       tree: TreeResolver,
     },
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
-    // canActivate: [LoggedInGuard],
+    canActivate: [LoggedInGuard],
     children: [
       {
         path: "",
@@ -62,8 +61,11 @@ export const appRoutes: Routes = [
               ),
           },
           {
-            path: "private-cartable-admin",
-            component: PrivateCartableAdminComponent,
+            path: "private-cartable",
+            loadComponent: () =>
+              import(
+                "./core/pages/private-cartable admin/private-cartable-admin.component"
+              ).then((m) => m.PrivateCartableAdminComponent),
           },
           {
             path: "bookmarks",

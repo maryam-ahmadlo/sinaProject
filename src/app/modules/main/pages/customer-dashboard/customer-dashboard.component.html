@@ -1,16 +1,14 @@
 <nz-page-header>
-  <nz-page-header-extra>
-    <div fxLayout="row" fxLayoutGap="20px">
-      <app-instant-notification></app-instant-notification>
-      <button
-        nz-button
-        nzType="primary"
-        [routerLink]="['/', 'customer', 'uploadFile']"
-      >
-        بارگذاری فایل
-        <span nz-icon nzType="upload" nzTheme="outline"></span>
-      </button>
-    </div>
+  <nz-page-header-extra fxLayout="row" fxLayoutGap="20px">
+    <app-instant-notification></app-instant-notification>
+    <button
+      nz-button
+      nzType="primary"
+      [routerLink]="['/', 'customer', 'uploadFile']"
+    >
+      بارگذاری فایل
+      <span nz-icon nzType="upload" nzTheme="outline"></span>
+    </button>
   </nz-page-header-extra>
 
   <nz-page-header-content>

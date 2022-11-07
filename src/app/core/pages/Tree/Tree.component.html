@@ -82,7 +82,7 @@
               nzType="text"
               nzSize="small"
               [routerLink]="['/', 'customer', 'uploadFile', node.id]"
-              *ngIf="node.level === 2"
+              *ngIf="node.level !== 0"
             >
               <span nz-icon nzType="file-add" nzTheme="outline"></span>
               بارگذاری فایل

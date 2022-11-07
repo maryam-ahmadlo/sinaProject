@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
@@ -9,6 +8,7 @@ import { StateService } from "../../../../core/services";
 import { SearchLayoutComponent } from "src/app/modules/search/pages";
 import { InstantNotificationComponent } from "src/app/modules/main/components/instant-notification/instant-notification.component";
 import { NzIconModule } from "ng-zorro-antd/icon";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @Component({
   templateUrl: "./admin-dashboard.component.html",
