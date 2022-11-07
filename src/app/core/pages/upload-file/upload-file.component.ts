@@ -223,11 +223,11 @@ export class UploadFileComponent implements OnInit {
 
     let json = {
       nodeRuleDto: { ...this.uploadFileForm.value },
-      content: this.fileC,
+      content: {...this.fileName.value},
       docPath: "/okm:root",
     };
     console.log("json", json);
-    console.log(this.fileC);
+    console.log(this.fileName.value);
 
     this.uploadFileService.createRules(json).subscribe(() => handleRes());
 
@@ -237,25 +237,25 @@ export class UploadFileComponent implements OnInit {
   };
 
   onFileSelected(event) {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      this.fileC = file;
-      const formData = new FormData();
-      formData.append("content", file);
-    }
     // const file: File = event.target.files[0];
+
     // if (file) {
-    //   this.fileName.patchValue({ ["name"]: file.name });
-    //   this.fileName.patchValue({ ["size"]: file.size });
-    //   // this.fileName.patchValue({['lastModifiedDate']: file.lastModifiedDate});
-    //   this.fileName.patchValue({ ["type"]: file.type });
-    //   this.fileName.patchValue({ ["lastModified"]: file.lastModified });
-    //   this.fileName.patchValue({
-    //     ["webkitRelativePath"]: " file.webkitRelativePath",
-    //   });
-    //   console.log(this.fileName.value);
+    //   this.fileC = file;
+    //   const formData = new FormData();
+    //   formData.append("content", file);
     // }
+    const file: File = event.target.files[0];
+    if (file) {
+      this.fileName.patchValue({ ["name"]: file.name });
+      this.fileName.patchValue({ ["size"]: file.size });
+      // this.fileName.patchValue({['lastModifiedDate']: file.lastModifiedDate});
+      this.fileName.patchValue({ ["type"]: file.type });
+      this.fileName.patchValue({ ["lastModified"]: file.lastModified });
+      this.fileName.patchValue({
+        ["webkitRelativePath"]: file.webkitRelativePath,
+      });
+      console.log(this.fileName.value);
+    }
   }
 
   createAddFileModalComponent() {
