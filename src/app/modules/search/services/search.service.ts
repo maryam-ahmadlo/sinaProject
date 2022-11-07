@@ -8,12 +8,12 @@ export class SearchService {
   constructor(private httpClient: HttpClient) {}
 
   simpleSearch(Name: string) {
-    return this.httpClient.get("/api/search/findByName", {
+    return this.httpClient.get("/api/search/find", {
       headers: new HttpHeaders({
         accept: "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
-      params: { name: Name },
+      params: {content:Name},
     });
   }
 }

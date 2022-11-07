@@ -3,6 +3,8 @@ import { FlexModule } from "@angular/flex-layout";
 import { NzTimePickerModule } from "ng-zorro-antd/time-picker";
 import { NzInputModule } from "ng-zorro-antd/input";
 import {
+  FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   UntypedFormControl,
@@ -18,7 +20,7 @@ import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzListModule } from "ng-zorro-antd/list";
 import { SearchResultComponent } from "../../components";
 import { DatepickerModule } from "src/shared/components";
-import { SearchService } from "src/app/core/services/search.service";
+import { SearchService } from "src/app/modules/search/services/search.service";
 @Component({
   selector: "app-search-layout",
   standalone: true,
@@ -46,8 +48,8 @@ export class SearchLayoutComponent implements OnInit {
   showResult: boolean = false;
   searchItem = {};
 
-  simpleSearchForm: UntypedFormGroup = new UntypedFormGroup({
-    name: new UntypedFormControl(null, [Validators.required]),
+  simpleSearchForm: FormGroup<{name:FormControl<string>}> = new FormGroup({
+    name: new FormControl(null, [Validators.required]),
   });
 
   advancedSearchForm: UntypedFormGroup = new UntypedFormGroup({
@@ -85,7 +87,7 @@ export class SearchLayoutComponent implements OnInit {
     this.showResult = this.simpleSearchForm.valid;
     this.searchService
       .simpleSearch(this.simpleSearchForm.get("name").value)
-      .subscribe((r) => console.log("rr", r));
+      .subscribe((r) => console.log("simple", r));
   }
   onAdvancedSubmit() {
     this.searchItem = {

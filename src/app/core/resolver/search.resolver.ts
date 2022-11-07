@@ -6,7 +6,7 @@ import {
   ActivatedRouteSnapshot,
 } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { SearchService } from "../services/search.service";
+import { SearchService } from "../../modules/search/services/search.service";
 
 @Injectable({
   providedIn: "root",
