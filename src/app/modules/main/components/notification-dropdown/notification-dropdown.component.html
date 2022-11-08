@@ -29,16 +29,16 @@
               <td>
                 <nz-tag
                   nzColor="#cd201f"
-                  *ngIf="data.seenDate === null; else read"
+                  *ngIf="data.seenDate === null"
                 >
                   <span>خوانده نشده</span>
                 </nz-tag>
 
-                <ng-template #read>
-                  <nz-tag nzColor="#55acee">
+                
+                  <nz-tag nzColor="#55acee" *ngIf="data.seenDate !== null">
                     <span>خوانده شده</span>
                   </nz-tag>
-                </ng-template>
+              
               </td>
 
               <td>
