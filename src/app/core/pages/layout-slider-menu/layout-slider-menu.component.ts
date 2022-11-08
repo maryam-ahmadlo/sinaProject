@@ -38,7 +38,6 @@ export class LayoutSiderMenuComponent implements OnInit {
           this.roleAdmin = false;
           this.buttonValue = "کارتابل شخصی کاربر ";
         }
-        console.log(this.roleAdmin);
       });
   }
 

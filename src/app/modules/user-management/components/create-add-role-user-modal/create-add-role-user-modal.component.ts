@@ -86,7 +86,6 @@ export class CreateAddRoleUserModalComponent implements OnInit {
         });
       });
     });
-    console.log("listOfUsers", this.listOfUsers);
   }
 
   ngOnInit(): void {}
