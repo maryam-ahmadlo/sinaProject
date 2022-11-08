@@ -50,9 +50,9 @@ export class LayoutSiderMenuComponent implements OnInit {
 
     PrivateCartable() {
         if(this.roleAdmin){
-        this.router.navigate(["/", "admin", "private-cartable-admin"]);
+        this.router.navigate(["/","admin","private-cartable"]);
         }else{
-            this.router.navigate(["/", "customer", "private-cartable"]);
+            this.router.navigate(["/","customer","private-cartable"]);
         }
       }
 }
