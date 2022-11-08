@@ -62,10 +62,10 @@ export const appRoutes: Routes = [
           },
           {
             path: "private-cartable",
-            loadComponent: () =>
+            loadChildren: () =>
               import(
-                "./core/pages/private-cartable admin/private-cartable-admin.component"
-              ).then((m) => m.PrivateCartableAdminComponent),
+                "./modules/private-cartable admin/private-cartable-admin-routes"
+              ).then((m) => m.privateCartanleAdminRoutes),
           },
           {
             path: "bookmarks",
@@ -126,10 +126,10 @@ export const appRoutes: Routes = [
           },
           {
             path: "private-cartable",
-            loadComponent: () =>
+            loadChildren: () =>
               import(
-                "./core/pages/private-cartable-customer/private-cartable-customer.component"
-              ).then((m) => m.PrivateCartablecustomerComponent),
+                "./modules/private-cartable-customer/private-cartable-customer-routes"
+              ).then((m) => m.privateCartanleCustomerRoutes),
           },
           {
             path: "uploadFile",

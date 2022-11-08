@@ -342,13 +342,14 @@
             </tr>
           </tbody>
         </nz-table>
+
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end">
+          <button nz-button nzType="primary" (click)="onSubmit()">تایید</button>
+          <button nz-button nzType="default" [routerLink]="['/', 'customer']">
+            انصراف
+          </button>
+        </div>
       </nz-card>
-      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end">
-        <button nz-button nzType="primary" (click)="onSubmit()">تایید</button>
-        <button nz-button nzType="default" [routerLink]="['/', 'customer']">
-          انصراف
-        </button>
-      </div>
     </div>
   </form>
 </div>

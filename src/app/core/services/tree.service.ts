@@ -73,7 +73,7 @@ getChildren(node:string){
   }
 
   downloadPDF(param: string) {
-    return this.httpClient.get("/api/document/getContent", {
+    return this.httpClient.get("/url/document/getContent/", {
       headers: new HttpHeaders({
         accept: "application/octet-stream",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",

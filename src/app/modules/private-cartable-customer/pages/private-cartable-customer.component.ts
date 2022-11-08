@@ -9,6 +9,7 @@ import { AddDocumentModalComponent } from "@core/components/add-document-modal/a
 import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-private-cartable",
@@ -28,7 +29,12 @@ import { NzTabsModule } from "ng-zorro-antd/tabs";
   ],
 })
 export class PrivateCartablecustomerComponent implements OnInit {
-  constructor(private modalService: NzModalService) {}
+  constructor(private modalService: NzModalService,private activatedRoute:ActivatedRoute) {
+    this.activatedRoute.data.subscribe(({drafts})=>{
+      console.log(drafts);
+      
+    });
+  }
 
   ngOnInit(): void {}
 
