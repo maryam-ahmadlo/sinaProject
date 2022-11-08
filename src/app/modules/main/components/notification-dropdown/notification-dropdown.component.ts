@@ -13,7 +13,7 @@ import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NzCardModule } from "ng-zorro-antd/card";
-import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzTabsModule } from "ng-zorro-antd/tabs";
 @Component({
   selector: "app-notification-dropdown",
   templateUrl: "./notification-dropdown.component.html",
@@ -45,10 +45,8 @@ export class NotificationDropdownComponent {
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.data.subscribe(({ groupMessage }) => {
-  
       this.listOfMessages.splice(0, this.listOfMessages.length);
 
-      
       if (groupMessage.length > 1) {
         Array.prototype.forEach.call(groupMessage, (v: any) => {
           this.listOfMessages.push(v);
@@ -58,10 +56,7 @@ export class NotificationDropdownComponent {
       } else {
         this.listOfMessages = [];
       }
-      console.log(this.listOfMessages);
-      
     });
-  
   }
 
   ngOnInit(): void {}

@@ -105,7 +105,6 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
       r.roles.forEach((user) => {
         user.users.forEach((user) => {
           this.listOfUsers.push(user);
-          console.log(this.listOfUsers);
         });
       });
     });

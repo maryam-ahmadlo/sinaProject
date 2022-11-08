@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
 import { of } from "rxjs";
 import { LoggedInGuard, PrefixRouteGuard, RoleGuard } from "./core/guards";
-import { NotificationResolver } from "./core/resolver/notification.resolver";
+import { NotificationResolver } from "./modules/main/resolver/notification.resolver";
 import { TreeResolver } from "./core/resolver/tree.resolver";
 
 export const appRoutes: Routes = [

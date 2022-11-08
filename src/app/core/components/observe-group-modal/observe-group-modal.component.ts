@@ -74,7 +74,6 @@ export class ObserveGroupModalComponent {
         });
       });
     });
-    console.log("listOfUsers", this.listOfUsers);
   }
 
   ngOnInit(): void {}

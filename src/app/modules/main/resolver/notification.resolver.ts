@@ -5,8 +5,9 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { SliderService } from 'src/app/core/services';
 import { IGroupMessage } from 'src/shared/common/src/lib/interfaces';
-import { SliderService } from '../services/slider.service';
+
 
 
 @Injectable({

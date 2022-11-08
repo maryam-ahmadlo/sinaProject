@@ -226,8 +226,6 @@ export class UploadFileComponent implements OnInit {
     formData.append("content", this.fileC);
 
     this.uploadFileService.createRules(formData).subscribe(() => handleRes());
-    console.log("form", formData);
-
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
     };

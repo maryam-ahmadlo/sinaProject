@@ -15,10 +15,7 @@ export class CreateBookmarkShownModalComponent implements OnInit{
   isLoading: boolean;
   @Input() item: IBookmark;
   constructor(private modal: NzModalRef) {}
-  ngOnInit(): void {
-   console.log('bbbbbbbbbbbbb',this.item);
-   
-  }
+  ngOnInit(): void { }
 
   destroyModal(): void {
     this.modal.destroy();
