@@ -12,6 +12,7 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { NzBadgeModule } from "ng-zorro-antd/badge";
+import { NzIconModule } from "ng-zorro-antd/icon";
 
 @Component({
   selector: "app-instant-notification",
@@ -22,6 +23,7 @@ import { NzBadgeModule } from "ng-zorro-antd/badge";
     NzButtonModule,
     FlexLayoutModule,
     NzBadgeModule,
+    NzIconModule
   ],
   templateUrl: "./instant-notification.component.html",
   styleUrls: ["./instant-notification.component.css"],

@@ -1,0 +1,1 @@
+export * from './private-cartable-admin-draft.resolver';

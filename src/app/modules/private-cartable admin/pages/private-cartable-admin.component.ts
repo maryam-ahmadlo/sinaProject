@@ -11,6 +11,7 @@ import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
 import { ObserveGroupModalComponent } from "@core/components/observe-group-modal/observe-group-modal.component";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-private-cartable-admin",
@@ -32,7 +33,12 @@ import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
   ],
 })
 export class PrivateCartableAdminComponent implements OnInit {
-  constructor(private modalService: NzModalService) {}
+  constructor(private modalService: NzModalService,private activatedRoute:ActivatedRoute) {
+    this.activatedRoute.data.subscribe(({drafts})=>{
+      console.log(drafts);
+      
+    });
+  }
 
   ngOnInit(): void {}
 
