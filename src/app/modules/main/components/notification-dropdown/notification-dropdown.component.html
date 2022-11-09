@@ -5,7 +5,7 @@
       <nz-tab nzTitle="پیام های گروهی">
         <nz-table
           class="table-responsive"
-          #table
+          #GroupTable
           nzShowSizeChanger
           #rowSelectionTable
           [nzData]="listOfMessages"
@@ -19,7 +19,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of table.data; let i = index">
+            <tr *ngFor="let data of GroupTable.data; let i = index">
               <td>{{ i + 1 }}</td>
 
               <td>
@@ -63,32 +63,55 @@
       <nz-tab nzTitle="پیام های فوری">
         <nz-table
           class="table-responsive"
-          #table
+          #UrgentTable
           nzShowSizeChanger
           #rowSelectionTable
-          [nzData]="listOfMessages"
+          [nzData]="listOfUrgentMessages"
         >
           <thead>
             <tr>
               <th>ردیف</th>
-              <th>نام</th>
+              <th>متن پیام</th>
+              <th>وضعیت</th>
               <th>عملیات</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of table.data; let i = index">
+            <tr *ngFor="let data of UrgentTable.data; let i = index">
               <td>{{ i + 1 }}</td>
 
               <td>
                 {{ data.messageText }}
               </td>
+
               <td>
-                <button
-                  nz-button
-                  style="background-color: #cd201f; color: #fff"
+                <nz-tag
+                  nzColor="#cd201f"
+                  *ngIf="data.seenDate === null"
                 >
-                  حذف
-                </button>
+                  <span>خوانده نشده</span>
+                </nz-tag>
+
+                
+                  <nz-tag nzColor="#55acee" *ngIf="data.seenDate !== null">
+                    <span>خوانده شده</span>
+                  </nz-tag>
+              
+              </td>
+
+              <td>
+                <a nz-dropdown [nzDropdownMenu]="menu" nz-button nzType="link">
+                  <i nz-icon nzType="down"></i>
+                  عملیات
+                </a>
+
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                  <ul nz-menu nzSelectable>
+                    <li nz-menu-item (click)="createNotificationModal(data)">
+                      مشاهده
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
               </td>
             </tr>
           </tbody>

@@ -225,9 +225,19 @@ export class UploadFileComponent implements OnInit {
 
   onFileSelected(event) {
     const file: File = event.target.files[0];
-
+    const formData = new FormData();
     if (file) {
-      this.fileC = file;
+      console.log('file',file);
+      
+      if (this.uploadFileForm.value.title) {
+        formData.append("title", JSON.stringify(this.uploadFileForm.value));
+        formData.append("content", this.fileC);
+        this.uploadFileService.uploadFile(formData).subscribe((res)=>{
+          console.log('rrrrrrrrr',res);
+          
+        });
+      }
+      // this.fileC = file;
     }
   }
 

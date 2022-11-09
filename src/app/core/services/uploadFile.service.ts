@@ -15,6 +15,16 @@ export class UploadFileService {
       }),
     });
   }
+
+  uploadFile(body){
+    return this. httpClient.post('/url/documents/create',body,{
+      headers: new HttpHeaders({
+        accept: "*/*",
+        "Content-Type":"multipart/form-data",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4="
+      }),
+    })
+  }
 }
 
 
