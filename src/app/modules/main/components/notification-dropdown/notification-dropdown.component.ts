@@ -87,7 +87,6 @@ export class NotificationDropdownComponent {
             this.messageCount++;
           }
         });
-      console.log(this.listOfUrgentMessages);
       
       });
   }

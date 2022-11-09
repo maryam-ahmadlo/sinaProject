@@ -84,7 +84,6 @@ export class UploadFileComponent implements OnInit {
   uploadFileForm: FormGroup<IUploadFileForm> = new FormGroup({
     title: new FormControl(null, Validators.required),
     subject: new FormControl(null, Validators.required),
-    
     documentUuid: new FormControl(null, Validators.required),
     text: new FormControl(null, Validators.required),
     categoryId: new FormControl(null, Validators.required),
@@ -104,8 +103,6 @@ export class UploadFileComponent implements OnInit {
   secondLevel: IFlatNode[] = [];
   thirdLevel: IFlatNode[] = [];
   level = 0;
-
-  fileC: File;
 
   constructor(
     private modalService: NzModalService,
@@ -151,7 +148,6 @@ export class UploadFileComponent implements OnInit {
     this.stateService
       .select((state) => state.me)
       .subscribe((user) => {
-        console.log(user);
         this.uploadFileForm.patchValue({ notifierId: user.id });
       });
   }
@@ -209,31 +205,28 @@ export class UploadFileComponent implements OnInit {
     });
   }
 
-  onSubmit = () => {
-
-
-    this.uploadFileService.createRules(JSON.stringify(this.uploadFileForm.value)).subscribe(() => handleRes());
-    const handleRes = () => {
-      this.nzMessage.success("عملیات با موفقیت انجام شد");
-    };
-  };
-
   onFileSelected(event) {
     const file: File = event.target.files[0];
     const formData = new FormData();
     if (file) {
       if (this.uploadFileForm.value.title) {
-        formData.append("title", (this.uploadFileForm.value.title));
+        formData.append("title", this.uploadFileForm.value.title);
         formData.append("content", file);
-        this.uploadFileService.uploadFile(formData).subscribe((res)=>{
-      
-          this.uploadFileForm.patchValue({"documentUuid":res['uuid']});
-          console.log(this.uploadFileForm.value);
-          
+        this.uploadFileService.uploadFile(formData).subscribe((res) => {
+          this.uploadFileForm.patchValue({ documentUuid: res["uuid"] });
         });
       }
     }
   }
+
+  onSubmit = () => {
+    this.uploadFileService
+      .createRules(this.uploadFileForm.value)
+      .subscribe(() => handleRes());
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+    };
+  };
 
   createAddFileModalComponent() {
     this.modalService.create({

@@ -101,7 +101,6 @@ export class LoginFormComponent implements OnInit {
     //   this.stateService.setState("signedIn", true);
     //   this.router.navigate(["/"]);
     // });
-    // console.log('res',res);
 
     // const { token, refreshToken, tokenExpirationInstant, user } = res;
     // localStorage.setItem('token', token);

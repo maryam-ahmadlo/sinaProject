@@ -87,7 +87,7 @@ export class SearchLayoutComponent implements OnInit {
     this.showResult = this.simpleSearchForm.valid;
     this.searchService
       .simpleSearch(this.simpleSearchForm.get("name").value)
-      .subscribe((r) => console.log("simple", r));
+      .subscribe();
   }
   onAdvancedSubmit() {
     this.searchItem = {

@@ -34,8 +34,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class PrivateCartableAdminComponent implements OnInit {
   constructor(private modalService: NzModalService,private activatedRoute:ActivatedRoute) {
-    this.activatedRoute.data.subscribe(({drafts})=>{
-      console.log(drafts);
+    this.activatedRoute.data.subscribe(({})=>{
       
     });
   }
@@ -85,6 +84,6 @@ export class PrivateCartableAdminComponent implements OnInit {
   addBookmark() {
     // this.treeService
     //   .addBookMark("f1cc7966-d1de-4b9e-9331-453d013bed24")
-    //   .subscribe((res) => console.log(res));
+    //   .subscribe();
   }
 }

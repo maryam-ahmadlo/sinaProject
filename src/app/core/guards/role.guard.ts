@@ -15,8 +15,7 @@ export class RoleGuard implements CanActivate {
   constructor(private stateService: StateService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    // const allowedRoles: string[] = route.data['allowedRoles'] || [];
-    // console.log('aaa',allowedRoles);
+
     
     const allowedRoles: string[] = ["ROLE_ADMIN", "ROLE_USER"];
     if (allowedRoles.some((ar) => ar === "ROLE_ADMIN")) {

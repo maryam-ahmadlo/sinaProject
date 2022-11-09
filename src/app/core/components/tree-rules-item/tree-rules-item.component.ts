@@ -42,12 +42,10 @@ export class TreeRulesItemComponent implements OnInit {
   addBookmark() {
     this.treeService
       .addBookMark("f1cc7966-d1de-4b9e-9331-453d013bed24")
-      .subscribe((res) => console.log(res));
+      .subscribe();
   }
   downloadPDF() {
-    this.treeService.downloadPDF("1").subscribe((res) => {
-      console.log("pdf", res);
-    });
+    this.treeService.downloadPDF("1").subscribe();
   }
   changeToExpire() {}
 

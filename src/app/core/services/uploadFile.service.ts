@@ -7,10 +7,10 @@ import { Injectable } from "@angular/core";
 export class UploadFileService {
   constructor(private httpClient: HttpClient) {}
 
-  createRules(body: any) {
-    return this.httpClient.post<any>("/url/rules/create", body, {
+  createRules(body) {
+    return this.httpClient.post("/url/rules/create", body, {
       headers: new HttpHeaders({
-        accept: "*/*",
+        accept: "application/json",
         'Content-Type': 'application/json',
         Authorization: "Basic b2ttQWRtaW46YWRtaW4="
       }),

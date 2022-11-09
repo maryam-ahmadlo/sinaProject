@@ -56,7 +56,6 @@ export class InstantNotificationComponent implements OnInit {
             this.messageCount++;
           }
         });
-        console.log(this.listOfMessages);
       });
   }
 

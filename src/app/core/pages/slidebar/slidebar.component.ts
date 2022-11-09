@@ -168,7 +168,6 @@ export class SlidebarComponent implements OnInit {
   }
 
   handleMsg(componentInstance: any) {
-    // console.log(componentInstance.Form.value);
     if (componentInstance.form.value.type === "group") {
       let jsonStr = `{"sender":"okmAdmin","messageText":"${componentInstance.form["value"].messageText}","messageReceivers":[]}`;
       let obj = JSON.parse(jsonStr);
