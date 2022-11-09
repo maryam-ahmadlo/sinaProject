@@ -14,6 +14,9 @@ import { NzTagModule } from "ng-zorro-antd/tag";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { IUrgentMessage } from "src/shared/common/src/lib/interfaces/urgentMessage";
+import * as moment from "jalali-moment";
+
 @Component({
   selector: "app-notification-dropdown",
   templateUrl: "./notification-dropdown.component.html",
@@ -37,12 +40,14 @@ export class NotificationDropdownComponent {
   data: any = [];
   listOfMessages: IGroupMessage[] = [];
   isLoading: boolean;
+  listOfUrgentMessages: IUrgentMessage[] = [];
+  messageCount: number = 0;
 
   constructor(
     private modalService: NzModalService,
     private httpClient: HttpClient,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {
     this.activatedRoute.data.subscribe(({ groupMessage }) => {
       this.listOfMessages.splice(0, this.listOfMessages.length);
@@ -56,10 +61,36 @@ export class NotificationDropdownComponent {
       } else {
         this.listOfMessages = [];
       }
+
+      
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    let time = moment().startOf("jDay").toJSON();
+
+    this.httpClient
+      .get<IUrgentMessage[]>("/url/messages/okmAdmin/instant", {
+        headers: new HttpHeaders({
+          accept: "application/json",
+          Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+        }),
+        params: {
+          date: time,
+        },
+      })
+      .subscribe((msg) => {
+        this.listOfUrgentMessages = msg;
+        msg.forEach((m) => {
+          if (m.seenDate === null) {
+            this.messageCount++;
+          }
+        });
+      console.log(this.listOfUrgentMessages);
+      
+      });
+  }
 
   createNotificationModal(item: IGroupMessage) {
     this.httpClient

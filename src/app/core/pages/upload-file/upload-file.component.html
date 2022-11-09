@@ -135,8 +135,8 @@
                 nzPlaceHolder="نوع سند"
               >
                 <nz-option
-                  *ngFor="let key of keys; index as i"
-                  [nzValue]="i + 1"
+                  *ngFor="let key of keys"
+                  [nzValue]="key"
                   [nzLabel]="documentTypeEnum[key]"
                 >
                 </nz-option>
@@ -160,8 +160,8 @@
                 nzPlaceHolder="شماره نسخه"
               >
                 <nz-option
-                  *ngFor="let keyV of keysV; index as i"
-                  [nzValue]="i + 1"
+                  *ngFor="let keyV of keysV"
+                  [nzValue]="keyV"
                   [nzLabel]="versionNumberEnum[keyV]"
                 >
                 </nz-option>
