@@ -11,6 +11,7 @@ export class UploadFileService {
     return this.httpClient.post<any>("/url/rules/create", body, {
       headers: new HttpHeaders({
         accept: "*/*",
+        'Content-Type': 'application/json',
         Authorization: "Basic b2ttQWRtaW46YWRtaW4="
       }),
     });
@@ -20,7 +21,7 @@ export class UploadFileService {
     return this. httpClient.post('/url/documents/create',body,{
       headers: new HttpHeaders({
         accept: "*/*",
-        "Content-Type":"multipart/form-data",
+        // "Content-Type":"multipart/form-data",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4="
       }),
     })

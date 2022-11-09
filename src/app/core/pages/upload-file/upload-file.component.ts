@@ -41,6 +41,7 @@ export interface IUploadFileForm {
   title: FormControl<string>;
   subject: FormControl<string>;
   text: FormControl<string>;
+  documentUuid: FormControl<string>;
   categoryId: FormControl<string>;
   documentType: FormControl<any>;
   versionNumber: FormControl<any>;
@@ -83,6 +84,8 @@ export class UploadFileComponent implements OnInit {
   uploadFileForm: FormGroup<IUploadFileForm> = new FormGroup({
     title: new FormControl(null, Validators.required),
     subject: new FormControl(null, Validators.required),
+    
+    documentUuid: new FormControl(null, Validators.required),
     text: new FormControl(null, Validators.required),
     categoryId: new FormControl(null, Validators.required),
     documentType: new FormControl(Validators.required),
@@ -207,17 +210,9 @@ export class UploadFileComponent implements OnInit {
   }
 
   onSubmit = () => {
-    const formData = new FormData();
-    formData.append(
-      "nodeRuleDto",
-      new Blob([JSON.stringify(this.uploadFileForm.value)], {
-        type: "application/json",
-      })
-    );
 
-    formData.append("content", this.fileC);
 
-    this.uploadFileService.createRules(formData).subscribe(() => handleRes());
+    this.uploadFileService.createRules(JSON.stringify(this.uploadFileForm.value)).subscribe(() => handleRes());
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
     };
@@ -227,17 +222,16 @@ export class UploadFileComponent implements OnInit {
     const file: File = event.target.files[0];
     const formData = new FormData();
     if (file) {
-      console.log('file',file);
-      
       if (this.uploadFileForm.value.title) {
-        formData.append("title", JSON.stringify(this.uploadFileForm.value));
-        formData.append("content", this.fileC);
+        formData.append("title", (this.uploadFileForm.value.title));
+        formData.append("content", file);
         this.uploadFileService.uploadFile(formData).subscribe((res)=>{
-          console.log('rrrrrrrrr',res);
+      
+          this.uploadFileForm.patchValue({"documentUuid":res['uuid']});
+          console.log(this.uploadFileForm.value);
           
         });
       }
-      // this.fileC = file;
     }
   }
 
