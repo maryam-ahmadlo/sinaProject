@@ -35,6 +35,7 @@ import { Observable, finalize } from "rxjs";
 import { map } from "rxjs/operators";
 import { TreeService } from "../../services/tree.service";
 import { IFlatNode, ITreeNode } from "src/shared/common/src/lib/interfaces";
+import { StateService } from "../../services";
 
 export interface IUploadFileForm {
   title: FormControl<string>;
@@ -46,16 +47,9 @@ export interface IUploadFileForm {
   branchName: FormControl<string>;
   ruleNumber: FormControl<string>;
   keywords: FormControl<string[]>;
+  notifierId: FormControl<string>;
 }
 
-export interface IFileName {
-  lastModified: FormControl<any>;
-  lastModifiedDate: FormControl<any>;
-  name: FormControl<string>;
-  size: FormControl<number>;
-  type: FormControl<any>;
-  webkitRelativePath: FormControl<any>;
-}
 @Component({
   selector: "app-upload-file",
   templateUrl: "./upload-file.component.html",
@@ -96,23 +90,13 @@ export class UploadFileComponent implements OnInit {
     branchName: new FormControl(null, Validators.required),
     ruleNumber: new FormControl(null, Validators.required),
     keywords: new FormControl(null, Validators.required),
+    notifierId: new FormControl(null),
   });
 
   documentTypeEnum = DocumentTypeEnum;
   keys = [];
-
   versionNumberEnum = VersionNumberEnum;
   keysV = [];
-
-  fileName: FormGroup<IFileName> = new FormGroup({
-    lastModified: new FormControl(null),
-    lastModifiedDate: new FormControl(null),
-    name: new FormControl(null),
-    size: new FormControl(null),
-    type: new FormControl(null),
-    webkitRelativePath: new FormControl(null),
-  });
-
   treeData: IFlatNode[] = [];
   secondLevel: IFlatNode[] = [];
   thirdLevel: IFlatNode[] = [];
@@ -125,8 +109,8 @@ export class UploadFileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private uploadFileService: UploadFileService,
     private nzMessage: NzMessageService,
-    private http: HttpClient,
-    private treeService: TreeService
+    private treeService: TreeService,
+    private stateService: StateService
   ) {
     this.treeService.getRoot().subscribe((root) => {
       if (root["folder"].length > 1) {
@@ -160,7 +144,14 @@ export class UploadFileComponent implements OnInit {
       .patchValue(this.activatedRoute.snapshot.params["id"]);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.stateService
+      .select((state) => state.me)
+      .subscribe((user) => {
+        console.log(user);
+        this.uploadFileForm.patchValue({ notifierId: user.id });
+      });
+  }
 
   getChildren(id) {
     this.treeService.getChildren(id).subscribe((second) => {
@@ -214,6 +205,7 @@ export class UploadFileComponent implements OnInit {
       this.level++;
     });
   }
+
   onSubmit = () => {
     const formData = new FormData();
     formData.append(
@@ -236,8 +228,6 @@ export class UploadFileComponent implements OnInit {
 
     if (file) {
       this.fileC = file;
-      const formData = new FormData();
-      formData.append("content", file);
     }
   }
 
