@@ -223,7 +223,7 @@
                   <button
                     nz-button
                     nzType="primary"
-                    (click)="createAddFileModalComponent()"
+                    (click)="createSearchFileModalComponent()"
                   >
                     افزودن
                   </button>
@@ -239,7 +239,7 @@
                   <button
                     nz-button
                     nzType="primary"
-                    (click)="createAddFileModalComponent()"
+                    (click)="createSearchFileModalComponent()"
                   >
                     افزودن
                   </button>
@@ -254,7 +254,7 @@
                   <button
                     nz-button
                     nzType="primary"
-                    (click)="createAddFileModalComponent()"
+                    (click)="createSearchFileModalComponent()"
                   >
                     افزودن
                   </button>
@@ -309,19 +309,26 @@
           </nz-form-item>
         </div>
         <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+          <button nz-button nzType="primary" (click)="addKeyword()">
+            افزودن
+          </button>
           <button
             nz-button
             nzType="primary"
-            (click)="createAddFileModalComponent()"
+            (click)="createSearchFileModalComponent()"
           >
-            افزودن
+            جستجو
           </button>
 
           <button nz-button nzType="default">حذف</button>
 
           <button nz-button nzType="primary">به روز رسانی</button>
         </div>
-        <nz-table #basicTable class="table-responsive">
+        <nz-table
+          #keywordTable
+          class="table-responsive"
+          [nzData]="keywordsArray"
+        >
           <thead>
             <tr>
               <th>ردیف</th>
@@ -330,15 +337,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of basicTable.data">
-              <td>{{ data.name }}</td>
-              <td>{{ data.age }}</td>
-              <td>{{ data.address }}</td>
-              <td>
+            <tr *ngFor="let data of keywordTable.data; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td></td>
+              <td>{{ data }}</td>
+
+              <!-- <td>
                 <a>Action 一 {{ data.name }}</a>
                 <nz-divider nzType="vertical"></nz-divider>
                 <a>Delete</a>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </nz-table>
