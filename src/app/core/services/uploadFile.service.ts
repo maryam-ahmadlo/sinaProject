@@ -10,22 +10,19 @@ export class UploadFileService {
   createRules(body) {
     return this.httpClient.post("/url/rules/create", body, {
       headers: new HttpHeaders({
-        accept: "application/json",
-        'Content-Type': 'application/json',
-        Authorization: "Basic b2ttQWRtaW46YWRtaW4="
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });
   }
 
-  uploadFile(body){
-    return this. httpClient.post('/url/documents/create',body,{
+  uploadFile(body) {
+    return this.httpClient.post("/url/documents/create", body, {
       headers: new HttpHeaders({
         accept: "*/*",
-        // "Content-Type":"multipart/form-data",
-        Authorization: "Basic b2ttQWRtaW46YWRtaW4="
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
-    })
+    });
   }
 }
-
-

@@ -344,7 +344,14 @@
         </nz-table>
 
         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end">
-          <button nz-button nzType="primary" (click)="onSubmit()">تایید</button>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="onSubmit()"
+            [disabled]="!uploadFileForm.valid"
+          >
+            تایید
+          </button>
           <button nz-button nzType="default" [routerLink]="['/', 'customer']">
             انصراف
           </button>

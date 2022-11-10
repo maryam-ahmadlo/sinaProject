@@ -11,7 +11,12 @@ import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
 import { ObserveGroupModalComponent } from "@core/components/observe-group-modal/observe-group-modal.component";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
+import { NzDropDownModule } from "ng-zorro-antd/dropdown";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { IDraftRule } from "src/shared/common/src/lib/interfaces";
+
+
 
 @Component({
   selector: "app-private-cartable-admin",
@@ -29,12 +34,18 @@ import { ActivatedRoute } from "@angular/router";
     NzBreadCrumbModule,
     NzTabsModule,
     NzPageHeaderModule,
-    NzCardModule
+    NzCardModule,
+    NzIconModule,
+    NzDropDownModule,
+    RouterModule
   ],
 })
 export class PrivateCartableAdminComponent implements OnInit {
+  draftsDocs :IDraftRule[]=[];
   constructor(private modalService: NzModalService,private activatedRoute:ActivatedRoute) {
-    this.activatedRoute.data.subscribe(({})=>{
+    this.activatedRoute.data.subscribe(({drafts})=>{
+      this.draftsDocs=drafts;
+      console.log(drafts);
       
     });
   }
@@ -80,6 +91,8 @@ export class PrivateCartableAdminComponent implements OnInit {
     });
   }
   handleOk(componentInstance: any) {}
+
+
 
   addBookmark() {
     // this.treeService
