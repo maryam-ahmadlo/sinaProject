@@ -1,16 +1,22 @@
 import { Routes } from "@angular/router";
 import { PrivateCartableAdminDraftResolver } from "./resolvers";
 
-
 export const privateCartanleAdminRoutes: Routes = [
-    {
-        path: "",
-        loadComponent: () =>
-          import("./pages/private-cartable-admin.component").then(
-            (m) => m.PrivateCartableAdminComponent
-          ),
-          resolve:{
-            drafts:PrivateCartableAdminDraftResolver
-          }
-    }
+  {
+    path: "",
+    loadComponent: () =>
+      import("./pages/private-cartable-admin.component").then(
+        (m) => m.PrivateCartableAdminComponent
+      ),
+    resolve: {
+      drafts: PrivateCartableAdminDraftResolver,
+    },
+  },
+  {
+    path: "showDetail/:id",
+    loadComponent: () =>
+      import("./components/create-show-draft/create-show-draft.component").then(
+        (m) => m.CreateShowDraftComponent
+      ),
+  },
 ];

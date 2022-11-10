@@ -84,14 +84,14 @@ export class UploadFileComponent implements OnInit {
   uploadFileForm: FormGroup<IUploadFileForm> = new FormGroup({
     title: new FormControl(null, Validators.required),
     subject: new FormControl(null, Validators.required),
-    documentUuid: new FormControl(null, Validators.required),
+    documentUuid: new FormControl(null),
     text: new FormControl(null, Validators.required),
     categoryId: new FormControl(null, Validators.required),
     documentType: new FormControl(Validators.required),
     versionNumber: new FormControl(Validators.required),
     branchName: new FormControl(null, Validators.required),
     ruleNumber: new FormControl(null, Validators.required),
-    keywords: new FormControl(null, Validators.required),
+    keywords: new FormControl([]),
     notifierId: new FormControl(null),
   });
 
@@ -103,6 +103,7 @@ export class UploadFileComponent implements OnInit {
   secondLevel: IFlatNode[] = [];
   thirdLevel: IFlatNode[] = [];
   level = 0;
+  formData = new FormData();
 
   constructor(
     private modalService: NzModalService,
@@ -110,7 +111,8 @@ export class UploadFileComponent implements OnInit {
     private uploadFileService: UploadFileService,
     private nzMessage: NzMessageService,
     private treeService: TreeService,
-    private stateService: StateService
+    private stateService: StateService,
+    private router: Router
   ) {
     this.treeService.getRoot().subscribe((root) => {
       if (root["folder"].length > 1) {
@@ -207,24 +209,27 @@ export class UploadFileComponent implements OnInit {
 
   onFileSelected(event) {
     const file: File = event.target.files[0];
-    const formData = new FormData();
+
     if (file) {
       if (this.uploadFileForm.value.title) {
-        formData.append("title", this.uploadFileForm.value.title);
-        formData.append("content", file);
-        this.uploadFileService.uploadFile(formData).subscribe((res) => {
-          this.uploadFileForm.patchValue({ documentUuid: res["uuid"] });
-        });
+        this.formData.append("title", this.uploadFileForm.value.title);
+        this.formData.append("content", file);
       }
     }
   }
 
   onSubmit = () => {
-    this.uploadFileService
-      .createRules(this.uploadFileForm.value)
-      .subscribe(() => handleRes());
+    this.uploadFileService.uploadFile(this.formData).subscribe((res) => {
+      this.uploadFileForm.patchValue({ documentUuid: res["uuid"] });
+
+      this.uploadFileService
+        .createRules(JSON.stringify(this.uploadFileForm.value))
+        .subscribe(() => handleRes());
+    });
+
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
+      this.router.navigate(["/"]);
     };
   };
 

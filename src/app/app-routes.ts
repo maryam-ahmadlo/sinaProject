@@ -66,6 +66,7 @@ export const appRoutes: Routes = [
               import(
                 "./modules/private-cartable admin/private-cartable-admin-routes"
               ).then((m) => m.privateCartanleAdminRoutes),
+              
           },
           {
             path: "bookmarks",
