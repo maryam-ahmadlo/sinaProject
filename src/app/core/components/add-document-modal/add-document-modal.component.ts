@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NzModalModule, NzModalRef } from "ng-zorro-antd/modal";
 import { AngularFileUploaderModule } from "angular-file-uploader";
@@ -7,6 +7,9 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzDividerModule } from "ng-zorro-antd/divider";
+import { Router } from "@angular/router";
+import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
+import { UploadFileService } from "../../services/uploadFile.service";
 @Component({
   selector: "app-add-document-modal",
   templateUrl: "./add-document-modal.component.html",
@@ -21,13 +24,21 @@ import { NzDividerModule } from "ng-zorro-antd/divider";
     NzCardModule,
     NzDividerModule,
     NzTableModule,
+    NzMessageModule,
   ],
 })
 export class AddDocumentModalComponent {
   isVisible = false;
   isConfirmLoading = false;
+  formData = new FormData();
+  @Input() item: string;
 
-  constructor(private modal: NzModalRef) {}
+  constructor(
+    private modal: NzModalRef,
+    private uploadFileService: UploadFileService,
+    private nzMessage: NzMessageService,
+    private router: Router
+  ) {}
 
   destroyModal(): void {
     this.modal.destroy();
@@ -39,18 +50,19 @@ export class AddDocumentModalComponent {
       this.isConfirmLoading = false;
     }, 1000);
   }
-  afuConfig = {
-    uploadAPI: {
-      url: "",
-    },
-    replaceTexts: {
-      selectFileBtn: "انتخاب فایل",
-      resetBtn: "بازنشانی",
-      uploadBtn: "افزودن به گرید",
-      attachPinBtn: "Attach Files...",
-      afterUploadMsg_success: "با موفقیت آپلود شد",
-      afterUploadMsg_error: "آپلود نشد",
-      sizeLimit: "محدودیت سایز",
-    },
-  };
+  onFileSelected(event) {
+    this.isConfirmLoading = true;
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formData.append("content", file);
+    }
+    this.uploadFileService
+      .additonalDocument(this.item, this.formData)
+      .subscribe(() => handleRes());
+
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      this.router.navigate(["/"]);
+    };
+  }
 }

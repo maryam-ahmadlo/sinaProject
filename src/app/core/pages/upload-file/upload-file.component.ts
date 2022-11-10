@@ -26,15 +26,11 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { CreateAddFileModalComponent } from "@core/components/index";
 import { UploadFileService } from "../../services/uploadFile.service";
 import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
-import { NzUploadFile } from "ng-zorro-antd/upload";
 import { NzUploadModule } from "ng-zorro-antd/upload";
 import { DocumentTypeEnum } from "src/shared/common/src/lib/enums";
 import { VersionNumberEnum } from "src/shared/common/src/lib/enums";
-import { HttpClient } from "@angular/common/http";
-import { Observable, finalize } from "rxjs";
-import { map } from "rxjs/operators";
 import { TreeService } from "../../services/tree.service";
-import { IFlatNode, ITreeNode } from "src/shared/common/src/lib/interfaces";
+import { IFlatNode } from "src/shared/common/src/lib/interfaces";
 import { StateService } from "../../services";
 
 export interface IUploadFileForm {
@@ -221,7 +217,6 @@ export class UploadFileComponent implements OnInit {
   onSubmit = () => {
     this.uploadFileService.uploadFile(this.formData).subscribe((res) => {
       this.uploadFileForm.patchValue({ documentUuid: res["uuid"] });
-
       this.uploadFileService
         .createRules(JSON.stringify(this.uploadFileForm.value))
         .subscribe(() => handleRes());

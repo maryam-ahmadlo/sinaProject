@@ -25,4 +25,15 @@ export class UploadFileService {
       }),
     });
   }
+  additonalDocument(ruleId:string,body) {
+    return this.httpClient.post(`/url/rules/${ruleId}/addAdditionalDocument`, body, {
+      headers: new HttpHeaders({
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
+  }
+
+  
 }

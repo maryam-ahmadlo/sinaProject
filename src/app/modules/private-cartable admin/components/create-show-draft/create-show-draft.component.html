@@ -1,356 +1,222 @@
 <div class="advanced-container container">
-    <form nz-form [formGroup]="FileForm">
-      <div fxLayout="column" fxLayoutGap="15px">
-        <nz-card nzTitle="اطلاعات سند">
-          <div>
-            <nz-form-item fxFlex="90">
-              <nz-form-label nzRequired nzFor="title" style="display: flex"
-                >عنوان</nz-form-label
-              >
-              <nz-form-control>
-                <input
-                  nz-input
-                  nzSize="large"
-                  formControlName="title"
-                  type="text"
-                  id="title"
-                  placeholder="عنوان را وارد کنید"
-                />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div>
-            <nz-form-item fxFlex="90">
-              <nz-form-label nzRequired nzFor="subject" style="display: flex"
-                >موضوع</nz-form-label
-              >
-              <nz-form-control>
-                <input
-                  nz-input
-                  nzSize="large"
-                  formControlName="subject"
-                  type="text"
-                  id="subject"
-                  placeholder="موضوع را وارد کنید"
-                />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div>
-            <nz-form-item fxFlex="90">
-              <nz-form-label nzRequired nzFor="text" style="display: flex"
-                >متن بخشنامه</nz-form-label
-              >
-              <nz-form-control>
-                <textarea
-                  nz-input
-                  nzSize="large"
-                  formControlName="text"
-                  type="text"
-                  id="text"
-                  placeholder="متن بخشنامه را وارد کنید"
-                ></textarea>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
-            <nz-form-item fxFlex="33.3">
-              <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
-                >سطح 1</nz-form-label
-              >
-              <nz-form-control>
-                <!-- <nz-select
-                  fxFlex="100"
-                  id="categoryId"
-                  nzSize="large"
-                  formControlName="categoryId"
-                  nzPlaceHolder="سطح 1 "
-                  (ngModelChange)="getChildren($event)"
-                >
-                  <nz-option
-                    *ngFor="let node of treeData"
-                    [nzValue]="node.id"
-                    [nzLabel]="node.label"
-                  ></nz-option>
-                </nz-select> -->
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item fxFlex="33.3">
-              <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
-                >سطح 2</nz-form-label
-              >
-              <nz-form-control>
-                <!-- <nz-select
-                  fxFlex="100"
-                  id="categoryId"
-                  nzSize="large"
-                  formControlName="categoryId"
-                  nzPlaceHolder="سطح 2 "
-                  (ngModelChange)="getSecondChildren($event)"
-                >
-                  <nz-option
-                    *ngFor="let node of secondLevel"
-                    [nzValue]="node.id"
-                    [nzLabel]="node.label"
-                  ></nz-option>
-                </nz-select> -->
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item fxFlex="33.3">
-              <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
-                >سطح 3</nz-form-label
-              >
-              <nz-form-control>
-                <!-- <nz-select
-                  fxFlex="100"
-                  id="categoryId"
-                  nzSize="large"
-                  formControlName="categoryId"
-                  nzPlaceHolder="سطح 3 "
-                >
-                  <nz-option
-                    *ngFor="let node of thirdLevel"
-                    [nzValue]="node.id"
-                    [nzLabel]="node.label"
-                  ></nz-option>
-                </nz-select> -->
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
-            <nz-form-item fxFlex="33">
-              <nz-form-label
-                nzRequired
-                nzFor="documentType"
-                style="display: flex"
-              >
-                نوع سند</nz-form-label
-              >
-              <nz-form-control>
-                <!-- <nz-select
-                  fxFlex="100"
-                  nzSize="large"
-                  id="documentType"
-                  formControlName="documentType"
-                  nzPlaceHolder="نوع سند"
-                >
-                  <nz-option
-                    *ngFor="let key of keys"
-                    [nzValue]="key"
-                    [nzLabel]="documentTypeEnum[key]"
-                  >
-                  </nz-option>
-                </nz-select> -->
-              </nz-form-control>
-            </nz-form-item>
-  
-            <nz-form-item fxFlex="33">
-              <nz-form-label
-                nzRequired
-                nzFor="versionNumber"
-                style="display: flex"
-                >شماره نسخه</nz-form-label
-              >
-              <nz-form-control>
-                <!-- <nz-select
-                  fxFlex="100"
-                  id="versionNumber"
-                  nzSize="large"
-                  formControlName="versionNumber"
-                  nzPlaceHolder="شماره نسخه"
-                >
-                  <nz-option
-                    *ngFor="let keyV of keysV"
-                    [nzValue]="keyV"
-                    [nzLabel]="versionNumberEnum[keyV]"
-                  >
-                  </nz-option>
-                </nz-select> -->
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
-            <nz-form-item fxFlex="33">
-              <nz-form-label nzRequired nzFor="branchName" style="display: flex"
-                >نام شعبه</nz-form-label
-              >
-              <nz-form-control>
-                <input
-                  nz-input
-                  nzSize="large"
-                  formControlName="branchName"
-                  type="text"
-                  id="branchName"
-                  placeholder="نام شعبه را وارد کنید"
-                />
-              </nz-form-control>
-            </nz-form-item>
-  
-            <nz-form-item fxFlex="33">
-              <nz-form-label nzRequired nzFor="ruleNumber" style="display: flex"
-                >شماره سند</nz-form-label
-              >
-              <nz-form-control>
-                <input
-                  nz-input
-                  nzSize="large"
-                  formControlName="ruleNumber"
-                  type="text"
-                  id="ruleNumber"
-                  placeholder="شماره سند را وارد کنید"
-                />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </nz-card>
-  
-        <!-- <nz-card nzTitle="بارگذاری فایل">
-          <input
-            id="content"
-            type="file"
-            class="file-input"
-            (change)="onFileSelected($event)"
-            #fileUpload
-          />
-        </nz-card> -->
-<!--   
-        <nz-card nzTitle=" روابط مرتبط">
+  <form nz-form [formGroup]="FileForm">
+    <div fxLayout="column" fxLayoutGap="15px">
+      <nz-card nzTitle="اطلاعات سند">
+        <div>
           <nz-form-item fxFlex="90">
+            <nz-form-label nzRequired nzFor="title" style="display: flex"
+              >عنوان</nz-form-label
+            >
             <nz-form-control>
-              <nz-tabset nzType="line">
-                <nz-tab nzTitle="مرتبط">
-                  <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
-                    <button
-                      nz-button
-                      nzType="primary"
-                      (click)="createAddFileModalComponent()"
-                    >
-                      افزودن
-                    </button>
-  
-                    <button nz-button nzType="default">حذف</button>
-  
-                    <button nz-button nzType="primary">مشاهده</button>
-                  </div></nz-tab
-                >
-  
-                <nz-tab nzTitle="اصلاحیه">
-                  <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
-                    <button
-                      nz-button
-                      nzType="primary"
-                      (click)="createAddFileModalComponent()"
-                    >
-                      افزودن
-                    </button>
-  
-                    <button nz-button nzType="default">حذف</button>
-  
-                    <button nz-button nzType="primary">مشاهده</button>
-                  </div>
-                </nz-tab>
-                <nz-tab nzTitle="الحاقیه">
-                  <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
-                    <button
-                      nz-button
-                      nzType="primary"
-                      (click)="createAddFileModalComponent()"
-                    >
-                      افزودن
-                    </button>
-  
-                    <button nz-button nzType="default">حذف</button>
-  
-                    <button nz-button nzType="primary">مشاهده</button>
-                  </div></nz-tab
-                >
-              </nz-tabset>
-              <nz-table #basicTable class="table-responsive">
-                <thead>
-                  <tr>
-                    <th>ردیف</th>
-                    <th>انتخاب</th>
-                    <th>عنوان</th>
-                    <th>موضوع</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let data of basicTable.data">
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.age }}</td>
-                    <td>{{ data.address }}</td>
-                    <td>
-                      <a>Action 一 {{ data.name }}</a>
-                      <nz-divider nzType="vertical"></nz-divider>
-                      <a>Delete</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </nz-table>
+              <input
+                nz-input
+                readonly
+                nzSize="large"
+                formControlName="title"
+                type="text"
+                id="title"
+                placeholder="عنوان را وارد کنید"
+              />
             </nz-form-control>
           </nz-form-item>
-        </nz-card> -->
-  
-        <nz-card nzTitle="افزودن کلمات کلیدی">
-          <div>
-            <nz-form-item fxFlex="90">
-              <nz-form-label nzRequired nzFor="keywords" style="display: flex"
-                >کلمه کلیدی</nz-form-label
-              >
-              <nz-form-control>
-                <input
-                  nz-input
-                  nzSize="large"
-                  formControlName="keywords"
-                  type="text"
-                  id="keywords"
-                />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
-            <button
-              nz-button
-              nzType="primary"
-              (click)="createAddFileModalComponent()"
+        </div>
+        <div>
+          <nz-form-item fxFlex="90">
+            <nz-form-label nzRequired nzFor="subject" style="display: flex"
+              >موضوع</nz-form-label
             >
-              افزودن
-            </button>
-  
-            <button nz-button nzType="default">حذف</button>
-  
-            <button nz-button nzType="primary">به روز رسانی</button>
-          </div> -->
-          <nz-table #basicTable class="table-responsive">
-            <thead>
-              <tr>
-                <th>ردیف</th>
-                <th>انتخاب</th>
-                <th>عنوان</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let data of basicTable.data">
-                <td>{{ data.name }}</td>
-                <td>{{ data.age }}</td>
-                <td>{{ data.address }}</td>
-                <td>
-                  <a>Action 一 {{ data.name }}</a>
-                  <nz-divider nzType="vertical"></nz-divider>
-                  <a>Delete</a>
-                </td>
-              </tr>
-            </tbody>
-          </nz-table>
-  
-          <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end">
-          
-            <button nz-button nzType="default" [routerLink]="['/', 'customer']">
-              برگشت
-            </button>
-          </div>
-        </nz-card>
-      </div>
-    </form>
-  </div>
-  
+            <nz-form-control>
+              <input
+                readonly
+                nz-input
+                nzSize="large"
+                formControlName="subject"
+                type="text"
+                id="subject"
+                placeholder="موضوع را وارد کنید"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div>
+          <nz-form-item fxFlex="90">
+            <nz-form-label nzRequired nzFor="text" style="display: flex"
+              >متن بخشنامه</nz-form-label
+            >
+            <nz-form-control>
+              <textarea
+                nz-input
+                readonly
+                nzSize="large"
+                formControlName="text"
+                type="text"
+                id="text"
+                placeholder="متن بخشنامه را وارد کنید"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+          <nz-form-item fxFlex="33.3">
+            <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
+              >سطح 1</nz-form-label
+            >
+            <nz-form-control> </nz-form-control>
+          </nz-form-item>
+          <nz-form-item fxFlex="33.3">
+            <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
+              >سطح 2</nz-form-label
+            >
+            <nz-form-control> </nz-form-control>
+          </nz-form-item>
+          <nz-form-item fxFlex="33.3">
+            <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
+              >سطح 3</nz-form-label
+            >
+            <nz-form-control> </nz-form-control>
+          </nz-form-item>
+        </div> -->
+        <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+          <nz-form-item fxFlex="33">
+            <nz-form-label
+              nzRequired
+              nzFor="documentType"
+              style="display: flex"
+            >
+              نوع سند</nz-form-label
+            >
+            <nz-form-control>
+              <nz-select
+                fxFlex="100"
+                nzSize="large"
+                id="documentType"
+                formControlName="documentType"
+                nzPlaceHolder="نوع سند"
+                nzDisabled
+              >
+                <nz-option
+                  *ngFor="let key of keys"
+                  [nzValue]="key"
+                  [nzLabel]="documentTypeEnum[key]"
+                >
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item fxFlex="33">
+            <nz-form-label
+              nzRequired
+              nzFor="versionNumber"
+              style="display: flex"
+              >شماره نسخه</nz-form-label
+            >
+            <nz-form-control>
+              <nz-select
+                fxFlex="100"
+                id="versionNumber"
+                nzSize="large"
+                formControlName="versionNumber"
+                nzPlaceHolder="شماره نسخه"
+                nzDisabled
+              >
+                <nz-option
+                  *ngFor="let keyV of keysV"
+                  [nzValue]="keyV"
+                  [nzLabel]="versionNumberEnum[keyV]"
+                >
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+          <nz-form-item fxFlex="33">
+            <nz-form-label nzRequired nzFor="branchName" style="display: flex"
+              >نام شعبه</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                readonly
+                nzSize="large"
+                formControlName="branchName"
+                type="text"
+                id="branchName"
+                placeholder="نام شعبه را وارد کنید"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item fxFlex="33">
+            <nz-form-label nzRequired nzFor="ruleNumber" style="display: flex"
+              >شماره سند</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                readonly
+                nzSize="large"
+                formControlName="ruleNumber"
+                type="text"
+                id="ruleNumber"
+                placeholder="شماره سند را وارد کنید"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </nz-card>
+
+      <nz-card nzTitle="بارگذاری فایل">
+        <button id="content" (click)="onSubmit()">دانلود فایل</button>
+      </nz-card>
+
+      <!-- <nz-card nzTitle="افزودن کلمات کلیدی">
+        <div>
+          <nz-form-item fxFlex="90">
+            <nz-form-label nzRequired nzFor="keywords" style="display: flex"
+              >کلمه کلیدی</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                readonly
+                nzSize="large"
+                formControlName="keywords"
+                type="text"
+                id="keywords"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <nz-table #basicTable class="table-responsive">
+          <thead>
+            <tr>
+              <th>ردیف</th>
+              <th>انتخاب</th>
+              <th>عنوان</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTable.data">
+              <td>{{ data.name }}</td>
+              <td>{{ data.age }}</td>
+              <td>{{ data.address }}</td>
+              <td>
+                <a>Action 一 {{ data.name }}</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a>Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end">
+          <button nz-button nzType="default" [routerLink]="['/', 'customer']">
+            برگشت
+          </button>
+        </div>
+      </nz-card> -->
+    </div>
+  </form>
+</div>

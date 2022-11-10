@@ -1,7 +1,15 @@
 <div class="advanced-container">
-  <nz-card>
-    <angular-file-uploader [config]="afuConfig"> </angular-file-uploader>
+
+  <nz-card nzTitle="بارگذاری فایل">
+    <input
+      id="content"
+      type="file"
+      class="file-input"
+      (change)="onFileSelected($event)"
+      #fileUpload
+    />
   </nz-card>
+
   <div
     fxLayout="row"
     fxLayoutGap="10px"
