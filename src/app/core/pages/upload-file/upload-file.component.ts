@@ -94,7 +94,7 @@ export class UploadFileComponent implements OnInit {
     keywords: new FormControl([]),
     notifierId: new FormControl(null),
   });
-
+  keywordsArray = [];
   documentTypeEnum = DocumentTypeEnum;
   keys = [];
   versionNumberEnum = VersionNumberEnum;
@@ -219,6 +219,9 @@ export class UploadFileComponent implements OnInit {
   }
 
   onSubmit = () => {
+    this.uploadFileForm.patchValue({'keywords':this.keywordsArray});
+    console.log(JSON.stringify(this.uploadFileForm.value));
+    
     this.uploadFileService.uploadFile(this.formData).subscribe((res) => {
       this.uploadFileForm.patchValue({ documentUuid: res["uuid"] });
 
@@ -233,7 +236,15 @@ export class UploadFileComponent implements OnInit {
     };
   };
 
-  createAddFileModalComponent() {
+  addKeyword() {
+    this.keywordsArray = [
+      ...this.keywordsArray,
+      this.uploadFileForm.value.keywords,
+    ];
+
+  }
+
+  createSearchFileModalComponent() {
     this.modalService.create({
       nzTitle: "افزودن فایل ",
       nzContent: CreateAddFileModalComponent,
