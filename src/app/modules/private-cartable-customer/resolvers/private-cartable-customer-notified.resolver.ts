@@ -5,16 +5,15 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { IDraftRule } from 'src/shared/common/src/lib/interfaces';
+import { INotified } from 'src/shared/common/src/lib/interfaces';
 import { PrivateCartableCustomerService } from '../services';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PrivateCartableCustomerDraftResolver implements Resolve<IDraftRule[]> {
+export class PrivateCartableCustomerNotifiedResolver implements Resolve<INotified[]> {
   constructor(private privateCartableCustomerService:PrivateCartableCustomerService){}
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IDraftRule[]> {
-    return this.privateCartableCustomerService.getDraft();
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<INotified[]> {
+    return this.privateCartableCustomerService.getNotified();
   }
 }

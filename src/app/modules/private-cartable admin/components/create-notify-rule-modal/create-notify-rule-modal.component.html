@@ -1,16 +1,33 @@
 <form nz-form [formGroup]="form">
   <nz-card>
     <nz-form-item>
-      <nz-form-label nzRequired nzFor="text">متن بخشنامه</nz-form-label>
+      <nz-form-label nzRequired nzFor="branches">ارسال به </nz-form-label>
       <nz-form-control>
-        <textarea
-          nz-input
-          nzSize="large"
-          formControlName="notifyText"
-          type="text"
-          id="text"
-          placeholder="متن ابلاغ را وارد کنید"
-        ></textarea>
+        <nz-tree-select
+          formControlName="branches"
+          (ngModelChange)="onChange($event)"
+          [nzNodes]="nodes"
+          nzShowSearch
+          nzCheckable
+          nzPlaceHolder="لیست شعب "
+        ></nz-tree-select>
+      </nz-form-control>
+    </nz-form-item>
+  
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="messageReceivers">کاربران </nz-form-label>
+      <nz-form-control>
+        <nz-select
+          nzMode="tags"
+          nzPlaceHolder="نام کاربران"
+          formControlName="notifyReceivers"
+        >
+          <nz-option
+            *ngFor="let option of listOfUsers"
+            [nzLabel]="option.name"
+            [nzValue]="option.id"
+          ></nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
   </nz-card>

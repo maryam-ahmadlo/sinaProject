@@ -10,6 +10,7 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { ActivatedRoute } from "@angular/router";
+import { CartableDraftListComponent, CartableNotifiedListComponent } from "../components";
 
 @Component({
   selector: "app-private-cartable",
@@ -18,14 +19,11 @@ import { ActivatedRoute } from "@angular/router";
   standalone: true,
   imports: [
     CommonModule,
-    NzModalModule,
-    FlexModule,
-    NzCardModule,
-    NzButtonModule,
-    NzTableModule,
-    NzDividerModule,
     NzPageHeaderModule,
-    NzTabsModule
+    NzTabsModule,
+    CartableNotifiedListComponent,
+    CartableDraftListComponent,
+    NzCardModule
   ],
 })
 export class PrivateCartablecustomerComponent implements OnInit {
