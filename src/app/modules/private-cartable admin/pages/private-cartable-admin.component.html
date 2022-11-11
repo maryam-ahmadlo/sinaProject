@@ -74,7 +74,9 @@
                     <nz-dropdown-menu #Actionmenu="nzDropdownMenu">
                       <ul nz-menu nzSelectable>
                         <li nz-menu-item>ابلاغ</li>
-                        <li nz-menu-item>رد کردن درخواست</li>
+                        <li nz-menu-item (click)="RejectModal(data)">
+                            رد کردن درخواست
+                        </li>
                       </ul>
                     </nz-dropdown-menu>
                   </td>

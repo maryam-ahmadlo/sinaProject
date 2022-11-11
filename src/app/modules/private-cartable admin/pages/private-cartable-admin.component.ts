@@ -18,7 +18,7 @@ import { IDraftRule } from "src/shared/common/src/lib/interfaces";
 import { RejectModalComponent } from "../components/reject-modal/reject-modal.component";
 import { PrivateCartableAdminService } from "../services";
 import { finalize } from "rxjs";
-import { NzMessageService } from "ng-zorro-antd/message/message.service";
+import {  NzMessageService } from "ng-zorro-antd/message";
 
 @Component({
   selector: "app-private-cartable-admin",
@@ -100,41 +100,39 @@ export class PrivateCartableAdminComponent implements OnInit {
   }
   handleOk(componentInstance: any) {}
 
-  // RejectModal(item: string) {
-  //   this.modalService.create({
-  //     nzTitle: "رد درخواست",
-  //     nzContent: RejectModalComponent,
-  //     nzComponentParams: {
-  //       item,
-  //     },
-  //     nzFooter: [
-  //       {
-  //         label: "بستن",
-  //         onClick: (componentInstance) => componentInstance.destroyModal(),
-  //       },
-  //       {
-  //         label: "تایید",
-  //         type: "primary",
-  //         onClick: (componentInstance) =>
-  //           this.handleRejectRule(componentInstance, item),
-  //         loading: (componentInstance) => componentInstance.isLoading,
-  //       },
-  //     ],
-  //   });
-  // }
+  RejectModal(item: IDraftRule) {
+    this.modalService.create({
+      nzTitle: "رد درخواست",
+      nzContent: RejectModalComponent,
+      nzComponentParams: {
+        item,
+      },
+      nzFooter: [
+        {
+          label: "بستن",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "تایید",
+          type: "primary",
+          onClick: (componentInstance) =>
+            this.handleRejectRule(componentInstance, item),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
 
-  // handleRejectRule(componentInstance: any, item: IDraftRule) {
-  //   componentInstance.isLoading = true;
-  //   this.privateCartableAdminService
-  //     .reject(item)
-  //     .pipe(finalize(() => (componentInstance.isLoading = false)))
-  //     .subscribe(() => handleRes());
+  handleRejectRule(componentInstance: any, item: IDraftRule) {
+    componentInstance.isLoading = true;
+    this.privateCartableAdminService
+      .reject(item.uuid)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
 
-  //   const handleRes = () => {
-  //     this.nzMessage.success("عملیات با موفقیت انجام شد");
-  //     componentInstance.destroyModal();
-  //   };
-  // }
-
-
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+    };
+  }
 }
