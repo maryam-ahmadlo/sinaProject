@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FlexLayoutModule, FlexModule } from "@angular/flex-layout";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzTableModule } from "ng-zorro-antd/table";
@@ -15,8 +15,10 @@ import { ActivatedRoute, RouterModule } from "@angular/router";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { IDraftRule } from "src/shared/common/src/lib/interfaces";
-
-
+import { RejectModalComponent } from "../components/reject-modal/reject-modal.component";
+import { PrivateCartableAdminService } from "../services";
+import { finalize } from "rxjs";
+import {  NzMessageService } from "ng-zorro-antd/message";
 
 @Component({
   selector: "app-private-cartable-admin",
@@ -37,25 +39,31 @@ import { IDraftRule } from "src/shared/common/src/lib/interfaces";
     NzCardModule,
     NzIconModule,
     NzDropDownModule,
-    RouterModule
+    RouterModule,
   ],
 })
 export class PrivateCartableAdminComponent implements OnInit {
-  draftsDocs :IDraftRule[]=[];
-  constructor(private modalService: NzModalService,private activatedRoute:ActivatedRoute) {
-    this.activatedRoute.data.subscribe(({drafts})=>{
-      this.draftsDocs=drafts;
-      console.log(drafts);
-      
+  draftsDocs: IDraftRule[] = [];
+  constructor(
+    private modalService: NzModalService,
+    private activatedRoute: ActivatedRoute,
+    private privateCartableAdminService: PrivateCartableAdminService,
+    private nzMessage: NzMessageService
+  ) {
+    this.activatedRoute.data.subscribe(({ drafts }) => {
+      this.draftsDocs = drafts;
     });
   }
 
   ngOnInit(): void {}
 
-  addDocumentModal() {
+  addDocumentModal(item: string) {
     this.modalService.create({
       nzTitle: "افزودن مستندات تکمیلی",
       nzContent: AddDocumentModalComponent,
+      nzComponentParams: {
+        item,
+      },
       nzFooter: [
         {
           label: "تایید",
@@ -92,11 +100,39 @@ export class PrivateCartableAdminComponent implements OnInit {
   }
   handleOk(componentInstance: any) {}
 
+  RejectModal(item: IDraftRule) {
+    this.modalService.create({
+      nzTitle: "رد درخواست",
+      nzContent: RejectModalComponent,
+      nzComponentParams: {
+        item,
+      },
+      nzFooter: [
+        {
+          label: "بستن",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "تایید",
+          type: "primary",
+          onClick: (componentInstance) =>
+            this.handleRejectRule(componentInstance, item),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
 
+  handleRejectRule(componentInstance: any, item: IDraftRule) {
+    componentInstance.isLoading = true;
+    this.privateCartableAdminService
+      .reject(item.uuid)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
 
-  addBookmark() {
-    // this.treeService
-    //   .addBookMark("f1cc7966-d1de-4b9e-9331-453d013bed24")
-    //   .subscribe();
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+    };
   }
 }

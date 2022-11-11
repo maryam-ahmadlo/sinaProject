@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzModalModule, NzModalRef } from 'ng-zorro-antd/modal';
 import { IFlatNode } from 'src/shared/common/src/lib/interfaces';
