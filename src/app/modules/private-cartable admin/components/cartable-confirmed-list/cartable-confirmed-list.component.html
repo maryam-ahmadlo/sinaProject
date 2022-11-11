@@ -1,0 +1,111 @@
+  
+     
+        <nz-card>
+          <div fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout="column">
+              <h6>مسیر ثبت شده در درختواره</h6>
+              <nz-breadcrumb nzSeparator=">">
+                <nz-breadcrumb-item>...</nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                  <a>...</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>...</nz-breadcrumb-item>
+              </nz-breadcrumb>
+            </div>
+
+            <nz-table
+              #confirmedTable
+              class="table-responsive"
+              [nzData]="confirmedDocs"
+              (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+            >
+              <thead>
+                <tr>
+                  <th>ردیف</th>
+                  <th>عنوان</th>
+                  <th
+                    [(nzChecked)]="checked"
+                    [nzIndeterminate]="indeterminate"
+                    (nzCheckedChange)="onAllChecked($event)"
+                  >
+                    انتخاب
+                  </th>
+                  <!-- <th>جزئیات</th> -->
+                  <!-- <th>عملیات</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of confirmedTable.data; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ data.subject }}</td>
+                  <td
+                    [nzChecked]="setOfCheckedId.has(data.ruleNumber)"
+                    (nzCheckedChange)="onItemChecked(data.ruleNumber, $event)"
+                  ></td>
+                  <!-- <td>
+                      <a
+                        nz-dropdown
+                        [nzDropdownMenu]="Detailmenu"
+                        nz-button
+                        nzType="link"
+                      >
+                        <i nz-icon nzType="down"></i>
+                        جزئیات
+                      </a>
+                      <nz-dropdown-menu #Detailmenu="nzDropdownMenu">
+                        <ul nz-menu nzSelectable>
+                          <li
+                            nz-menu-item
+                            [routerLink]="[
+                              '/',
+                              'admin',
+                              'private-cartable',
+                              'showDetail',
+                              data.uuid
+                            ]"
+                          >
+                            مشاهده
+                          </li>
+                          <li nz-menu-item (click)="addDocumentModal(data.uuid)">
+                            افزودن مستندات تکمیلی
+                          </li>
+                        </ul>
+                      </nz-dropdown-menu>
+                    </td> -->
+                  <td>
+                    <!-- <a
+                        nz-dropdown
+                        [nzDropdownMenu]="Actionmenu"
+                        nz-button
+                        nzType="link"
+                      >
+                        عملیات <span nz-icon nzType="down"></span>
+                      </a>
+                      <nz-dropdown-menu #Actionmenu="nzDropdownMenu">
+                        <ul nz-menu nzSelectable>
+                         <li nz-menu-item>ابلاغ</li> 
+                          <li nz-menu-item (click)="RejectModal(data)">
+                              رد کردن درخواست
+                          </li>
+                        </ul>
+                      </nz-dropdown-menu> -->
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
+            <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+              <button
+                nz-button
+                nzType="primary"
+                [disabled]="setOfCheckedId.size === 0"
+                [nzLoading]="loading"
+                (click)="notifyRule()"
+              >
+                ابلاغ
+              </button>
+
+              <button nz-button nzType="default">انصراف</button>
+            </div>
+          </div>
+        </nz-card>
+     

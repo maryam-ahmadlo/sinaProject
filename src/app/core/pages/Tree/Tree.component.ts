@@ -93,7 +93,7 @@ export class TreeComponent implements OnInit {
           };
           this.treeData.push(json);
         });
-      } else if (tree.folder) {
+      } else if (tree.folder.length===1) {
         let json = {
           path: tree.folder.path,
           id: tree.folder.uuid,

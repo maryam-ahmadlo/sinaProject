@@ -5,15 +5,15 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { IDraftRule } from 'src/shared/common/src/lib/interfaces';
+import { IConfirmed } from 'src/shared/common/src/lib/interfaces/confirmed';
 import { PrivateCartableAdminService } from '../services';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PrivateCartableAdminDraftResolver implements Resolve<IDraftRule[]> {
+export class PrivateCartableAdminNotifyResolver implements Resolve<IConfirmed[]> {
   constructor(private privateCartableAdminService:PrivateCartableAdminService){}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IDraftRule[]> {
-    return this.privateCartableAdminService.getDraft();
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IConfirmed[]> {
+    return this.privateCartableAdminService.getConfirmed();
   }
 }
