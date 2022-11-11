@@ -9,24 +9,43 @@ import { IConfirmed } from "src/shared/common/src/lib/interfaces/confirmed";
 export class PrivateCartableAdminService {
   constructor(private httpClient: HttpClient) {}
   getDraft() {
-    return this.httpClient.get<IDraftRule[]>("/url/rules/draft");
+    return this.httpClient.get<IDraftRule[]>("/url/rules/draft", {
+      headers: new HttpHeaders({
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
   }
 
   showDetail(uuid: string) {
-    return this.httpClient.get(`/url/rules/${uuid}`);
+    return this.httpClient.get(`/url/rules/${uuid}`, {
+      headers: new HttpHeaders({
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
   }
 
   getContent(uuid: string) {
-    return this.httpClient.get(`/url/documents/getContent/${uuid}`);
+    return this.httpClient.get(`/url/documents/getContent/${uuid}`, {
+      headers: new HttpHeaders({
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
   }
 
-  getConfirmed(){
+  getConfirmed() {
     return this.httpClient.get<IConfirmed[]>(`/url/rules/confirmed`, {
       headers: new HttpHeaders({
         accept: "*/*",
         "Content-Type": "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      })})
+      }),
+    });
   }
 
   reject(uuid: string) {
@@ -38,7 +57,13 @@ export class PrivateCartableAdminService {
       }),
     });
   }
-  notify(uuid:string,body){
-    return this.httpClient.put(`/url/rules/${uuid}/notify`,body)
+  notify(uuid: string, body) {
+    return this.httpClient.put(`/url/rules/${uuid}/notify`, body, {
+      headers: new HttpHeaders({
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
   }
 }

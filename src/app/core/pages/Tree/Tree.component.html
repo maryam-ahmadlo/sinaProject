@@ -34,6 +34,7 @@
         nz-dropdown
         [nzDropdownMenu]="menu"
         nzTrigger="click"
+        (click)="getNodeContent(node.id)"
         [routerLink]="['/', 'customer', 'rules', 'detail', node.id]"
       >
         <span nz-icon nzType="setting" nzTheme="outline"></span>

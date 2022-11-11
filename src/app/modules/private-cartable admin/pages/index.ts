@@ -1,1 +1,1 @@
-export * from './private-cartable-admin.component';
+export * from './private-cartable-admin/private-cartable-admin.component';

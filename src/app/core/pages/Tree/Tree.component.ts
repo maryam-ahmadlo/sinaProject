@@ -64,7 +64,7 @@ import {
     ReactiveFormsModule,
   ],
 })
-export class TreeComponent implements OnInit {
+export class TreeComponent{
   treeData: IFlatNode[] = [];
   form: FormGroup<{ searchNode: FormControl<string> }> = new FormGroup({
     searchNode: new FormControl(null, Validators.required),
@@ -107,8 +107,10 @@ export class TreeComponent implements OnInit {
       }
     });
   }
-  ngOnInit(): void {}
-
+ 
+  getNodeContent(nodeId:string){
+    
+  }
   onSearchSubmit() {}
 
   treeControl = new FlatTreeControl<IFlatNode>(

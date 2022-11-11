@@ -56,18 +56,7 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     type: new FormControl(null, Validators.required)
   });
 
-  // urgentForm: FormGroup<{
-  //   messageText: FormControl<string>;
-  //   branches: FormControl<string[]>;
-  //   messageReceivers: FormControl<string[]>;
-  // }> = new FormGroup({
-  //   messageText: new FormControl(
-  //     { value: "", disabled: false },
-  //     Validators.required
-  //   ),
-  //   branches: new FormControl(null, [Validators.required]),
-  //   messageReceivers: new FormControl(null, [Validators.required]),
-  // });
+
   nodes: any = [];
 
   constructor(

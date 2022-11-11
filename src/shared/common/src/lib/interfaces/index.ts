@@ -7,3 +7,6 @@ export * from './group-message';
 export * from './user';
 export * from './document';
 export * from './draft';
+export * from './notified';
+export * from './confirmed';
+

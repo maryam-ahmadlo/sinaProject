@@ -7,8 +7,8 @@ import { IDraftRule } from "src/shared/common/src/lib/interfaces";
 
 import { IConfirmed } from "src/shared/common/src/lib/interfaces/confirmed";
 
-import { CartableDraftListComponent } from "../components/cartable-draft-list/cartable-draft-list.component";
-import { CartableConfirmedListComponent } from "../components/cartable-confirmed-list/cartable-confirmed-list.component";
+import { CartableDraftListComponent } from "../../components/cartable-draft-list/cartable-draft-list.component";
+import { CartableConfirmedListComponent } from "../../components/cartable-confirmed-list/cartable-confirmed-list.component";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 

@@ -50,14 +50,15 @@
     </nz-form-control>
   </nz-form-item>
 
-  <!-- <nz-form-item>
+  <nz-form-item>
     <nz-form-label nzRequired nzFor="">دسترسی </nz-form-label>
     <nz-form-control>
       <nz-select
         nzMode="tags"
         nzPlaceHolder="انتخاب از لیست دسترسی ها"
-        formControlName="roles"
+        
       >
+      <!-- formControlName="roles" -->
         <nz-option
           *ngFor="let option of listOfRoles"
           [nzLabel]="option.label"
@@ -65,5 +66,5 @@
         ></nz-option>
       </nz-select>
     </nz-form-control>
-  </nz-form-item> -->
+  </nz-form-item>
 </form>

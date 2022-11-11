@@ -5,7 +5,7 @@ export const privateCartanleAdminRoutes: Routes = [
   {
     path: "",
     loadComponent: () =>
-      import("./pages/private-cartable-admin.component").then(
+      import("./pages/private-cartable-admin/private-cartable-admin.component").then(
         (m) => m.PrivateCartableAdminComponent
       ),
     resolve: {
