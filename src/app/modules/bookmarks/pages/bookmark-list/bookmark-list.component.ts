@@ -51,7 +51,7 @@ export class BookmarkListComponent implements OnInit {
       this.data=[];
       if (bookmark['bookmark'] && bookmark['bookmark'].length > 1) {
         this.data = bookmark['bookmark'];
-      } else if (bookmark['bookmark']) {
+      } else if (bookmark['bookmark'].length===1) {
         this.data.push(bookmark['bookmark']);
       }else{
         this.data=[];

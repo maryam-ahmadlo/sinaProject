@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { PrivateCartableAdminDraftResolver } from "./resolvers";
+import { PrivateCartableAdminDraftResolver, PrivateCartableAdminNotifyResolver } from "./resolvers";
 
 export const privateCartanleAdminRoutes: Routes = [
   {
@@ -9,7 +9,8 @@ export const privateCartanleAdminRoutes: Routes = [
         (m) => m.PrivateCartableAdminComponent
       ),
     resolve: {
-      drafts: PrivateCartableAdminDraftResolver,
+      // drafts: PrivateCartableAdminDraftResolver,
+      confirmed: PrivateCartableAdminNotifyResolver
     },
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
   },

@@ -51,7 +51,7 @@ export class UserManagementListComponent implements OnInit {
       this.listOfUsers=[];
       if(user && user.length>1){
       this.listOfUsers = user;
-      }else if(user){
+      }else if(user.length===1){
         this.listOfUsers.push(user);
       }else{
         this.listOfUsers=[];

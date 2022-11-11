@@ -1,0 +1,17 @@
+<form nz-form [formGroup]="form">
+  <nz-card>
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="text">متن بخشنامه</nz-form-label>
+      <nz-form-control>
+        <textarea
+          nz-input
+          nzSize="large"
+          formControlName="notifyText"
+          type="text"
+          id="text"
+          placeholder="متن ابلاغ را وارد کنید"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </nz-card>
+</form>
