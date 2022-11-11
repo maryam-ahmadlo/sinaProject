@@ -51,7 +51,15 @@ export class PrivateCartableAdminComponent implements OnInit {
     private nzMessage: NzMessageService
   ) {
     this.activatedRoute.data.subscribe(({ drafts }) => {
-      this.draftsDocs = drafts;
+      this.draftsDocs=[];
+      if (drafts && drafts.length > 1) {
+        this.draftsDocs = drafts;
+      } else if (drafts) {
+        this.draftsDocs.push(drafts);
+      }else{
+        this.draftsDocs=[];
+      }
+      this.draftsDocs.push(drafts);
     });
   }
 

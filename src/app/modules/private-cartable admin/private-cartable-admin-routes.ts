@@ -11,6 +11,7 @@ export const privateCartanleAdminRoutes: Routes = [
     resolve: {
       drafts: PrivateCartableAdminDraftResolver,
     },
+    runGuardsAndResolvers: "paramsOrQueryParamsChange",
   },
   {
     path: "showDetail/:id",

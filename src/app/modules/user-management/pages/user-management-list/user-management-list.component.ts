@@ -49,7 +49,7 @@ export class UserManagementListComponent implements OnInit {
   ) {
     this.activatedRoute.data.subscribe(({ user }) => {
       this.listOfUsers=[];
-      if(user.length>1){
+      if(user && user.length>1){
       this.listOfUsers = user;
       }else if(user){
         this.listOfUsers.push(user);
