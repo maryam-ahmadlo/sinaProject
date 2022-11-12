@@ -44,11 +44,9 @@ export class CartableDraftListComponent {
   ) {
     this.activatedRoute.data.subscribe(({ drafts }) => {
       this.draftsDocs = [];
-      if (drafts && drafts.length > 1) {
+      if (drafts) {
         this.draftsDocs = drafts;
-      } else if (drafts.length === 1) {
-        this.draftsDocs.push(drafts);
-      } else {
+      }else {
         this.draftsDocs = [];
       }
     });
