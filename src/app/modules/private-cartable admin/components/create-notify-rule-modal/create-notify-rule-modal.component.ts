@@ -69,7 +69,9 @@ export class CreateNotifyRuleModalComponent {
   //   $event.forEach((r) => {
   //     r.roles.forEach((user) => {
   //       user.users.forEach((user) => {
-  //         this.listOfUsers.push(user);
+  //          if (!this.listOfUsers.includes(user)) {
+  //   this.listOfUsers.push(user);
+  // }
   //       });
   //     });
   //   });

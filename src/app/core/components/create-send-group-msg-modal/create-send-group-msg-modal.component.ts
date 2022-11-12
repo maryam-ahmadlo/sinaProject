@@ -45,7 +45,7 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     messageText: FormControl<string>;
     branches: FormControl<string[]>;
     messageReceivers: FormControl<string[]>;
-    type:FormControl<string>;
+    type: FormControl<string>;
   }> = new FormGroup({
     messageText: new FormControl(
       { value: "", disabled: false },
@@ -53,9 +53,8 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     ),
     branches: new FormControl(null, [Validators.required]),
     messageReceivers: new FormControl(null, [Validators.required]),
-    type: new FormControl(null, Validators.required)
+    type: new FormControl(null, Validators.required),
   });
-
 
   nodes: any = [];
 
@@ -93,14 +92,16 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     $event.forEach((r) => {
       r.roles.forEach((user) => {
         user.users.forEach((user) => {
-          this.listOfUsers.push(user);
+          if (!this.listOfUsers.includes(user)) {
+            this.listOfUsers.push(user);
+          }
         });
       });
     });
   }
 
   ngOnInit(): void {
-    this.form.get('type').setValue('group');
+    this.form.get("type").setValue("group");
     // this.editor = new Editor();
   }
 
@@ -124,7 +125,7 @@ export class CreateSendGroupMsgModalComponent implements OnInit {
     // this.editor.destroy();
   }
 
-  formType(value:string){
-    this.form.get('type').setValue(value);
+  formType(value: string) {
+    this.form.get("type").setValue(value);
   }
 }

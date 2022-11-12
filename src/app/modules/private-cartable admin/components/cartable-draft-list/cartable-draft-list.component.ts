@@ -138,6 +138,7 @@ export class CartableDraftListComponent {
     componentInstance.isLoading = true;
     let notify = new Set<string>();
     
+  console.log(item.uuid);
   
     notify.add("user");
     notify.add("okmAdmin");
