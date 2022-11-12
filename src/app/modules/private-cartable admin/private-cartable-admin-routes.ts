@@ -9,7 +9,7 @@ export const privateCartanleAdminRoutes: Routes = [
         (m) => m.PrivateCartableAdminComponent
       ),
     resolve: {
-      // drafts: PrivateCartableAdminDraftResolver,
+      drafts: PrivateCartableAdminDraftResolver,
       confirmed: PrivateCartableAdminNotifyResolver
     },
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
