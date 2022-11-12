@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NzModalRef } from "ng-zorro-antd/modal";
-import { IFlatNode } from "src/shared/common/src/lib/interfaces";
+import {  INotified } from "src/shared/common/src/lib/interfaces";
 
 @Component({
   selector: "app-obsolete-content-modal",
@@ -11,7 +11,7 @@ import { IFlatNode } from "src/shared/common/src/lib/interfaces";
   styleUrls: ["./obsolete-content-modal.component.css"],
 })
 export class ObsoleteContentModalComponent {
-  @Input() node: IFlatNode;
+  @Input() node: INotified;
   isLoading: boolean;
 
   constructor(private modal: NzModalRef) {}

@@ -6,12 +6,15 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { TreeService } from "../../services/tree.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ObserveGroupModalComponent } from "@core/components/observe-group-modal/observe-group-modal.component";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { NzCardModule } from "ng-zorro-antd/card";
-import {  INotified } from "src/shared/common/src/lib/interfaces";
-import {  NzListModule } from "ng-zorro-antd/list";
+import { IFlatNode, INotified } from "src/shared/common/src/lib/interfaces";
+import { NzListModule } from "ng-zorro-antd/list";
+import { ObsoleteContentModalComponent } from "../obsolete-content-modal/obsolete-content-modal.component";
+import { finalize } from "rxjs";
+import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
 
 @Component({
   selector: "app-tree-rules-item",
@@ -26,8 +29,7 @@ import {  NzListModule } from "ng-zorro-antd/list";
     NzCardModule,
     NzPageHeaderModule,
     NzListModule,
-    
-
+    NzMessageModule,
   ],
   templateUrl: "./tree-rules-item.component.html",
   styleUrls: ["./tree-rules-item.component.less"],
@@ -35,22 +37,21 @@ import {  NzListModule } from "ng-zorro-antd/list";
 export class TreeRulesItemComponent implements OnInit {
   nodeId: string;
   title: string;
-  nodeContent:INotified [];
+  nodeContent: INotified[];
 
   constructor(
     private treeService: TreeService,
     private activatedRoute: ActivatedRoute,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private nzMessage: NzMessageService,
+    private router: Router
   ) {
     this.nodeId = this.activatedRoute.snapshot.params["id"];
-    this.treeService
-    .getNodeContent(this.nodeId)
-    .subscribe((res) => {
-      this.nodeContent=[];
+    this.treeService.getNodeContent(this.nodeId).subscribe((res) => {
+      this.nodeContent = [];
       console.log(res);
-      
+
       this.nodeContent = res;
-      
     });
   }
 
@@ -87,7 +88,48 @@ export class TreeRulesItemComponent implements OnInit {
     });
   }
 
-
-
   handleOk(componentInstance: any) {}
+
+  obsoleteContent(node: INotified) {
+    this.modalService.create({
+      nzTitle: "تغییر به منسوخ شده",
+      nzContent: ObsoleteContentModalComponent,
+      nzComponentParams: {
+        node,
+      },
+      nzFooter: [
+        {
+          label: "بستن",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "تایید",
+          type: "primary",
+          onClick: (componentInstance) =>
+            this.handleDeleteTreeNode(componentInstance, node),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+
+  handleDeleteTreeNode(componentInstance: any, node: INotified) {
+    componentInstance.isLoading = true;
+    this.treeService
+      .deleteCategory(node.uuid)
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
+
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+      this.refresh();
+    };
+  }
+  refresh() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { refresh: new Date().getTime() },
+    });
+  }
 }
