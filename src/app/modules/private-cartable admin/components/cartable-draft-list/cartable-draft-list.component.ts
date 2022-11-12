@@ -16,6 +16,7 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { CreateNotifyRuleModalComponent } from "../create-notify-rule-modal/create-notify-rule-modal.component";
 
+
 @Component({
   selector: "app-cartable-draft-list",
   standalone: true,
@@ -110,6 +111,7 @@ export class CartableDraftListComponent {
   }
 
   notifyRule(item: IDraftRule): void {
+
     this.loading = true;
     this.modalService.create({
       nzTitle: "ابلاغ سند",
@@ -134,10 +136,15 @@ export class CartableDraftListComponent {
   }
   handleNotifyRule(componentInstance: any, item: IDraftRule) {
     componentInstance.isLoading = true;
+    let notify = new Set<string>();
     
+  
+    notify.add("user");
+    notify.add("okmAdmin");
+    console.log(notify);
     
     this.privateCartableAdminService
-      .notify(item.uuid,"okmUser")
+      .notify(item.uuid,notify)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
