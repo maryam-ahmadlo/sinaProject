@@ -3,12 +3,12 @@ import { CommonModule } from "@angular/common";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzDividerModule } from "ng-zorro-antd/divider";
-import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
+import { NzModalModule, NzModalRef, NzModalService } from "ng-zorro-antd/modal";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzListModule } from "ng-zorro-antd/list";
-import { ActivatedRoute, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
 import { finalize } from "rxjs";
 import { IDraftRule } from "src/shared/common/src/lib/interfaces";
@@ -16,6 +16,7 @@ import { AddDocumentModalComponent } from "@core/components/add-document-modal/a
 import { RejectModalComponent } from "src/app/modules/private-cartable admin/components";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { PrivateCartableCustomerService } from "../../services";
+import { ConfirmRuleComponent } from "../confirm-rule/confirm-rule.component";
 
 @Component({
   selector: "app-cartable-draft-list",
@@ -32,24 +33,26 @@ import { PrivateCartableCustomerService } from "../../services";
     NzListModule,
     RouterModule,
     NzBreadCrumbModule,
+    NzModalModule,
   ],
   templateUrl: "./cartable-draft-list.component.html",
   styleUrls: ["./cartable-draft-list.component.css"],
 })
 export class CartableDraftListComponent {
   draftsDocs: IDraftRule[] = [];
+  isLoading: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private privateCartableCustomerService: PrivateCartableCustomerService,
     private nzMessage: NzMessageService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private router: Router,
+ 
   ) {
-    this.activatedRoute.data.subscribe(({ drafts }) => {
+    this.activatedRoute.data.subscribe(({ draft }) => {
       this.draftsDocs = [];
-      if (drafts && drafts.length > 1) {
-        this.draftsDocs = drafts;
-      } else if (drafts.length === 1) {
-        this.draftsDocs.push(drafts);
+      if (draft) {
+        this.draftsDocs = draft;
       } else {
         this.draftsDocs = [];
       }
@@ -110,6 +113,7 @@ export class CartableDraftListComponent {
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
       componentInstance.destroyModal();
+      this.refresh();
     };
   }
   loading = false;
@@ -154,13 +158,42 @@ export class CartableDraftListComponent {
       ) && !this.checked;
   }
 
-  sendToAdmin() {
+  SendToAdmintModal(item: IDraftRule) {
+    this.modalService.create({
+      nzTitle: "ارسال برای کاربر ارشد",
+      nzContent: ConfirmRuleComponent,
+      nzComponentParams: {
+        item,
+      },
+      nzFooter: [
+        {
+          label: "خیر",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "بله",
+          type: "primary",
+          onClick: () => this.handleConfirmRule(item),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+  handleConfirmRule(item: IDraftRule) {
     this.loading = true;
-    console.log(this.setOfCheckedId);
-    this.setOfCheckedId.forEach((id) => {
-      console.log(id);
 
-      // this.privateCartableCustomerService.confirm()
+    this.privateCartableCustomerService
+      .confirm(item.uuid)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe((lll) => console.log("lll", lll));
+  }
+
+  refresh() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        refresh: new Date().getTime(),
+      },
     });
   }
 }

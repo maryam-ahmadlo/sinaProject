@@ -10,7 +10,7 @@ export const privateCartanleAdminRoutes: Routes = [
       ),
     resolve: {
       drafts: PrivateCartableAdminDraftResolver,
-      confirmed: PrivateCartableAdminNotifyResolver
+      notified: PrivateCartableAdminNotifyResolver
     },
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
   },
@@ -21,4 +21,7 @@ export const privateCartanleAdminRoutes: Routes = [
         (m) => m.CreateShowDraftComponent
       ),
   },
+  
 ];
+
+

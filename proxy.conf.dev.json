@@ -7,7 +7,7 @@
       "pathRewrite": { "^/url/" : "" }
     },
     "/api/*": {
-      "target": "http://138.201.167.121:8081/OpenKM/services/rest",
+      "target": "http://localhost:8080/OpenKM/services/rest",
       "secure": true,
       "changeOrigin": true,
       "logLevel": "debug",
