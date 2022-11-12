@@ -17,20 +17,19 @@ export class TreeService {
     });
   }
 
-getChildren(node:string){
-  return this.httpClient
-  .get<ITreeNode>("/api/folder/getChildren", {
-    headers: new HttpHeaders({
-      accept: "application/json",
-      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-    }),
-    params: { fldId: `${node}` },
-  })
-};
+  getChildren(node: string) {
+    return this.httpClient.get<ITreeNode>("/api/folder/getChildren", {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+      params: { fldId: `${node}` },
+    });
+  }
   createCategory(body) {
     return this.httpClient.post<any>("/url/categories/create", body, {
       headers: new HttpHeaders({
-        accept: "*/*" ,
+        accept: "*/*",
         "Content-Type": "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
@@ -46,13 +45,12 @@ getChildren(node:string){
     });
   }
   renameCategory(uuid: string, body) {
-    return this.httpClient.put<any>(`/url/categories/${uuid}/update`,body, {
+    return this.httpClient.put<any>(`/url/categories/${uuid}/update`, body, {
       headers: new HttpHeaders({
-        accept: "*/*" ,
+        accept: "*/*",
         "Content-Type": "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-      })
-    
+      }),
     });
   }
 
@@ -82,10 +80,24 @@ getChildren(node:string){
     });
   }
 
-  getCode(node:IFlatNode){
-    return this.httpClient.get(`/url/categories/${node.id}`,{headers:new HttpHeaders({
-      accept: "*/*",
-      Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
-    })})
+  getCode(node: IFlatNode) {
+    return this.httpClient.get(`/url/categories/${node.id}`, {
+      headers: new HttpHeaders({
+        accept: "*/*",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
   }
+
+  getNodeContent(node: string) {
+    return this.httpClient.get<any>(`/url/rules/${node}/byCategory`, {
+      headers: new HttpHeaders({
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
+  }
+
+
 }

@@ -8,8 +8,10 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { TreeService } from "../../services/tree.service";
 import { ActivatedRoute } from "@angular/router";
 import { ObserveGroupModalComponent } from "@core/components/observe-group-modal/observe-group-modal.component";
-import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
+import { NzModalService } from "ng-zorro-antd/modal";
 import { NzCardModule } from "ng-zorro-antd/card";
+import {  INotified } from "src/shared/common/src/lib/interfaces";
+import {  NzListModule } from "ng-zorro-antd/list";
 
 @Component({
   selector: "app-tree-rules-item",
@@ -22,19 +24,34 @@ import { NzCardModule } from "ng-zorro-antd/card";
     NzPageHeaderModule,
     NzButtonModule,
     NzCardModule,
-    NzPageHeaderModule
+    NzPageHeaderModule,
+    NzListModule,
+    
+
   ],
   templateUrl: "./tree-rules-item.component.html",
   styleUrls: ["./tree-rules-item.component.less"],
 })
 export class TreeRulesItemComponent implements OnInit {
   nodeId: string;
+  title: string;
+  nodeContent:INotified [];
+
   constructor(
     private treeService: TreeService,
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService
   ) {
     this.nodeId = this.activatedRoute.snapshot.params["id"];
+    this.treeService
+    .getNodeContent(this.nodeId)
+    .subscribe((res) => {
+      this.nodeContent=[];
+      console.log(res);
+      
+      this.nodeContent = res;
+      
+    });
   }
 
   ngOnInit(): void {}
@@ -63,13 +80,14 @@ export class TreeRulesItemComponent implements OnInit {
         {
           label: "ارسال",
           type: "primary",
-          onClick: (componentInstance) =>
-            this.handleOk(componentInstance),
+          onClick: (componentInstance) => this.handleOk(componentInstance),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
 
-  handleOk(componentInstance: any) {};
+
+
+  handleOk(componentInstance: any) {}
 }
