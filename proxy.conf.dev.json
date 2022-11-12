@@ -1,13 +1,13 @@
 {
     "/url/*": {
-      "target": "http://localhost:8085/api",
+      "target": "http://138.201.167.121:8086/api",
       "secure": true,
       "changeOrigin": true,
       "logLevel": "debug",
       "pathRewrite": { "^/url/" : "" }
     },
     "/api/*": {
-      "target": "http://localhost:8080/OpenKM/services/rest",
+      "target": "http://138.201.167.121:8081/OpenKM/services/rest",
       "secure": true,
       "changeOrigin": true,
       "logLevel": "debug",
