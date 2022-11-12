@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IDraftRule } from "src/shared/common/src/lib/interfaces";
-import { IConfirmed } from "src/shared/common/src/lib/interfaces/confirmed";
+import { IDraftRule, INotified } from "src/shared/common/src/lib/interfaces";
 
 @Injectable({
   providedIn: "root",
@@ -32,14 +31,13 @@ export class PrivateCartableAdminService {
     return this.httpClient.get(`/url/documents/getContent/${uuid}`, {
       headers: new HttpHeaders({
         accept: "*/*",
-        "Content-Type": "application/json",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });
   }
 
-  getConfirmed() {
-    return this.httpClient.get<IConfirmed[]>(`/url/rules/confirmed`, {
+  getNotified() {
+    return this.httpClient.get<INotified[]>(`/url/rules/notified`, {
       headers: new HttpHeaders({
         accept: "*/*",
         "Content-Type": "application/json",
@@ -57,12 +55,21 @@ export class PrivateCartableAdminService {
       }),
     });
   }
-  
+
   notify(uuid: string, body) {
-    return this.httpClient.put<any>(`/url/rules/${uuid}/notify`, [body], {
+    return this.httpClient.put<any>(`/url/rules/${uuid}/notify`, body, {
       headers: new HttpHeaders({
         accept: "*/*",
         "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
+  }
+
+  getPath(uuid: string) {
+    return this.httpClient.get<any>(`/api/folder/getPath/${uuid}`, {
+      headers: new HttpHeaders({
+        accept: "*/*",
         Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
       }),
     });

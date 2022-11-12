@@ -8,9 +8,9 @@ import { IDraftRule } from "src/shared/common/src/lib/interfaces";
 import { IConfirmed } from "src/shared/common/src/lib/interfaces/confirmed";
 
 import { CartableDraftListComponent } from "../../components/cartable-draft-list/cartable-draft-list.component";
-import { CartableConfirmedListComponent } from "../../components/cartable-confirmed-list/cartable-confirmed-list.component";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NotifiedListComponent } from "../../components";
 
 @Component({
   selector: "app-private-cartable-admin",
@@ -23,7 +23,7 @@ import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
     NzTabsModule,
     NzPageHeaderModule,
     CartableDraftListComponent,
-    CartableConfirmedListComponent,
+    NotifiedListComponent,
   ],
 })
 export class PrivateCartableAdminComponent implements OnInit {

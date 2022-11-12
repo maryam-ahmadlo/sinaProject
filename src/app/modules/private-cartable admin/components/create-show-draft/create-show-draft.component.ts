@@ -74,6 +74,8 @@ export class CreateShowDraftComponent implements OnInit {
   uuid: string;
   formData = new FormData();
   blob = new Blob();
+  levelName;
+  href;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -87,11 +89,21 @@ export class CreateShowDraftComponent implements OnInit {
       .subscribe((res) => {
         this.FileForm.patchValue(res);
         this.uuid = res["documentUuid"];
+
+        this.getLevelName(this.FileForm.value.categoryId);
       });
   }
   onSubmit = () => {
-    this.privateCartableAdminService.getContent(this.uuid).subscribe((r)=>console.log(r)
-    );
+    // this.privateCartableAdminService
+    //   .getContent(this.uuid)
+    //   .subscribe((r) => this.href=r;);
+      this.href= `http://localhost:8085/api/documents/getContent/${this.uuid}`
   };
   ngOnInit(): void {}
+
+  getLevelName(id: string) {
+    this.privateCartableAdminService.getPath(id).subscribe((path) => {
+      console.log(path);
+    });
+  }
 }

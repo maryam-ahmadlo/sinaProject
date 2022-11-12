@@ -100,6 +100,18 @@ export const appRoutes: Routes = [
                 (m) => m.UploadFileComponent
               ),
           },
+          {
+            path: "rules",
+            children: [
+              {
+                path: "detail/:id",
+                loadComponent: () =>
+                  import(
+                    "./core/components/tree-rules-item/tree-rules-item.component"
+                  ).then((m) => m.TreeRulesItemComponent),
+              },
+            ],
+          },
         ],
       },
       {

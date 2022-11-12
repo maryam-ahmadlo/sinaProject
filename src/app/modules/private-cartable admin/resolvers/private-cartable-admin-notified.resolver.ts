@@ -5,15 +5,15 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { IConfirmed } from 'src/shared/common/src/lib/interfaces/confirmed';
+import {  INotified } from 'src/shared/common/src/lib/interfaces';
 import { PrivateCartableAdminService } from '../services';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PrivateCartableAdminNotifyResolver implements Resolve<IConfirmed[]> {
+export class PrivateCartableAdminNotifyResolver implements Resolve<INotified[]> {
   constructor(private privateCartableAdminService:PrivateCartableAdminService){}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IConfirmed[]> {
-    return this.privateCartableAdminService.getConfirmed();
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<INotified[]> {
+    return this.privateCartableAdminService.getNotified();
   }
 }

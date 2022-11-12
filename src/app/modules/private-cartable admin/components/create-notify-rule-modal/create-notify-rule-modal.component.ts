@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { NzModalRef } from "ng-zorro-antd/modal";
+import { NzModalModule, NzModalRef } from "ng-zorro-antd/modal";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzFormModule } from "ng-zorro-antd/form";
+
 import {
   FormControl,
   FormGroup,
@@ -28,6 +29,7 @@ import { NzSelectModule } from "ng-zorro-antd/select";
     ReactiveFormsModule,
     NzTreeSelectModule,
     NzSelectModule,
+    NzModalModule,
   ],
   templateUrl: "./create-notify-rule-modal.component.html",
   styleUrls: ["./create-notify-rule-modal.component.css"],
@@ -35,47 +37,46 @@ import { NzSelectModule } from "ng-zorro-antd/select";
 export class CreateNotifyRuleModalComponent {
   @Input() item: IDraftRule;
   isLoading: boolean;
-  // listOfRoles: Array<{ label: string; value: string }> = [];
-  // listOfUsers: IUser[] = [];
+  listOfRoles: Array<{ label: string; value: string }> = [];
+  listOfUsers: IUser[] = [];
 
-  // form: FormGroup<{
-  //   branches: FormControl<string[]>;
-  //   notifyReceivers: FormControl<string[]>;
-  // }> = new FormGroup({
-  //   branches: new FormControl(null, [Validators.required]),
-  //   notifyReceivers: new FormControl(null, [Validators.required]),
-  // });
+  form: FormGroup<{
+    branches: FormControl<string[]>;
+    notifyReceivers: FormControl<string[]>;
+  }> = new FormGroup({
+    branches: new FormControl(null, [Validators.required]),
+    notifyReceivers: new FormControl(null, [Validators.required]),
+  });
 
-  // nodes: any = [];
+  nodes: any = [];
 
   constructor(
     private modal: NzModalRef,
     private privateCartableCustomerService: PrivateCartableCustomerService
-  ) {}
-  // {
-  //   this.privateCartableCustomerService.getBranches().subscribe((r) => {
-  //     for (let i = 0; i < r.length; i++) {
-  //       let json = {
-  //         title: r[i].name,
-  //         value: r[i].id,
-  //         key: r[i],
-  //       };
-  //       this.nodes.push(json);
-  //     }
-  //   });
-  // }
+  )
+  {
+    this.privateCartableCustomerService.getBranches().subscribe((r) => {
+      for (let i = 0; i < r.length; i++) {
+        let json = {
+          title: r[i].name,
+          value: r[i].id,
+          key: r[i],
+        };
+        this.nodes.push(json);
+      }
+    });
+  }
 
-  // onChange($event: IBranch[]): void {
-  //   $event.forEach((r) => {
-  //     r.roles.forEach((user) => {
-  //       user.users.forEach((user) => {
-  //          if (!this.listOfUsers.includes(user)) {
-  //   this.listOfUsers.push(user);
-  // }
-  //       });
-  //     });
-  //   });
-  // }
+  onChange($event: IBranch[]): void {
+    $event.forEach((r) => {
+      r.roles.forEach((user) => {
+        user.users.forEach((user) => {
+          this.listOfUsers.push(user);
+        });
+      });
+    });
+  }
+
 
   destroyModal(): void {
     this.modal.destroy();

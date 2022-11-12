@@ -109,7 +109,8 @@ export class TreeComponent{
   }
  
   getNodeContent(nodeId:string){
-    
+  
+    this.router.navigate(['rules','detail',nodeId]);
   }
   onSearchSubmit() {}
 

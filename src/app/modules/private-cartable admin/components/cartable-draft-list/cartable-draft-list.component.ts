@@ -4,7 +4,7 @@ import { NzCardModule } from "ng-zorro-antd/card";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzBreadCrumbModule } from "ng-zorro-antd/breadcrumb";
-import { ActivatedRoute, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { PrivateCartableAdminService } from "../../services";
 import { IDraftRule } from "src/shared/common/src/lib/interfaces";
 import { finalize } from "rxjs";
@@ -15,7 +15,6 @@ import { RejectModalComponent } from "../reject-modal/reject-modal.component";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { CreateNotifyRuleModalComponent } from "../create-notify-rule-modal/create-notify-rule-modal.component";
-
 
 @Component({
   selector: "app-cartable-draft-list",
@@ -41,13 +40,14 @@ export class CartableDraftListComponent {
     private activatedRoute: ActivatedRoute,
     private privateCartableAdminService: PrivateCartableAdminService,
     private nzMessage: NzMessageService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private router: Router
   ) {
     this.activatedRoute.data.subscribe(({ drafts }) => {
       this.draftsDocs = [];
       if (drafts) {
         this.draftsDocs = drafts;
-      }else {
+      } else {
         this.draftsDocs = [];
       }
     });
@@ -107,11 +107,11 @@ export class CartableDraftListComponent {
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
       componentInstance.destroyModal();
+      this.refresh();
     };
   }
 
   notifyRule(item: IDraftRule): void {
-
     this.loading = true;
     this.modalService.create({
       nzTitle: "ابلاغ سند",
@@ -135,23 +135,18 @@ export class CartableDraftListComponent {
     });
   }
   handleNotifyRule(componentInstance: any, item: IDraftRule) {
+   
     componentInstance.isLoading = true;
-    let notify = new Set<string>();
-    
-  console.log(item.uuid);
-  
-    notify.add("user");
-    notify.add("okmAdmin");
-    console.log(notify);
-    
+
     this.privateCartableAdminService
-      .notify(item.uuid,notify)
+      .notify(item.uuid, componentInstance.form.value.notifyReceivers)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 
     const handleRes = () => {
       this.nzMessage.success("عملیات با موفقیت انجام شد");
       componentInstance.destroyModal();
+      this.refresh();
     };
   }
 
@@ -200,5 +195,14 @@ export class CartableDraftListComponent {
   confirmRule() {
     this.loading = true;
     console.log(this.setOfCheckedId);
+  }
+
+  refresh() {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        refresh: new Date().getTime(),
+      },
+    });
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import {
   IBranch,
+  IDraftRule,
   INotified,
   IUser,
 } from "src/shared/common/src/lib/interfaces";
@@ -12,7 +13,7 @@ import {
 export class PrivateCartableCustomerService {
   constructor(private httpClient: HttpClient) {}
   getDraft() {
-    return this.httpClient.get<any>("/url/rules/draft", {
+    return this.httpClient.get<IDraftRule[]>("/url/rules/draft", {
       headers: new HttpHeaders({
         accept: "*/*",
         "Content-Type": "application/json",

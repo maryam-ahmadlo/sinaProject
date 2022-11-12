@@ -59,7 +59,7 @@
         <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
           <nz-form-item fxFlex="33.3">
             <nz-form-label nzRequired nzFor="categoryId" style="display: flex"
-              >سطح 1</nz-form-label
+              >سطح 1 {{ levelName }}</nz-form-label
             >
             <nz-form-control> </nz-form-control>
           </nz-form-item>
@@ -168,7 +168,9 @@
       </nz-card>
 
       <nz-card nzTitle="بارگذاری فایل">
-        <button id="content" (click)="onSubmit()">دانلود فایل</button>
+        <button id="content" (click)="onSubmit()">
+          <a [href]="href" target="_blank">دانلود فایل </a>
+        </button>
       </nz-card>
 
       <!-- <nz-card nzTitle="افزودن کلمات کلیدی">

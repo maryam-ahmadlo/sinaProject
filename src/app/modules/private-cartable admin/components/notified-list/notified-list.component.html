@@ -1,0 +1,45 @@
+<nz-card>
+  <div fxLayout="column" fxLayoutGap="20px">
+    <!-- <div fxLayout="column">
+      <h6>مسیر ثبت شده در درختواره</h6>
+      <nz-breadcrumb nzSeparator=">">
+        <nz-breadcrumb-item>...</nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <a>...</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>...</nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </div> -->
+
+    <nz-table #confirmedTable class="table-responsive" [nzData]="notifiedDocs">
+      <thead>
+        <tr>
+          <th>ردیف</th>
+          <th>عنوان</th>
+          <th>جزئیات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of confirmedTable.data; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ data.title }}</td>
+          <td>
+            <button
+              nz-button
+              nzType="primary"
+              [routerLink]="[
+                '/',
+                'admin',
+                'private-cartable',
+                'showDetail',
+                data.uuid
+              ]"
+            >
+              مشاهده
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>

@@ -27,30 +27,10 @@ import { CartableDraftListComponent, CartableNotifiedListComponent } from "../co
   ],
 })
 export class PrivateCartablecustomerComponent implements OnInit {
-  constructor(private modalService: NzModalService,private activatedRoute:ActivatedRoute) {
-    this.activatedRoute.data.subscribe(({drafts})=>{
-      console.log(drafts);
-      
-    });
-  }
+  constructor() {
+}
 
   ngOnInit(): void {}
 
-  addDocumentModal() {
-    this.modalService.create({
-      nzTitle: "افزودن مستندات تکمیلی",
-      nzContent: AddDocumentModalComponent,
-      nzFooter: [
-        {
-          label: "تایید",
-          type: "primary",
-          onClick: (componentInstance) => componentInstance.handleOk(),
-        },
-        {
-          label: "انصراف",
-          onClick: (componentInstance) => componentInstance.destroyModal(),
-        },
-      ],
-    });
-  }
+  
 }

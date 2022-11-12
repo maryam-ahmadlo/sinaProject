@@ -1,6 +1,6 @@
 <nz-card>
   <div fxLayout="column" fxLayoutGap="20px">
-    <div fxLayout="column">
+    <!-- <div fxLayout="column">
       <h6>مسیر ثبت شده در درختواره</h6>
       <nz-breadcrumb nzSeparator=">">
         <nz-breadcrumb-item>...</nz-breadcrumb-item>
@@ -9,7 +9,7 @@
         </nz-breadcrumb-item>
         <nz-breadcrumb-item>...</nz-breadcrumb-item>
       </nz-breadcrumb>
-    </div>
+    </div> -->
     <nz-table
       #basicTable
       class="table-responsive"
@@ -20,13 +20,13 @@
         <tr>
           <th>ردیف</th>
           <th>عنوان</th>
-          <th
+          <!-- <th
             [(nzChecked)]="checked"
             [nzIndeterminate]="indeterminate"
             (nzCheckedChange)="onAllChecked($event)"
           >
             انتخاب
-          </th>
+          </th> -->
           <th>جزئیات</th>
           <th>عملیات</th>
         </tr>
@@ -35,39 +35,24 @@
         <tr *ngFor="let data of basicTable.data; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ data.title }}</td>
-          <td
+          <!-- <td
             [nzChecked]="setOfCheckedId.has(data.ruleNumber)"
             (nzCheckedChange)="onItemChecked(data.ruleNumber, $event)"
-          ></td>
+          ></td> -->
           <td>
-            <a
-              nz-dropdown
-              [nzDropdownMenu]="Detailmenu"
+            <button
               nz-button
-              nzType="link"
+              nzType="primary"
+              [routerLink]="[
+                '/',
+                'admin',
+                'private-cartable',
+                'showDetail',
+                data.uuid
+              ]"
             >
-              <i nz-icon nzType="down"></i>
-              جزئیات
-            </a>
-            <nz-dropdown-menu #Detailmenu="nzDropdownMenu">
-              <ul nz-menu nzSelectable>
-                <li
-                  nz-menu-item
-                  [routerLink]="[
-                    '/',
-                    'admin',
-                    'private-cartable',
-                    'showDetail',
-                    data.uuid
-                  ]"
-                >
-                  مشاهده
-                </li>
-                <li nz-menu-item (click)="addDocumentModal(data.uuid)">
-                  افزودن مستندات تکمیلی
-                </li>
-              </ul>
-            </nz-dropdown-menu>
+              مشاهده
+            </button>
           </td>
           <td>
             <a
@@ -80,28 +65,31 @@
             </a>
             <nz-dropdown-menu #Actionmenu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <!-- <li nz-menu-item>ابلاغ</li> -->
-                <li nz-menu-item (click)="RejectModal(data)">
-                  رد کردن درخواست
+                <li nz-menu-item (click)="addDocumentModal(data.uuid)">
+                  افزودن مستندات تکمیلی
                 </li>
+                <li nz-menu-item (click)="SendToAdmintModal(data)">
+                ارسال برای کاربر ارشد
+                </li>
+
               </ul>
             </nz-dropdown-menu>
           </td>
         </tr>
       </tbody>
     </nz-table>
-    <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+    <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
       <button
         nz-button
         nzType="primary"
         [disabled]="setOfCheckedId.size === 0"
         [nzLoading]="loading"
-        (click)="sendToAdmin()"
+        (click)="confirmRule()"
       >
-        ارسال برای کاربر ارشد
+        تایید پیش نویس
       </button>
 
       <button nz-button nzType="default">انصراف</button>
-    </div>
+    </div> -->
   </div>
 </nz-card>
