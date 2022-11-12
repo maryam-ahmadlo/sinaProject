@@ -20,13 +20,13 @@
         <tr>
           <th>ردیف</th>
           <th>عنوان</th>
-          <th
+          <!-- <th
             [(nzChecked)]="checked"
             [nzIndeterminate]="indeterminate"
             (nzCheckedChange)="onAllChecked($event)"
           >
             انتخاب
-          </th>
+          </th> -->
           <th>جزئیات</th>
           <th>عملیات</th>
         </tr>
@@ -35,10 +35,10 @@
         <tr *ngFor="let data of basicTable.data; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ data.title }}</td>
-          <td
+          <!-- <td
             [nzChecked]="setOfCheckedId.has(data.ruleNumber)"
             (nzCheckedChange)="onItemChecked(data.ruleNumber, $event)"
-          ></td>
+          ></td> -->
           <td>
             <a
               nz-dropdown
@@ -80,7 +80,7 @@
             </a>
             <nz-dropdown-menu #Actionmenu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <!-- <li nz-menu-item>ابلاغ</li> -->
+                <li nz-menu-item (click)="notifyRule(data)">ابلاغ</li>
                 <li nz-menu-item (click)="RejectModal(data)">
                   رد کردن درخواست
                 </li>
@@ -90,7 +90,7 @@
         </tr>
       </tbody>
     </nz-table>
-    <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
+    <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column">
       <button
         nz-button
         nzType="primary"
@@ -102,6 +102,6 @@
       </button>
 
       <button nz-button nzType="default">انصراف</button>
-    </div>
+    </div> -->
   </div>
 </nz-card>
