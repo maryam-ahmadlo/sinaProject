@@ -57,8 +57,9 @@ export class PrivateCartableAdminService {
       }),
     });
   }
+  
   notify(uuid: string, body) {
-    return this.httpClient.put(`/url/rules/${uuid}/notify`, body, {
+    return this.httpClient.put<any>(`/url/rules/${uuid}/notify`, [body], {
       headers: new HttpHeaders({
         accept: "*/*",
         "Content-Type": "application/json",

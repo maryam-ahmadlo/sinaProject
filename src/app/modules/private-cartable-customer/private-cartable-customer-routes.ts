@@ -10,7 +10,7 @@ export const privateCartanleCustomerRoutes: Routes = [
         (m) => m.PrivateCartablecustomerComponent
       ),
     resolve: {
-      // draft: PrivateCartableCustomerDraftResolver,
+      draft: PrivateCartableCustomerDraftResolver,
       notified: PrivateCartableCustomerNotifiedResolver,
     },
     runGuardsAndResolvers: "paramsOrQueryParamsChange",

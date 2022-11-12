@@ -220,11 +220,11 @@ export class SlidebarComponent implements OnInit {
   UserManagement() {
     this.router.navigate(["/", "admin", "user-management"]);
   }
-  // PrivateCartable() {
-  //   this.router.navigate(["/", "customer", "private-cartable"]);
-  // }
-  // PrivateCartableAdmin() {
-  //   this.router.navigate(["/", "admin", "private-cartable-admin"]);
-  // }
+  PrivateCartable() {
+    this.router.navigate(["/", "customer", "private-cartable"]);
+  }
+  PrivateCartableAdmin() {
+    this.router.navigate(["/", "admin", "private-cartable-admin"]);
+  }
   
 }

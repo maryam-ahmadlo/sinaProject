@@ -14,6 +14,7 @@ import { NzModalModule, NzModalService } from "ng-zorro-antd/modal";
 import { RejectModalComponent } from "../reject-modal/reject-modal.component";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { CreateNotifyRuleModalComponent } from "../create-notify-rule-modal/create-notify-rule-modal.component";
 
 @Component({
   selector: "app-cartable-draft-list",
@@ -27,18 +28,19 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     NzBreadCrumbModule,
     RouterModule,
     NzModalModule,
-    NzButtonModule
+    NzButtonModule,
   ],
   templateUrl: "./cartable-draft-list.component.html",
   styleUrls: ["./cartable-draft-list.component.css"],
 })
 export class CartableDraftListComponent {
   draftsDocs: IDraftRule[] = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private privateCartableAdminService: PrivateCartableAdminService,
     private nzMessage: NzMessageService,
-    private modalService: NzModalService,
+    private modalService: NzModalService
   ) {
     this.activatedRoute.data.subscribe(({ drafts }) => {
       this.draftsDocs = [];
@@ -51,7 +53,6 @@ export class CartableDraftListComponent {
       }
     });
   }
-
 
   addDocumentModal(item: string) {
     this.modalService.create({
@@ -109,6 +110,45 @@ export class CartableDraftListComponent {
       componentInstance.destroyModal();
     };
   }
+
+  notifyRule(item: IDraftRule): void {
+    this.loading = true;
+    this.modalService.create({
+      nzTitle: "ابلاغ سند",
+      nzContent: CreateNotifyRuleModalComponent,
+      nzComponentParams: {
+        item,
+      },
+      nzFooter: [
+        {
+          label: "بستن",
+          onClick: (componentInstance) => componentInstance.destroyModal(),
+        },
+        {
+          label: "ابلاغ",
+          type: "primary",
+          onClick: (componentInstance) =>
+            this.handleNotifyRule(componentInstance, item),
+          loading: (componentInstance) => componentInstance.isLoading,
+        },
+      ],
+    });
+  }
+  handleNotifyRule(componentInstance: any, item: IDraftRule) {
+    componentInstance.isLoading = true;
+    
+    
+    this.privateCartableAdminService
+      .notify(item.uuid,"okmUser")
+      .pipe(finalize(() => (componentInstance.isLoading = false)))
+      .subscribe(() => handleRes());
+
+    const handleRes = () => {
+      this.nzMessage.success("عملیات با موفقیت انجام شد");
+      componentInstance.destroyModal();
+    };
+  }
+
   loading = false;
   checked = false;
   indeterminate = false;
@@ -151,9 +191,8 @@ export class CartableDraftListComponent {
       ) && !this.checked;
   }
 
-  confirmRule(){
+  confirmRule() {
     this.loading = true;
     console.log(this.setOfCheckedId);
-
   }
 }
