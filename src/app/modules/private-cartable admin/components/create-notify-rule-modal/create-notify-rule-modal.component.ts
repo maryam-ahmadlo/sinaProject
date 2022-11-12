@@ -77,6 +77,7 @@ export class CreateNotifyRuleModalComponent {
     });
   }
 
+
   destroyModal(): void {
     this.modal.destroy();
   }
