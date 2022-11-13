@@ -1,0 +1,9 @@
+.fileAlign{
+    display: flex;
+    justify-content: space-around;
+}
+
+.imageAlign{
+    display: flex;
+    justify-content: center;
+}

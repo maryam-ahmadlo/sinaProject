@@ -167,58 +167,21 @@
         </div>
       </nz-card>
 
-      <nz-card nzTitle="بارگذاری فایل">
-        <button id="content" (click)="onSubmit()">
-          <a [href]="href" target="_blank">دانلود فایل </a>
-        </button>
+      <nz-card nzTitle="بارگذاری فایل" [nzCover]="coverTemplate">
+        <nz-card-meta
+          nzTitle="نام فایل : {{ name }}"
+          nzDescription="نوع فایل : {{ mimeType }} "
+        ></nz-card-meta>
       </nz-card>
+      <ng-template #coverTemplate>
+        <img nz-image [nzSrc]="href" alt="فایل" />
+      </ng-template>
 
-      <!-- <nz-card nzTitle="افزودن کلمات کلیدی">
+      <nz-card nzTitle=" کلمات کلیدی">
         <div>
-          <nz-form-item fxFlex="90">
-            <nz-form-label nzRequired nzFor="keywords" style="display: flex"
-              >کلمه کلیدی</nz-form-label
-            >
-            <nz-form-control>
-              <input
-                nz-input
-                readonly
-                nzSize="large"
-                formControlName="keywords"
-                type="text"
-                id="keywords"
-              />
-            </nz-form-control>
-          </nz-form-item>
+          {{ keywordsArray }}
         </div>
-        <nz-table #basicTable class="table-responsive">
-          <thead>
-            <tr>
-              <th>ردیف</th>
-              <th>انتخاب</th>
-              <th>عنوان</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of basicTable.data">
-              <td>{{ data.name }}</td>
-              <td>{{ data.age }}</td>
-              <td>{{ data.address }}</td>
-              <td>
-                <a>Action 一 {{ data.name }}</a>
-                <nz-divider nzType="vertical"></nz-divider>
-                <a>Delete</a>
-              </td>
-            </tr>
-          </tbody>
-        </nz-table>
-
-        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end">
-          <button nz-button nzType="default" [routerLink]="['/', 'customer']">
-            برگشت
-          </button>
-        </div>
-      </nz-card> -->
+      </nz-card>
     </div>
   </form>
 </div>

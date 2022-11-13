@@ -45,6 +45,7 @@ export interface IUploadFileForm {
   ruleNumber: FormControl<string>;
   keywords: FormControl<string[]>;
   notifierId: FormControl<string>;
+  creatorId: FormControl<string>;
 }
 
 @Component({
@@ -89,6 +90,7 @@ export class UploadFileComponent implements OnInit {
     ruleNumber: new FormControl(null, Validators.required),
     keywords: new FormControl([]),
     notifierId: new FormControl(null),
+    creatorId: new FormControl(null),
   });
   keywordsArray = [];
   documentTypeEnum = DocumentTypeEnum;
@@ -146,7 +148,7 @@ export class UploadFileComponent implements OnInit {
     this.stateService
       .select((state) => state.me)
       .subscribe((user) => {
-        this.uploadFileForm.patchValue({ notifierId: user.id });
+        this.uploadFileForm.patchValue({ creatorId: user.id });
       });
   }
 
@@ -215,9 +217,9 @@ export class UploadFileComponent implements OnInit {
   }
 
   onSubmit = () => {
-    this.uploadFileForm.patchValue({'keywords':this.keywordsArray});
+    this.uploadFileForm.patchValue({ keywords: this.keywordsArray });
     console.log(JSON.stringify(this.uploadFileForm.value));
-    
+
     this.uploadFileService.uploadFile(this.formData).subscribe((res) => {
       this.uploadFileForm.patchValue({ documentUuid: res["uuid"] });
       this.uploadFileService
@@ -236,7 +238,6 @@ export class UploadFileComponent implements OnInit {
       ...this.keywordsArray,
       this.uploadFileForm.value.keywords,
     ];
-
   }
 
   createSearchFileModalComponent() {

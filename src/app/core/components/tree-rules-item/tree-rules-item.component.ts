@@ -10,12 +10,11 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ObserveGroupModalComponent } from "@core/components/observe-group-modal/observe-group-modal.component";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { NzCardModule } from "ng-zorro-antd/card";
-import { IFlatNode, INotified } from "src/shared/common/src/lib/interfaces";
+import { INotified } from "src/shared/common/src/lib/interfaces";
 import { NzListModule } from "ng-zorro-antd/list";
 import { ObsoleteContentModalComponent } from "../obsolete-content-modal/obsolete-content-modal.component";
 import { finalize } from "rxjs";
 import { NzMessageModule, NzMessageService } from "ng-zorro-antd/message";
-
 @Component({
   selector: "app-tree-rules-item",
   standalone: true,
@@ -38,7 +37,7 @@ export class TreeRulesItemComponent implements OnInit {
   nodeId: string;
   title: string;
   nodeContent: INotified[];
-
+  checkState: boolean;
   constructor(
     private treeService: TreeService,
     private activatedRoute: ActivatedRoute,
@@ -50,8 +49,12 @@ export class TreeRulesItemComponent implements OnInit {
     this.treeService.getNodeContent(this.nodeId).subscribe((res) => {
       this.nodeContent = [];
       console.log(res);
-
       this.nodeContent = res;
+      if (res["state"] === "Obsoleted") {
+        this.checkState = true;
+      } else {
+        this.checkState = false;
+      }
     });
   }
 
@@ -106,17 +109,17 @@ export class TreeRulesItemComponent implements OnInit {
           label: "تایید",
           type: "primary",
           onClick: (componentInstance) =>
-            this.handleDeleteTreeNode(componentInstance, node),
+            this.handleObsoleteContent(componentInstance, node),
           loading: (componentInstance) => componentInstance.isLoading,
         },
       ],
     });
   }
 
-  handleDeleteTreeNode(componentInstance: any, node: INotified) {
+  handleObsoleteContent(componentInstance: any, node: INotified) {
     componentInstance.isLoading = true;
     this.treeService
-      .deleteCategory(node.uuid)
+      .obsoleteContent(node.uuid)
       .pipe(finalize(() => (componentInstance.isLoading = false)))
       .subscribe(() => handleRes());
 

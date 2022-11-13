@@ -3,20 +3,22 @@
   <nz-page-header-content>
     <nz-card *ngFor="let data of nodeContent">
       <section class="item-container">
-        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" >
-         
-          <div fxLayout="column" fxLayoutGap="16px" >
-
-            <h3>{{data.title}}</h3>
-            <h6>{{data.text}}</h6>
+        <div
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="space-between center"
+        >
+          <div fxLayout="column" fxLayoutGap="16px">
+            <h3>{{ data.title }}</h3>
+            <h6>{{ data.text }}</h6>
           </div>
-
-          <img
-         
-            src="../../../../assets/images/expierd.png"
-            alt="منسوخ شده"
-            class="tag"
-          />
+          <span *ngIf="checkState == true">
+            <img
+              src="../../../../assets/images/expierd.png"
+              alt="منسوخ شده"
+              class="tag"
+            />
+          </span>
         </div>
         <div fxLayout="row" fxLayoutGap="16px" fxLayout.lt-sm="column">
           <button nz-button nzType="text">
@@ -88,5 +90,3 @@
     </nz-card>
   </nz-page-header-content>
 </nz-page-header>
-
-

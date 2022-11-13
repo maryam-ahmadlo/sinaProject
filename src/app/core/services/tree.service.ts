@@ -99,5 +99,16 @@ export class TreeService {
     });
   }
 
+  obsoleteContent(node: string){
+    return this.httpClient.put<any>(`/url/rules/${node}/obsolete`, {
+      headers: new HttpHeaders({
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: "Basic b2ttQWRtaW46YWRtaW4=",
+      }),
+    });
+
+  }
+
 
 }

@@ -26,6 +26,7 @@ import { IUploadFileForm } from "src/app/core/pages/upload-file/upload-file.comp
 import { PrivateCartableAdminService } from "../../services";
 import { DocumentTypeEnum } from "src/shared/common/src/lib/enums";
 import { VersionNumberEnum } from "src/shared/common/src/lib/enums";
+import { NzImageModule } from "ng-zorro-antd/image";
 
 @Component({
   selector: "app-create-show-draft",
@@ -49,6 +50,7 @@ import { VersionNumberEnum } from "src/shared/common/src/lib/enums";
     NzCardModule,
     NzTabsModule,
     NzTableModule,
+    NzImageModule,
   ],
   templateUrl: "./create-show-draft.component.html",
   styleUrls: ["./create-show-draft.component.css"],
@@ -66,6 +68,7 @@ export class CreateShowDraftComponent implements OnInit {
     ruleNumber: new FormControl(null, Validators.required),
     keywords: new FormControl([]),
     notifierId: new FormControl(null),
+    creatorId: new FormControl(null),
   });
   documentTypeEnum = DocumentTypeEnum;
   keys = [];
@@ -74,8 +77,12 @@ export class CreateShowDraftComponent implements OnInit {
   uuid: string;
   formData = new FormData();
   blob = new Blob();
+  thumbnailLink: string;
   levelName;
   href;
+  keywordsArray = [];
+  name: string;
+  mimeType: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -88,17 +95,18 @@ export class CreateShowDraftComponent implements OnInit {
       .showDetail(this.activatedRoute.snapshot.params["id"])
       .subscribe((res) => {
         this.FileForm.patchValue(res);
+        this.keywordsArray= res["keywords"];
         this.uuid = res["documentUuid"];
-
+        this.thumbnailLink = res["document"]["thumbnailLink"];
+        this.name = res["document"]["name"];
+        this.mimeType = res["document"]["mimeType"];
+        this.href = `http://localhost:8085/api/documents/getContent/${this.uuid}`;
         this.getLevelName(this.FileForm.value.categoryId);
       });
   }
-  onSubmit = () => {
-    // this.privateCartableAdminService
-    //   .getContent(this.uuid)
-    //   .subscribe((r) => this.href=r;);
-      this.href= `http://localhost:8085/api/documents/getContent/${this.uuid}`
-  };
+  // onSubmit = () => {
+  //   this.href = `http://localhost:8085/api/documents/getContent/${this.uuid}`;
+  // };
   ngOnInit(): void {}
 
   getLevelName(id: string) {
